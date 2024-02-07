@@ -1,0 +1,98 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Master Data'" [items]="['Master Data Industri']" [active_item]="'Distributor Obat & Alat'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Distributor Obat & Alat</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" (click)="FormModalOpen(formContent)" class="btn btn-tambah"><i class="fas fa-plus-circle"></i> Tambah Baru</button>
+        <br>
+        <br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Distributor Obat & Alat</strong> </h2>
+          </div>
+          <div class="body">
+
+            <table class="table table-striped table-bordered table-sm table-striped table-sm" width="100%">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Distributor</th>
+                  <th>Alamat</th>
+                  <th>No Telp</th>
+                  <th>Keterangan</th>
+                  <th>Jenis</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+            </table>
+
+
+            <ng-template #formContent let-modal>
+              <form [formGroup]="formTambah" (submit)="SubmitForm()">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">{{ titleModal }}</h4>
+                </div>
+                <div class="modal-body">
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Nama Distributor</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Nama Distributor">
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">No. Telp</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="No. Telp">
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Alamat</label>
+                    <div class="col-sm-9">
+                      <textarea name="" id="" cols="3" rows="3" class="form-control" placeholder="Alamat"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Jenis</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Jenis">
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Status Aktif</label>
+                    <div class="col-sm-9">
+
+                      <input type="radio" class="btn-check" name="status_aktif"  id="success-outlined" value="1" autocomplete="off" >
+                      <label class="btn btn-outline-success" for="success-outlined">Aktif</label>
+                      <input type="radio" class="btn-check"  name="status_aktif" id="danger-outlined" value="0" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined">Tidak Aktif</label>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-kembali" type="button"  (click)="modal.close()">Batal</button>
+                  <button class="btn btn-simpan" type="button" color="primary">
+                    <i class="fa fa-save"></i>
+                    Simpan
+                  </button>
+                </div>
+              </form>
+            </ng-template>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

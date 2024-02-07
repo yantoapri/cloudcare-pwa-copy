@@ -1,0 +1,87 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Master Tindakan'" [items]="[]" [active_item]="'Fisio Terapi'"></app-breadcrumb>
+    </div>
+
+    <h3 class="text-center">Tindakan Fisio Terapi</h3>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button class="btn btn-tambah btn-lg" *ngIf="btnAdd" (click)="FormModalOpen()"> <i class="fas fa-plus"></i> Tambah</button>
+        <br><br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Fisio Terapi</strong> </h2>
+          </div>
+          <div class="body">
+
+
+            <table class="table table-sm table-striped table-bordered table-sm table-striped" width="100%">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Tindakan Fisio Terapi</th>
+                  <th>Tanggal Insert</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>MASS 2X</td>
+                  <td>2022-01-19</td>
+                  <td>
+
+                    <button type="button" class="btn btn-ubah btn-sm">  Ubah</button>
+                    <button type="button" class="btn btn-hapus btn-sm"> Hapus</button>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <jw-modal id="modalFormContent">
+              <form [formGroup]="addCusForm" (submit)="dialogSubmit()">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Form Tindakan Fisio Terapi</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="text-inside">
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Nama tindakan</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+
+                    <!-- <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Nama Fisio Terapi" value={{fname}} formControlName="firstname" autocomplete="off" required>
+                      <mat-error *ngIf="addCusForm.controls.firstname.hasError('required')">
+                        Nama tindakan fisio terapi
+                      </mat-error>
+                      <mat-error *ngIf="addCusForm.controls.firstname.hasError('pattern')">
+                        Nama tindakan fisio terapi
+                      </mat-error>
+                    </mat-form-field> -->
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-kembali" type="button"  (click)="modalClose()">Batal</button>
+                  <button class="btn btn-simpan" type="submit"  color="primary">
+                    <i class="fa fa-save"></i>
+                    Simpan
+                  </button>
+                </div>
+              </form>
+            </jw-modal>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

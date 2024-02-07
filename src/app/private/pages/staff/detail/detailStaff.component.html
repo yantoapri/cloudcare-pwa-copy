@@ -1,0 +1,178 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Staff'" [items]="[]" [active_item]="'Data Staff'"></app-breadcrumb>
+        </div>
+        <h3 class="text-center mb-4">Data Staff</h3>
+        <div class="">
+            <div class="col-md-12">
+                <div class="col-md-12 mb-3">
+                    <button type="button" [routerLink]="['../../view']"  class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+                </div>
+                <div class="card mb-2">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-1" style="margin-right: 25px;">
+                                <img src="https://www.gwp.id/assets/images/default/no-display-picture.png" style="width: 100px;" alt="" >
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mt-3">
+                                  <h5>Admin Jhon</h5>
+                                  <p class="text-secondary">Nama Staff: Jhon Doe - 12345<br>Lama Kerja: 5 Tahun</p>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <p class="text-secondary mt-3">No.STR Expired 22 Nov 2023</p>
+                                <div class="badge badge-warning">Belum Diperpanjang</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-header bg-light">
+                        <h4>Informasi Staff</h4>
+                    </div>
+                    <div class="body">
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <label >Nama Lengkap</label>
+                                <input type="text" class="form-control" >
+                            </div>
+                            <div class="col-md-6">
+                                <label >No.STR Lama</label>
+                                <input type="text" class="form-control" >
+                            </div>
+                            <div class="col-md-6">
+                                <label >Alamat Email</label>
+                                <input type="text" class="form-control" >
+                            </div>
+                            <div class="col-md-6">
+                              <label >No Telp/HP</label>
+                              <div class="input-group">
+                                <ng-select 
+                                    class="selectFlag"
+                                    name="dial_code"  
+                                    bindLabel="name"
+                                    bindValue="dial_code" 
+                                    placeholder="Kode Negara"
+                                    [searchable]="true" 
+                                    [clearable]="true"
+                                    [loading]="loadingState"
+                                    (search)="prosesSelectState($event, 'search')"
+                                    (open)="prosesSelectState($event, 'open')"
+                                    [items]="listState"
+                                    >
+                                    <ng-template ng-label-tmp let-item="item">
+                                        <span class="left"><img [src]="'/assets/images/flag/'+item.flag+'.png'" class="flag img img-responsive mx-2" /></span> <b class="px-2 right">{{ item.dial_code }}</b>
+                                    </ng-template>
+                                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                        <span class="left"><img width="20px" [src]="'/assets/images/flag/'+item.flag+'.png'" class="flag img img-responsive mx-2" />{{ item.name }}</span> <b class="px-2 right">({{ item.dial_code }})</b>
+                                    </ng-template>
+                                  </ng-select>
+                                  <input type="text"  (keypress)="isNumber($event)" placeholder="Masukkan No Telp/HP" class="form-control">
+                              </div>
+                          </div>
+                            <div class="col-md-12">
+                              <h4>Alamat Staff</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <label >Provinsi</label>
+                                  <ng-select
+                                    style="flex: 1 1 auto;"
+                                    [virtualScroll]="true"
+                                    (change)="changeProvinsiKtp()"
+                                    placeholder="Pilih Provinsi"
+                                    [searchable]="true"
+                                    [(ngModel)]="idProvinsiKtp"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [clearable]="true"
+                                    [clearSearchOnAdd]="true"
+                                    (search)="prosesSelectProvinsi($event, 'search')"
+                                    (scrollToEnd)="prosesSelectProvinsi($event, 'last_page')"
+                                    (open)="prosesSelectProvinsi($event, 'open')"
+                                    (clear)="prosesSelectProvinsi($event, 'clear')"
+                                  >
+                                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                  <ng-option *ngFor="let item of listProvinsiKtp" [value]="item.id">{{item.name}}</ng-option>
+                                </ng-select>
+                              </div>
+                
+                              <div class="col-sm-6">
+                                <label >Kabupaten / Kota</label>
+                                  <ng-select
+                                    style="flex: 1 1 auto;"
+                                    [virtualScroll]="true"
+                                    (change)="changeKabupatenKtp()"
+                                    placeholder="Pilih Kabupaten"
+                                    [searchable]="true"
+                                    [(ngModel)]="idKabupatenKtp"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [clearable]="true"
+                                    [clearSearchOnAdd]="true"
+                                    (search)="prosesSelectKabupatenKtp($event,'search')"
+                                    (scrollToEnd)="prosesSelectKabupatenKtp($event,'last_page')"
+                                    (open)="prosesSelectKabupatenKtp($event,'open')"
+                                    (clear)="prosesSelectKabupatenKtp($event,'clear')"
+                                  >
+                                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                  <ng-option *ngFor="let item of listKabupatenKtp" [value]="item.id">{{item.name}}</ng-option>
+                                  </ng-select>
+                              </div>
+                
+                              <div class="col-sm-6">
+                                <label >Kecamatan</label>
+                                  <ng-select
+                                    style="flex: 1 1 auto;"
+                                    [virtualScroll]="true"
+                                    (change)="changeKecamatanKtp()"
+                                    placeholder="Pilih Kecamatan"
+                                    [searchable]="true"
+                                    [(ngModel)]="idKecamatanKtp"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [clearable]="true"
+                                    [clearSearchOnAdd]="true"
+                                    (search)="prosesSelectKecamatanKtp($event,'search')"
+                                    (scrollToEnd)="prosesSelectKecamatanKtp($event,'last_page')"
+                                    (open)="prosesSelectKecamatanKtp($event,'open')"
+                                    (clear)="prosesSelectKecamatanKtp($event,'celar')"
+                                  >
+                                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                  <ng-option *ngFor="let item of listKecamatanKtp" [value]="item.id">{{item.name}}</ng-option>
+                                </ng-select>
+                              </div>
+                
+                              <div class="col-sm-6">
+                                <label >Desa / Kelurahan</label>
+                                  <ng-select
+                                    style="flex: 1 1 auto;"
+                                    [virtualScroll]="true"
+                                    placeholder="Pilih Desa"
+                                    [searchable]="true"
+                                    [(ngModel)]="idDesaKtp"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [clearable]="true"
+                                    [clearSearchOnAdd]="true"
+                                    (search)="prosesSelectDesaKtp($event,'search')"
+                                    (scrollToEnd)="prosesSelectDesaKtp($event,'last_page')"
+                                    (open)="prosesSelectDesaKtp($event,'open')"
+                                    (clear)="prosesSelectDesaKtp($event,'clear')"
+                                  >
+                                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                  <ng-option *ngFor="let item of listDesaKtp" [value]="item.id">{{item.name}}</ng-option>
+                                </ng-select>
+                              </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Alamat</label>
+                            <textarea class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button class="btn-space bg-warning text-light" [routerLink]="['../view']"  mat-raised-button> Cancel</button>
+                    <button class="btn-space bg-success text-light" mat-raised-button> Perpanjang</button>
+                </div>
+            </div>
+        </div>
+    </div>

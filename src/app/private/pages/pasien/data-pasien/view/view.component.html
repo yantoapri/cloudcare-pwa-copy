@@ -1,0 +1,92 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Pasien'" [items]="[]" [active_item]="'Data Pasien'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center pb-3">Data Pasien</h3>
+    <div class="">
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Form Pencarian</strong> </h2>
+          </div>
+          <div class="body">
+
+            <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">No. RM</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="No. RM" [(ngModel)]="no_rm">
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">Nama</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="Nama" [(ngModel)]="nama">
+              </div>
+            </div>
+
+            <!-- <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">Alamat</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="Alamat" #input_alamat>
+              </div>
+            </div> -->
+
+            <!-- <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">No. HP</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="No. HP" #input_no_hp>
+              </div>
+            </div> -->
+
+            <div class="row">
+              <div class="col-sm-8 offset-md-2">
+                <button class="btn-space" mat-raised-button color="primary" (click)="reLoadData()"><i class="fa fa-search"></i> Cari</button>
+                <button class="btn-space bg-info text-light" mat-raised-button (click)="reset()"> <i class="fa fa-sync"></i> Reset</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Data Pasien</strong> </h2>
+          </div>
+          <div class="body">
+            <button type="button" *ngIf="btnAdd" [routerLink]="['../add']"  class="btn-space" mat-raised-button color="primary"><i class="fas fa-plus-circle"></i> Tambah Baru</button>
+            <br><br><br>
+            <table class="table table-sm table-striped table-bordered table-sm table-striped" datatable [dtOptions]="dtOptions" width="100%">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>No. RM</th>
+                  <th>BPJS</th>
+                  <th>Nama</th>
+                  <th>Alamat</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

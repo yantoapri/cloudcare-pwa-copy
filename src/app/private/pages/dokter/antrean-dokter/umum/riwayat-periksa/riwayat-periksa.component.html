@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12 pt-3">
+
+    <div *ngIf="hiddenDataTable">
+      <div class="table-responsive">
+        <table class="table table-sm table-striped table-bordered table-sm" datatable [dtOptions]="dtOptions" width="100%">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Tgl Periksa</th>
+              <th>Alergi</th>
+              <th>Hambatan</th>
+              <th>Keluhan</th>
+              <th>Sistole</th>
+              <th>Diastole</th>
+              <th>HR</th>
+              <th>RR</th>
+              <th>TB</th>
+              <th>BB</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+<ngx-spinner [name]="'spinnerRiwayatPeriksa'"
+  bdColor = "rgba(0, 0, 0, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "ball-clip-rotate-multiple"
+  [fullScreen] = "true">
+  <p style="color: white" > Loading... </p>
+</ngx-spinner>

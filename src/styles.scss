@@ -1,0 +1,547 @@
+/* You can add global styles to this file, and also import other style files */
+.btn-info {
+	color: #fff !important;
+}
+
+.btn {
+	margin-right: 3px;
+}
+
+// .btn:hover {
+// 	color: #e0e0e0 !important;
+// }
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+   
+	/* Position the tooltip text - see examples below! */
+	position: absolute;
+	z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+  }
+.checkbox{
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+}
+.btn-orange {
+	color: #fff;
+	background-color: #fd7e14;
+	border-color: #fd7e14;
+}
+
+.btn-ubah {
+	color: #fff;
+	background-color: #FF851B;
+	border-color: #FF851B;
+}
+
+.btn-detail {
+	color: #fff;
+	background-color: #00C0EF;
+	border-color: #00C0EF;
+}
+
+.btn-simpan {
+	color: #fff;
+	border-color: #367FA9;
+	background-color: #367FA9;
+}
+
+.btn-kembali {
+	color: #fff;
+	background-color: #E08E0B;
+	border-color: #E08E0B;
+}
+
+.btn-hapus {
+	color: #fff;
+	border-color: #DD4B39;
+	background-color: #DD4B39;
+}
+
+.btn-tambah {
+	color: #fff;
+	background-color: #001F3F;
+	border-color: #001F3F;
+}
+
+.btn-tampilkan-cari {
+	color: #fff;
+	background-color: #00A65A;
+	border-color: #00A65A;
+}
+
+.btn-status-aktif {
+	color: #fff;
+	background-color: #00A65A;
+	border-color: #00A65A;
+}
+
+.btn-status-nonaktif {
+	color: #fff;
+	background-color: #BD1854;
+	border-color: #BD1854;
+}
+
+.btn-warning:hover {
+	color: black !important;
+}
+
+.modal {
+	.modal-header {
+		.modal-title {
+			margin: 8px;
+		}
+	}
+
+	.modal-footer {
+		.btn {
+			margin: 2px;
+		}
+	}
+}
+
+.mb-3 {
+	margin-bottom: 1rem !important;
+}
+
+@media (min-width: 576px) {
+	.modal-dialog {
+		max-width: 650px;
+	}
+
+}
+
+.table thead tr th {
+	height: 25px !important;
+}
+
+.border-danger:focus {
+	box-shadow: 0 0 0 0.25rem rgb(253 13 13 / 25%);
+}
+
+input.border-danger {
+	animation: shakesInputInvalid 300ms
+}
+
+select.border-danger {
+	animation: shakesInputInvalid 300ms
+}
+
+@keyframes shakesInputInvalid {
+	25% {
+		transform: translateX(4px)
+	}
+
+	50% {
+		transform: translateX(-4px)
+	}
+
+	75% {
+		transform: translateX(4px)
+	}
+}
+
+.color-red {
+	color: red
+}
+
+.ng-select.border-danger>.ng-select-container {
+	border-color: #dc3545 !important;
+	animation: shakesInputInvalid 300ms;
+}
+
+.swal2-html-container .radio {
+	width: auto;
+	padding-right: 10px !important;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.filter-container .label-color {
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+}
+
+.left {
+	float: left;
+}
+
+.w100 {
+	width: 100%;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.input-icon {
+	top: 8px;
+	position: relative;
+	right: 25px;
+	cursor: pointer;
+}
+
+.custome-input.input-group>.form-control:focus {
+	z-index: 0 !important;
+}
+
+#chat .list_empty {
+	margin: 0 auto;
+	padding-top: 10%;
+	padding-bottom: 10%;
+}
+
+#chat .card-body {
+	padding-top: 0px !important;
+}
+
+#chat .card .bg-secondary {
+	background-color: #e9e5e5 !important;
+}
+
+#chat .list_chat_aktif .item,
+#chat .list_chat_selesai .item {
+	background: white;
+}
+
+#chat .list_chat_aktif .item:hover,
+#chat .list_chat_selesai .item:hover {
+	background: #d0dfefa6;
+}
+
+#chat .list_chat_aktif .item .row,
+#chat .list_chat_selesai .item .row {
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+#chat .list_chat_aktif .item p,
+#chat .list_chat_selesai .item p {
+	color: #3084b4;
+}
+
+#chat .list_chat_selesai .input-group-text {
+	background-color: white !important;
+	color: rgb(216, 216, 216);
+	border-right: 0px !important;
+	padding: 10px;
+	border-color: #ececec !important;
+}
+
+#chat .list_chat_selesai .search {
+	border-left: 0px !important;
+	padding: 10px;
+	border-color: #ececec !important;
+	color: rgb(216, 216, 216) !important;
+}
+
+#chat .list_chat_selesai .search:focus {
+	border-color: #ececec !important;
+	box-shadow: none !important;
+}
+
+
+.badge-circle {
+	padding: 5px;
+	border-radius: 50%;
+	padding: 8px 5px;
+	width: fit-content;
+	position: relative;
+	left: 35px;
+	background: #bae3ee;
+	color: #3084b4;
+}
+
+#chat .dot-online {
+	position: relative;
+	bottom: 10px;
+	left: 37px;
+	top: -28px;
+
+}
+
+#chat .main-avatar .dot-online {
+	position: relative;
+	bottom: 5px;
+	left: -13px;
+	top: 9px;
+
+}
+
+#chat .main-avatar .img-avatar {
+	width: 40px;
+}
+
+#chat .list_msg .item-right {
+	float: right;
+	max-width: 80%;
+}
+
+#chat .list_msg .item-left {
+	float: left;
+	max-width: 80%;
+}
+
+#chat .list_msg .box,
+#chat .list_msg .box {
+	min-height: 45px;
+}
+
+#chat .list_msg .box .img {
+	width: 40px;
+}
+
+#chat .list_msg .box .avatar {
+	height: 40px;
+}
+
+#chat .list_msg .item-left .card {
+	border-radius: 0px 10px 10px 10px !important;
+	width: fit-content;
+	border: 1px solid rgb(236, 234, 234);
+}
+
+#chat .list_msg .item-right .card {
+	background: #55a2eb;
+	color: white;
+}
+
+#chat .list_msg .item-right .card .bg-light {
+	color: rgb(10, 10, 10);
+}
+
+#chat .list_msg .item-right .card {
+	width: fit-content;
+	border: 1px solid rgb(236, 234, 234);
+}
+
+#chat .dropdown-toggle::after {
+	display: none !important;
+}
+
+
+#chat .card-dropdown {
+	border-radius: 10px 10px 10px 0px !important;
+}
+
+.bg-white {
+	background: white;
+}
+.bg-warning{
+	background-color: #e5a834!important;
+}
+.text-ui-danger{
+	color:#f44336;
+}
+.text-ui-danger:hover{
+	color:#ee6c63;
+}
+.text-ui-primary{
+	color:#3f51b5;
+}
+.text-ui-primary:hover{
+	color:#55a6ed;
+}
+.text-ui-success{
+	color:rgba(25, 135, 84,1)
+}
+.text-ui-success:hover{
+	color:rgb(60, 185, 127)
+}
+.text-ui-info{
+	color:rgb(36, 213, 236)
+}
+.text-ui-info:hover{
+	color:rgb(13, 185, 207)
+}
+table .btn-link{
+	font-size: 18px;
+}
+table .circle-danger:hover{
+	background: #e0e0e0;
+    border-radius: 50%;
+	color:#f44336 !important;
+}
+table .circle-success:hover{
+	background: #e0e0e0;
+    border-radius: 50%;
+	color:rgba(25, 135, 84,1) !important;
+}
+table .circle-info:hover{
+	background: #e0e0e0;
+    border-radius: 50%;
+	color:rgb(36, 213, 236) !important;
+}
+table .circle-primary:hover{
+	background: #e0e0e0;
+    border-radius: 50%;
+	color:#3f51b5 !important;
+}
+#chat .list_msg .item-right .card .card-body,
+#chat .list_msg .item-left .card .card-body {
+	padding-top: 8px !important;
+}
+
+#chat .alert-info,
+#eresep .alert-info,
+#eresep-print .alert-info {
+	background: rgb(182 216 239 / 56%) !important;
+}
+
+.btn-purple {
+	background: purple;
+	color: white;
+}
+
+#rm .card-header {
+	border-radius: 10px 10px 0px 0px;
+	height: 200px;
+}
+
+#rm .avatar {
+	width: 100px;
+	border: 4px solid rgb(44, 105, 238);
+	position: relative;
+	top: -50px;
+	margin: 0 auto;
+}
+
+.btn-vertikal {
+	border-radius: 39% !important;
+	padding: 10px 8px !important;
+}
+
+#rm .user-detail {
+	position: relative;
+	top: -40px;
+}
+
+.f12 {
+	font-size: 12px;
+}
+
+.input-group-icon .icon {
+	background: white;
+	color: rgb(226, 223, 223);
+	border-left: 0px !important;
+}
+
+.input-group-icon input {
+	border-right: 0px !important;
+
+}
+
+.input-group-icon input:focus {
+	box-shadow: none !important;
+	border-color: #cfcfcf;
+}
+
+.input-group-icon .icon:hover {
+	color: #55a2eb;
+}
+
+.dropdownIcon .mat-tab-label .mat-tab-label-content {
+	text-transform: uppercase;
+}
+
+.dropdownIcon {
+	position: absolute;
+	margin-left: -3px;
+	width: 436px;
+}
+
+.dropdownIcon .search-content {
+	max-height: 200px;
+	overflow-y: scroll;
+	min-height: 50px;
+	height: fit-content;
+}
+
+.dropdownIcon .mat-tab-body-content {
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.btnIcon:hover {
+	color: rgb(43, 163, 211);
+}
+
+.hover-blue:hover {
+	color: #00C0EF !important;
+}
+
+.flag {
+	width: 20px;
+
+}
+
+.selectFlag,
+.selectFlag .ng-select-container {
+	width: 150px !important;
+
+}
+
+.selectFlag ng-dropdown-panel {
+	width: 300px;
+}
+
+.form-switch input {
+	width: 50px !important;
+	height: 25px;
+}
+
+.form-switch label {
+	margin-top: 6px;
+	margin-left: 5px;
+}
+.card-box{
+    min-height: 108px;
+}
+.card-bordered .card{
+	background: #fff;
+    min-height: 50px;
+    position: relative;
+    margin-bottom: 24px;
+    border: 2px solid #e7e7e7;
+    border-radius: 8px;
+	-webkit-box-shadow:none;
+}
+.card .col-green{
+	color: #4caf50!important;
+}
+.card-right .float-end {
+    float: right!important;
+    text-align: right;
+}
+
+@media screen and (max-width:1168px) {
+	section.content .content-block {
+    	padding: 10px !important;
+	}
+}

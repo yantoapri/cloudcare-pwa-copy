@@ -1,0 +1,149 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Defekta Alat Kesehatan'" [items]="'Defekta Alat Kesehatan'" [active_item]=""></app-breadcrumb>
+        </div>
+        <h3 class="text-center">Defekta Alat Kesehatan</h3>
+
+
+        <div class="">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-md-12 mb-3">
+                    <button type="button" (click)="blmDiperiksa()" class="btn-space" mat-raised-button color="primary">
+                        Belum order
+                    </button>
+                    <button type="button" class="btn-space bg-success text-light" mat-raised-button color="success" (click)="sdhDiperiksa()">
+                        Sudah order
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center px-2"><input type="checkbox" name="all" value="0" (change)="checkedAll($event)" class="checkbox" /></th>
+                                        <th>No</th>
+                                        <th> Barang
+                                        </th>
+                                        <th>Status Order</th>
+                                        <th>Sisa Stok</th>
+                                        <th>Stok Minimum</th>
+                                        <th>Prioritas</th>
+                                        <th>Rata2 Laku</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <jw-modal id="sudahOrder">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="modal-basic-title">Tandai Sudah Order</h4>
+                                    <button type="button" class="btn-close" aria-label="Close"
+                                        (click)="modalClose('sudahOrder')">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <label>PBF/Suplier</label>
+                                    <ng-select 
+									style="flex: 1 1 auto;"  
+									name="pbf" 
+									[(ngModel)]="pbf"
+                                    [virtualScroll]="true" 
+									bindLabel="nama_supplier"
+                                    bindValue="id_supplier" 
+									placeholder="Pilih Supplier" 
+                                    [loading]="isLoading"
+									[searchable]="true" 
+									[clearable]="true"
+                                    (clear)="prosesSelectPBF($event, 'clear')"
+                                    [clearSearchOnAdd]="true"
+									(search)="prosesSelectPBF($event, 'search')"
+									(scrollToEnd)="prosesSelectPBF($event, 'last_page')"
+									(open)="prosesSelectPBF($event, 'open')"
+									>
+                                    <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                    <ng-option *ngFor="let itm of optionPbf" [value]="itm.id_supplier">{{itm.nama_supplier}}</ng-option>
+                                    </ng-select>
+                                    <div class="form-text text-danger"
+                                        *ngIf="pbf==undefined&& submitted">
+                                        PBF/Suplier tidak boleh kosong
+                                    </div>
+                                </div>
+                                <div class="card" >
+                                    <div *ngFor="let item of dataChecked; let i=index">
+                                        <div class="card-header" (click)="showCollapse(i)" style="cursor: pointer;">
+                                            <h4 style="width: 70%;"><b> {{item.nama_alat_kesehatan}}</b></h4>
+                                           <span style="float: right;position: relative;top: -25px;"><i [class]="isCollapsed[i]?'fa fa-chevron-down':'fa fa-chevron-up'"></i></span>
+                                        </div>
+                                        <div class="card-body"  [collapse]="isCollapsed[i]" [isAnimated]="true">
+                                            <div class="row mb-2" *ngIf="optionKemasan[i]!=undefined">
+                                                <label class="px-1">Jumlah</label>
+                                                <div class="d-flex px-2">
+                                                    <input type="text" (keypress)="isNumber($event)" [(ngModel)]="jumlah[i]" value="0" min="0" [max]="item.stok" name="jumlah"
+                                                        class="form-control mx-2">
+                                                    <ng-select style="flex: 1 1 auto;" name="satuan"  [(ngModel)]="satuan[i]"
+                                                    [virtualScroll]="true" [items]="optionKemasan[i].alat_kesehatan_kemasan" bindLabel="nama_kemasan"
+                                                    bindValue="nama_kemasan" placeholder="Pilih Kemasan" [searchable]="true" [clearable]="true">
+                                                    </ng-select>
+                                                    
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-text text-danger"
+                                                        *ngIf="(jumlah[i]==undefined||jumlah[i]<=0||satuan[i]=='')&& submitted">
+                                                        Jumlah dan satuan tidak boleh kosong
+                                                    </div>
+                                                    <div class="form-text text-danger"
+                                                        *ngIf="(jumlah[i]>item.stok)&& submitted">
+                                                        Stok tida cukup, jumlah tidak boleh lebih dari {{item.stok}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2 px-3">
+                                                <label class="px-1">Harga beli</label>
+                                                <input type="text" (keypress)="isNumber($event)"  name="harga" currencyMask [options]="optionsCur" readonly [(ngModel)]="harga[i]" class="form-control"
+                                                   >
+                                                <div class="form-text text-danger col-md-12"
+                                                    *ngIf="harga[i]==undefined&& submitted">
+                                                    Harga beli tidak boleh kosong
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2 px-3">
+                                                <label class="px-1">Diskon</label>
+                                                <div class="d-flex px-2">
+                                                    <input type="text" (keypress)="isNumber($event)" value="0" min="0"  class="form-control " [(ngModel)]="diskon[i]" />
+                                                    <select class="form-control mx-2" value="persen" name="jenis_diskon" [(ngModel)]="jenis_diskon[i]">
+                                                        <option value="persen">%</option>
+                                                        <option value="rupiah">Rp</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-text text-danger"
+                                                    *ngIf="(diskon[i]==undefined||jenis_diskon[i]==undefined)&& submitted">
+                                                    Diskon tidak boleh kosong
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" (click)="simpan()" class="btn-space bg-success text-light" mat-raised-button >Simpan</button>
+                                    <button type="button" (click)="modalClose('sudahOrder')"
+                                    class="btn-space bg-warning text-light" mat-raised-button >Batal</button>
+                                </div>
+                        </jw-modal>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

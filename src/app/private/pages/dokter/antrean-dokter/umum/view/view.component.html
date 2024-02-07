@@ -1,0 +1,1226 @@
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Dokter'" [items]="['Antrean Dokter']" [active_item]="'Umum'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Antrean Dokter Umum</h3>
+    <div class="row">
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="far fa-calendar-minus fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>{{ tglSekarang }}</span>
+            <hr class="box-hr-info">
+            <span>{{ jadwalSesi }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fa fa-user-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>{{ pasien.nama_panggilan }} {{ pasien.nama }}</span>
+            <hr class="box-hr-info">
+            <div class="fs-7">{{pasien.umur }}</div>
+            <hr class="box-hr-info">
+            <span>NO RM : {{ pasien.full_rm }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-2 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fas fa-map-marker-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-1">
+            <span class="lh-1" style="word-break: break-all;">{{ pasien.desa!=undefined?pasien.desa+","+pasien?.kecamatan+','+pasien?.kabupaten+','+pasien?.provinsi:'' }}</span>
+
+            <hr class="box-hr-info">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fa fa-user-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>
+              <h3>
+                <cd-timer #basicTimer format="ms" class="bootstrap-timer"></cd-timer>
+              </h3>
+            </span>
+
+            <hr class="box-hr-info">
+            <span>Waktu Timer</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Antrean Rujukan</strong> </h2>
+          </div>
+          <div class="body">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link" [class.active]="tabPane.pane1" (click)="ShowTabPane(1)" type="button" >DETAIL PASIEN</button>
+                <button class="nav-link" [class.active]="tabPane.pane2" (click)="ShowTabPane(2)" type="button" >DIAGNOSA</button>
+                <button class="nav-link" [class.active]="tabPane.pane3" (click)="ShowTabPane(3)" type="button" >RIWAYAT PERIKSA</button>
+                <button class="nav-link" [class.active]="tabPane.pane4" (click)="ShowTabPane(4)" type="button" >REKAM MEDIS</button>
+
+              </div>
+            </nav>
+            <div class="tab-content">
+              <div class="tab-pane fade" [class.active]="tabPane.pane1" [class.show]="tabPane.pane1">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 pt-3">
+                    <table class="table table-sm table-striped table-bordered table-sm hover" width="100%" datatable [dtOptions]="dtOptions">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Nama</th>
+                          <th>Status BPJS</th>
+                          <th>Proses Antrian</th>
+                        </tr>
+                      </thead>
+                      <tbody #bodyTable>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-xs-12 col-md-6 pt-3">
+                    <table class="table table-sm " width="100%" >
+                      <tbody>
+                        <tr>
+                          <td width="10%"><b>No RM</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.full_rm }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>No BPJS</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.no_bpjs }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>NIK</b></td>
+                          <td>:</td>
+                          <td>{{ dekryp(pasien.nik) }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Nama</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Tempat Lahir</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.tempat_lahir }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Tgl Lahir</b></td>
+                          <td>:</td>
+                          <td>{{ dekryp(pasien.tgl_lahir) }} / {{ pasien.umur }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Jenis Kelamin</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.jenis_kelamin }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Golongan Darah</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.golongan_darah }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Agama</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.agama }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Status Perkawinan</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.status_perkawinan }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Pekerjaan</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.pekerjaan }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Kewarganegaraan</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.kewarganegaraan }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>No Telp</b></td>
+                          <td>:</td>
+                          <td><span *ngIf="pasien.kode_phone">( {{pasien.kode_phone}} )</span> {{ dekryp(pasien.no_hp) }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Alamat</b></td>
+                          <td>:</td>
+                          <td>{{ dekryp(pasien.alamat) }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane2" [class.show]="tabPane.pane2">
+                <div class="row">
+
+                    <div class="col-xs-12 col-md-6 pt-3">
+                      <form [formGroup]="formDiagnosa">
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">KAJIAN SUBYEKTIF <span class="text-danger"><b>*</b></span></div>
+                          <div class="card-body">
+                            <textarea (focus)="setTime()"
+                            [class.border-danger]="formDiagnosa.controls.keluhan.hasError('required') && submitted"
+                            rows="3" formControlName="keluhan" class="form-control"></textarea>
+
+                            <div class="form-text text-danger"
+                            *ngIf="formDiagnosa.controls.keluhan.hasError('required') && submitted">
+                              Kajian subyektif tidak boleh kosong
+                            </div>
+
+                            <!-- <h5 class="card-title">Light card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">KAJIAN OBYEKTIF</div>
+                          <div class="card-body">
+                            <table class="table table-striped">
+                              <tbody>
+                                <tr>
+                                  <th>Tekanan Darah Sistole <span class="text-danger"><b>*</b></span></th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text" (keypress)="isNumber($event)"min="0"
+                                      [class.border-danger]="formDiagnosa.controls.sistole.hasError('required') && submitted"
+                                      formControlName="sistole" placeholder="Tekana Darah Sistole" class="form-control">
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.sistole.hasError('required') && submitted">
+                                      Tekanan darah sistole tidak boleh kosong
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>Tekanan Darah Diastole<span class="text-danger"><b>*</b></span></th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text" (keypress)="isNumber($event)" min="0"
+                                      [class.border-danger]="formDiagnosa.controls.diastole.hasError('required') && submitted"
+                                      formControlName="diastole" placeholder="Tekana Darah Diastole" class="form-control">
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.diastole.hasError('required') && submitted">
+                                      Tekanan darah diastole tidak boleh kosong
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>Suhu<span class="text-danger"><b>*</b></span></th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text" (keypress)="isNumber($event)"min="0"
+                                      [class.border-danger]="formDiagnosa.controls.suhu.hasError('required') && submitted"
+                                       formControlName="suhu" class="form-control">
+                                      <span class="input-group-text"> °C </span>
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.suhu.hasError('required') && submitted">
+                                      Suhu tidak boleh kosong
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>HR<span class="text-danger"><b>*</b></span></th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text" (keypress)="isNumber($event)"
+                                      [class.border-danger]="formDiagnosa.controls.hr.hasError('required') && submitted"
+                                      formControlName="hr" class="form-control">
+                                      <span class="input-group-text"> X/Menit </span>
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.hr.hasError('required') && submitted">
+                                      HR tidak boleh kosong
+                                    </div>
+
+                                    <div class="input-group">
+                                      <select formControlName="status_hr" class="form-select">
+                                        <option value="tidak_teratur">Tidak teratur</option>
+                                        <option value="teratur">Teratur</option>
+                                      </select>
+
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    RR<span class="text-danger"><b>*</b></span>
+                                  </th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text" (keypress)="isNumber($event)"
+                                      [class.border-danger]="formDiagnosa.controls.rr.hasError('required') && submitted"
+                                      min="0" formControlName="rr" class="form-control">
+                                      <span class="input-group-text"> X/Menit </span>
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.hr.hasError('required') && submitted">
+                                      RR tidak boleh kosong
+                                    </div>
+
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text"
+                                      [class.border-danger]="formDiagnosa.controls.keterangan_rr.hasError('required') && submitted"
+                                      formControlName="keterangan_rr" class="form-control">
+                                      <span class="input-group-text"> Keterangan </span>
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.keterangan_rr.hasError('required') && submitted">
+                                      Keterangan RR tidak boleh kosong
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>TB<span class="text-danger"><b>*</b></span></th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text" (keypress)="isNumber($event)"
+                                      [class.border-danger]="formDiagnosa.controls.tb.hasError('required') && submitted"
+                                      formControlName="tb" class="form-control">
+                                      <span class="input-group-text"> Cm </span>
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.tb.hasError('required') && submitted">
+                                      Tinggi badan tidak boleh kosong
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>BB<span class="text-danger"><b>*</b></span></th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input (focus)="setTime()" type="text" (keypress)="isNumber($event)"
+                                      [class.border-danger]="formDiagnosa.controls.bb.hasError('required') && submitted"
+                                      formControlName="bb" class="form-control">
+                                      <span class="input-group-text"> Kg </span>
+                                    </div>
+                                    <div class="form-text text-danger"
+                                    *ngIf="formDiagnosa.controls.bb.hasError('required') && submitted">
+                                      Berat badan tidak boleh kosong
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">ALERGI</div>
+                          <div class="card-body">
+                            <input (focus)="setTime()" type="text" class="form-control" formControlName="alergi">
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">CATATAN KHUSUS</div>
+                          <div class="card-body">
+                            <input (focus)="setTime()" type="text" formControlName="catatan_khusus" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">KAJIAN OBYEKTIF DOKTER<span class="text-danger"><b>*</b></span></div>
+                          <div class="card-body">
+                            <textarea (focus)="setTime()" formControlName="obyektif_dokter"
+                            [class.border-danger]="formDiagnosa.controls.obyektif_dokter.hasError('required') && submitted"
+                            rows="5" class="form-control"></textarea>
+                            <div class="form-text text-danger"
+                            *ngIf="formDiagnosa.controls.obyektif_dokter.hasError('required') && submitted">
+                              Kajian obyektif dokter tidak boleh kosong
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark ">
+                          <div class="card-header">ASSESMENT<span class="text-danger"><b>*</b></span></div>
+                          <div class="card-body">
+                           
+                            <ng-select (focus)="setTime()"
+                            style="flex: 1 1 auto;"
+                            [virtualScroll]="true"
+                            placeholder="Pilih Assesment"
+                            [searchable]="true"
+                            [(ngModel)]="idAssesment"
+                            [loading]="loadingListAssesment"
+                            [ngModelOptions]="{standalone: true}"
+                            [clearable]="true"
+                            [multiple]="true"
+                            (clear)="prosesSelectAssesment($event, 'clear')"
+                            [clearSearchOnAdd]="true"
+                            (search)="prosesSelectAssesment($event, 'search')"
+                            (scrollToEnd)="prosesSelectAssesment($event, 'last_page')"
+                            (open)="prosesSelectAssesment($event, 'open')"
+                            >
+                            <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                            <ng-option *ngFor="let itm of listAssesment" [value]="itm.id_assessment">{{itm.nama_full}}</ng-option>
+                            </ng-select>
+                          </div>
+
+                          <div class="card-body">
+
+                            <div class="row pb-3">
+                              <small >
+                                <strong>*Jika tidak menemukan assessment di atas silahkan menambahkan secara mandiri</strong>
+                              </small>
+
+                            </div>
+
+                            <!-- <div class="input-group">
+                              <label for="">Assessment</label>
+                              <input (focus)="setTime()" type="text" class="form-control">
+                              <button class="btn">Add</button>
+                            </div> -->
+
+                            <div class="row ">
+                              <div class="col-auto">
+                                <label class="col-form-label">Assessment</label>
+                              </div>
+                              <div class="col-auto col-sm-6">
+                                <input (focus)="setTime()" type="text" class="form-control mt-1" #namaAssessmentManual>
+                              </div>
+                              <div class="col-auto">
+                                <button type="button" (click)="addAssessmentManual()" class="btn-space" mat-raised-button color="primary"><i class="fa fa-plus-circle"></i></button>
+                              </div>
+                            </div>
+
+                            <ng-container *ngIf="listManualAssessment.controls.length > 0">
+                              <table class="table table-striped table-bordered table-sm" width="100%">
+                                <thead>
+                                  <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Aksi</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of listManualAssessment.value; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ item.nama_en }}</td>
+                                    <td>
+                                      <button  class="btn btn-link circle-danger text-ui-danger" (click)="hapusAssessmentManual(i)" type="button">
+                                        <i class="far fa-trash-alt"></i>
+                                      </button>
+                                    </td>
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                            </ng-container>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">PLANNING<span class="text-danger"><b>*</b></span></div>
+                          <div class="card-body">
+                            <textarea (focus)="setTime()"
+                            [class.border-danger]="formDiagnosa.controls.planning.hasError('required') && submitted"
+                            class="form-control" formControlName="planning" rows="10"></textarea>
+                            <div class="form-text text-danger"
+                              *ngIf="formDiagnosa.controls.planning.hasError('required') && submitted">
+                                Planing tidak boleh kosong
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">RUJUKAN</div>
+                          <div class="card-body">
+                            <select  class="form-select mb-3">
+                              <option value="">-- Pilih --</option>
+                            </select>
+                            <textarea (focus)="setTime()" name="" id="" rows="5" class="form-control"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">TINDAKAN<span class="text-danger"><b>*</b></span></div>
+                          <div class="card-body">
+                            <textarea (focus)="setTime()" formControlName="tindakan"
+                            [class.border-danger]="formDiagnosa.controls.tindakan.hasError('required') && submitted"
+                            rows="5" class="form-control"></textarea>
+                            <div class="form-text text-danger"
+                            *ngIf="formDiagnosa.controls.tindakan.hasError('required') && submitted">
+                              Tindakan tidak boleh kosong
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">TINDAKAN MEDIS</div>
+                          <div class="card-body">
+                            <div class="row mb-1">
+                              <label class="col-sm-3 col-form-label ">TINDAKAN</label>
+                              <div class="col-sm-7">
+                                <ng-select (focus)="setTime()"
+                                  style="flex: 1 1 auto;"
+                                  [virtualScroll]="true"
+                                  placeholder="Pilih Tindakan"
+                                  [loading]="loadingTindakanMedis"
+                                  [searchable]="true"
+                                  [(ngModel)]="idTindakanMedis"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [clearable]="true"
+                                  [clearSearchOnAdd]="true"
+                                  (clear)="prosesSelectTindakanMedis($event, 'clear')"
+                                  (search)="prosesSelectTindakanMedis($event, 'search')"
+                                  (scrollToEnd)="prosesSelectTindakanMedis($event, 'last_page')"
+                                  (open)="prosesSelectTindakanMedis($event, 'open')"
+                                >
+                                <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                <ng-option *ngFor="let itm of listTindakanMedis" [value]="itm.id_tindakan_medis">{{itm.nama_tindakan}}</ng-option>
+                                </ng-select>
+                              </div>
+                              <div class="col-sm-1">
+                                <button (click)="addTindakanMedis()" type="button" class="btn-space" mat-raised-button color="primary"><i class="fa fa-plus-circle"></i></button>
+                              </div>
+                            </div>
+                            <hr>
+                            <table class="table" width="100%">
+                              <thead>
+                                <tr>
+                                  <th>Tindakan</th>
+                                  <th>Keterangan</th>
+                                  <th>Aksi</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr formArrayName="tindakan_medis" *ngFor="let item of formDiagnosa.get('tindakan_medis')['controls']; let i = index">
+                                  <ng-container [formGroupName]="i">
+                                    <td>{{ item.value.nama_tindakan }}</td>
+
+                                    <td><input (focus)="setTime()" type="text" formControlName="keterangan" placeholder="keterangan" class="form-control"></td>
+                                    <td>
+                                      <button class="btn btn-link circle-danger text-ui-danger" (click)="hapusTindakanMedis(i)" type="button">
+                                        <i class="far fa-trash-alt"></i>
+                                      </button>
+                                    </td>
+
+                                  </ng-container>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">Pembuatan Surat</div>
+                          <div class="card-body">
+                            <div class="row mb-1">
+                              <label class="col-sm-3 col-form-label ">Tipe Surat</label>
+                              <div class="col-sm-7">
+                                <ng-select (focus)="setTime()"
+                                  style="flex: 1 1 auto;"
+                                  [virtualScroll]="true"
+                                  placeholder="Pilih Tipe Surat"
+                                  [loading]="loadingSurat"
+                                  [searchable]="true"
+                                  [(ngModel)]="idSurat"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [clearable]="true"
+                                  (change)="setSurat()"
+                                  (search)="prosesSelectSurat($event, 'search')"
+                                  (scrollToEnd)="prosesSelectSurat($event, 'last_page')"
+                                  (open)="prosesSelectSurat($event, 'open')"
+                                >
+                                <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                <ng-option *ngFor="let item of listSurat" [value]="item.id_surat_dokter">
+                                  {{item.nama_surat}}
+                                </ng-option>
+                                </ng-select>
+                              </div>
+                              <div class="col-sm-1">
+                                <button (click)="addSurat()" type="button"class="btn-space" mat-raised-button color="primary"><i class="fa fa-plus-circle"></i></button>
+                              </div>
+                            </div>
+                            <hr>
+                            <table class="table" width="100%">
+                              <thead>
+                                <tr>
+                                  <th>No</th>
+                                  <th>Tipe Surat</th>
+                                  <th>Aksi</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr formArrayName="surat" *ngFor="let item of formDiagnosa.get('surat')['controls']; let i = index">
+                                  <ng-container [formGroupName]="i">
+                                    <td>{{ i+1 }}</td>
+                                    <td>{{item.value.nama_surat}}</td>
+                                    <td>
+                                      <button class="btn btn-link circle-primary text-ui-primary" (click)="editSurat(item.value.kode_surat,i)" type="button">
+                                        <i class="far fa-edit"></i>
+                                      </button>
+                                      <button class="btn btn-link circle-danger text-ui-danger" (click)="hapusSurat(item.value.kode_surat,i)" type="button">
+                                        <i class="far fa-trash-alt"></i>
+                                      </button>
+                                    </td>
+                                  </ng-container>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+                        <div class="card text-dark  mb-3">
+                          <div class="card-header">RESEP OBAT</div>
+                          <div class="card-body">
+                            <div class="alert alert-info">
+                              Informasikan Nama Obat, Jenis Obat Dan Jumlah Obat Yang di Berikan
+                            </div>
+                            <textarea (focus)="setTime()" formControlName="resep_obat"  rows="5" class="form-control"></textarea>
+
+                          </div>
+                        </div>
+                      </form>
+
+                    </div>
+                    <div class="col-xs-12 col-md-6 pt-3">
+
+                      <div class="card text-dark  mb-3">
+                        <div class="card-header">RIWAYAT PERIKSA TERAKHIR</div>
+                        <div class="card-body">
+                          <table class="table" width="100%">
+                            <tbody>
+                              <tr>
+                                <th>Dokter</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.dokter_umum != null ">
+                                        <ng-container *ngIf="pasienPayload.kunjungan_terakhir.dokter_umum.akun_dokter != null">
+                                          {{ pasienPayload.kunjungan_terakhir.dokter_umum.akun_dokter.nama_lengkap }}
+                                        </ng-container>
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Tgl Diagnosa</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      {{ ubahTanggal(pasienPayload.kunjungan_terakhir.tgl_antrian_unix) }}
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Kajian Subyektif :</th>
+
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.perawat != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.perawat.keluhan }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <th colspan="2">Kajian Obyektif :</th>
+                              </tr>
+
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.dokter_umum.obyektif_dokter }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <th colspan="2">Assesment :</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.dokter_umum != null ">
+                                        <ul *ngFor="let item of pasienPayload.kunjungan_terakhir.dokter_umum.assessment">
+                                          <li>{{ item.nama_en }} - {{ item.kode }}</li>
+                                        </ul>
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Planning : </th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.dokter_umum.planning }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Tindakan Dokter :</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.dokter_umum.tindakan }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Tindakan Rujukan</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <!-- {{pasienPayload?.tindakan}} -->
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Resep Obat</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.dokter_umum.resep_obat }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                            </tbody>
+
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="card text-dark  mb-3">
+                        <div class="card-header">RIWAYAT PERIKSA TERAKHIR OBYEKTIF</div>
+                        <div class="card-body">
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <th width="30%">Tekanan Darah</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.perawat != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.perawat.sistole }} / {{ pasienPayload.kunjungan_terakhir.perawat.diastole }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>mmHg</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Suhu</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.perawat != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.perawat.suhu }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>°C</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>HR</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.perawat != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.perawat.hr }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                  <strong>X/Menit</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>RR</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.perawat != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.perawat.rr }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>X/Menit</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Tinggi Badan</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.perawat != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.perawat.tb }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>CM</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Berat Badan</th>
+                                <td>
+                                  <ng-container *ngIf="pasienPayload != null">
+                                    <ng-container *ngIf="pasienPayload.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="pasienPayload.kunjungan_terakhir.perawat != null ">
+                                        {{ pasienPayload.kunjungan_terakhir.perawat.bb }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>KG</strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <!-- <div class="card text-dark mb-3">
+                        <div class="card-header">RIWAYAT PERIKSA FISIOTERAPI</div>
+                        <div class="card-body">
+                          <p class="card-text">Riwayat Kosong</p>
+                        </div>
+                      </div> -->
+
+                      <div class="card text-dark mb-3">
+                        <div class="card-header">BIAYA</div>
+                        <div class="card-body">
+                          <form [formGroup]="formDiagnosaBiaya">
+                            <table class="table">
+                              <tbody>
+                                <tr>
+                                  <td>JM :</td>
+                                  <td>
+                                    <input (focus)="setTime()" (keyup)="setDefault($event)" currencyMask [options]="optionsCur" formControlName="jm" class="form-control">
+                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>JT :</td>
+                                  <td>
+                                    <input (focus)="setTime()" (keyup)="setDefault($event)" currencyMask [options]="optionsCur" formControlName="jt" class="form-control">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>BHP :</td>
+                                  <td>
+                                    <input (focus)="setTime()" (keyup)="setDefault($event)" currencyMask [options]="optionsCur" formControlName="bhp" class="form-control">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>BIAYA DOKTER :</td>
+                                  <td>
+                                    <input (focus)="setTime()" (keyup)="setDefault($event)" currencyMask [options]="optionsCur" formControlName="biaya_dokter" class="form-control">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Lain-lain :</td>
+                                  <td>
+                                    <input (focus)="setTime()" (keyup)="setDefault($event)" currencyMask [options]="optionsCur" formControlName="lain_lain" class="form-control">
+                                  </td>
+                                </tr>
+                                <!-- <tr>
+                                  <td>Total :</td>
+                                  <td>
+
+                                  </td>
+                                </tr> -->
+                              </tbody>
+                            </table>
+                          </form>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="col-xs-12">
+                      <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+                        {{ errorMessage.metaData.message }}
+                        <ul *ngFor="let item of errorMessage.response" >
+                          <li>{{ item.field }} : {{ item.message }}</li>
+                        </ul>
+                      </div>
+                      <div class="text-center">
+                        <button class="btn-space bg-success text-light" mat-raised-button (click)="SubmitDiagnosa()" [disabled]="isLoadingButton">
+                          <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+                          Simpan
+                        </button>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane3" [class.show]="tabPane.pane3">
+                <app-riwayat-periksa [PasienProperty]="pasienJson" [open]="tabPane.pane3"></app-riwayat-periksa>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane4" [class.show]="tabPane.pane4">
+                <app-rekam-medis [PasienProperty]="pasienJson" [open]="tabPane.pane4"></app-rekam-medis>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <jw-modal id="modalSuratKesehatan">
+    <form [formGroup]="formSuratSehat" (submit)="saveSurat(1)">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Form Surat Sehat</h4>
+      </div>
+      <div class="modal-body">
+  
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Pekerjaan<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text"
+              [class.border-danger]="formSuratSehat.controls.pekerjaan.hasError('required') && submittedSurat"
+              formControlName="pekerjaan" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratSehat.controls.pekerjaan.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">TD<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text"  disabled
+              [class.border-danger]="formSuratSehat.controls.td.hasError('required') && submittedSurat"
+              formControlName="td" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratSehat.controls.td.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">TB<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text" (keypress)="isNumber($event)" disabled
+              [class.border-danger]="formSuratSehat.controls.tb.hasError('required') && submittedSurat"
+              formControlName="tb" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratSehat.controls.tb.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">BB<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text" (keypress)="isNumber($event)" disabled
+              [class.border-danger]="formSuratSehat.controls.bb.hasError('required') && submittedSurat"
+              formControlName="bb" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratSehat.controls.bb.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Buta Warna<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text" 
+              [class.border-danger]="formSuratSehat.controls.buta_warna.hasError('required') && submittedSurat"
+              formControlName="buta_warna" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratSehat.controls.buta_warna.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Ket Keadaan<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <textarea [class.border-danger]="formSuratSehat.controls.keterangan.hasError('required') && submittedSurat"
+            formControlName="keterangan" class="form-control" rows="5"></textarea>
+            <div class="form-text text-danger"
+              *ngIf="formSuratSehat.controls.keterangan.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-footer">
+        <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton"
+          (click)="closeBtn(1)">Batal</button>
+        <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+          <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+          Simpan
+        </button>
+      </div>
+    </form>
+  </jw-modal>
+  <jw-modal id="modalSuratSakit">
+    <form [formGroup]="formSuratSakit" (submit)="saveSurat(2)">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Form Surat Sakit</h4>
+      </div>
+      <div class="modal-body">
+  
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Tanggal Mulai<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text" (ngModelChange)="diffDate()" [minDate]="minDate" bsDatepicker [bsConfig]="{adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+              [class.border-danger]="formSuratSakit.controls.tgl_mulai.hasError('required') && submittedSurat"
+              formControlName="tgl_mulai" class="form-control" >
+            <div class="form-text text-danger"
+              *ngIf="formSuratSakit.controls.tgl_mulai.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Tanggal Selesai<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text"  (ngModelChange)="diffDate()" [minDate]="minDate" bsDatepicker [bsConfig]="{adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+              [class.border-danger]="formSuratSakit.controls.tgl_akhir.hasError('required') && submittedSurat"
+              formControlName="tgl_akhir" class="form-control" >
+
+            <div class="form-text text-danger"
+              *ngIf="formSuratSakit.controls.tgl_akhir.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+            <div class="form-text text-danger"
+              *ngIf="formSuratSakit.value.hari<=0 && submittedSurat">
+              Tanggal selesai tidak boleh kurang dari tanggal mulai
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Hari<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text" disabled [class.border-danger]="formSuratSakit.controls.hari.hasError('required') && submittedSurat"
+              formControlName="hari" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratSakit.controls.hari.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+      
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Keterangan<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <textarea [class.border-danger]="formSuratSakit.controls.keterangan.hasError('required') && submittedSurat"
+            formControlName="keterangan" class="form-control" rows="5"></textarea>
+            <div class="form-text text-danger"
+              *ngIf="formSuratSakit.controls.keterangan.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-footer">
+        <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton"
+          (click)="closeBtn(2)">Batal</button>
+        <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+          <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+          Simpan
+        </button>
+      </div>
+    </form>
+  </jw-modal>
+  <jw-modal id="modalSuratRujukan">
+    <form [formGroup]="formSuratRujukan" (submit)="saveSurat(3)">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Form Surat Rujukan</h4>
+      </div>
+      <div class="modal-body">
+  
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Nama Poli<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text"
+              [class.border-danger]="formSuratRujukan.controls.poli.hasError('required') && submittedSurat"
+              formControlName="poli" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratRujukan.controls.poli.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Nama Rumah Sakit<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text" 
+              [class.border-danger]="formSuratRujukan.controls.rs.hasError('required') && submittedSurat"
+              formControlName="rs" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratRujukan.controls.rs.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+       
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Diagnosa Sementara<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <textarea [class.border-danger]="formSuratRujukan.controls.diagnosa.hasError('required') && submittedSurat"
+            formControlName="diagnosa" class="form-control" rows="5"></textarea>
+            <div class="form-text text-danger"
+              *ngIf="formSuratRujukan.controls.diagnosa.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Nama Tindakan Terapi<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <textarea [class.border-danger]="formSuratRujukan.controls.tindakan.hasError('required') && submittedSurat"
+            formControlName="tindakan" class="form-control" rows="5"></textarea>
+            <div class="form-text text-danger"
+              *ngIf="formSuratRujukan.controls.tindakan.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-footer">
+        <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton"
+          (click)="closeBtn(3)">Batal</button>
+        <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+          <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+          Simpan
+        </button>
+      </div>
+    </form>
+  </jw-modal>
+  <jw-modal id="modalSuratDiagnosa">
+    <form [formGroup]="formSuratDiagnosa" (submit)="saveSurat(4)">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Form Surat Diagnosa</h4>
+      </div>
+      <div class="modal-body">
+  
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Pekerjaan<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <input type="text"
+              [class.border-danger]="formSuratDiagnosa.controls.pekerjaan.hasError('required') && submittedSurat"
+              formControlName="pekerjaan" class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formSuratDiagnosa.controls.pekerjaan.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Diagnosa<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <textarea [class.border-danger]="formSuratDiagnosa.controls.diagnosa.hasError('required') && submittedSurat"
+            formControlName="diagnosa" class="form-control" rows="5"></textarea>
+            <div class="form-text text-danger"
+              *ngIf="formSuratDiagnosa.controls.diagnosa.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Terapi<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <textarea [class.border-danger]="formSuratDiagnosa.controls.terapi.hasError('required') && submittedSurat"
+            formControlName="terapi" class="form-control" rows="5"></textarea>
+            <div class="form-text text-danger"
+              *ngIf="formSuratDiagnosa.controls.terapi.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label fw-bold">Saran<span class="text-danger"><b>*</b></span></label>
+          <div class="col-sm-9">
+            <textarea [class.border-danger]="formSuratDiagnosa.controls.saran.hasError('required') && submittedSurat"
+            formControlName="saran" class="form-control" rows="5"></textarea>
+            <div class="form-text text-danger"
+              *ngIf="formSuratDiagnosa.controls.saran.hasError('required') && submittedSurat">
+              Isi tidak boleh kosong
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-footer">
+        <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton"
+          (click)="closeBtn(4)">Batal</button>
+        <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+          <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+          Simpan
+        </button>
+      </div>
+    </form>
+  </jw-modal>
+</section>

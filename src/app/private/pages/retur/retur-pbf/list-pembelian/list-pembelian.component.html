@@ -1,0 +1,51 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Retur'" [items]="[]" [active_item]="'Buat Retur'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-3">Buat Retur</h3>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      <button type="button" [routerLink]="['../view']" class="btn-space bg-warning text-light mb-3" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali </button>
+
+      <div class="card">
+
+        <div class="header">
+          <h2><strong>List Pembelian</strong> </h2>
+        </div>
+        <div class="body">
+
+        <table class="table table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>No Faktur</th>
+                <th>Total</th>
+                <th>Metode Pembayaran</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+               
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

@@ -1,0 +1,298 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Jadwal Staff'" [items]="['Data Jadwal']" [active_item]="'Edit'"></app-breadcrumb>
+    </div>
+
+    
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-md-12 mb-3">
+        <button type="button" [routerLink]="['../../view']"  class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+        </div>
+        <form [formGroup]="formInput" (submit)="SubmitForm()">
+          <div class="card">
+            <div class="card-header bg-light">
+              <h4 >Edit Pengaturan Jadwal Staff</h4>
+            </div>
+            
+              <div class="body">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="col-form-label fw-bold">Staff *</label>
+                    <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    placeholder="Pilih akun staff"
+                    [searchable]="true"
+                    formControlName="id_akun_staff"
+                    [loading]="loadingListStaff"
+                    [class.border-danger]="formInput.controls.id_akun_staff.hasError('required') && submitted"
+                    [clearable]="true"
+                    [clearSearchOnAdd]="true"
+                    (clear)="prosesSelectStaff($event, 'clear')"
+                    (search)="prosesSelectStaff($event, 'search')"
+                    (scrollToEnd)="prosesSelectStaff($event, 'last_page')"
+                    (open)="prosesSelectStaff($event, 'open')"
+                  >
+                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                  <ng-option *ngFor="let itm of listStaff" [value]="itm.id_akun_staff">{{itm.nama_lengkap}}</ng-option>
+                    </ng-select>
+                    <div
+                      class="form-text text-danger"
+                      *ngIf="formInput.controls.id_akun_staff.hasError('required') && submitted">
+                        Akun Staff tidak boleh kosong
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label fw-bold"> Nama Staff *</label>
+                    <input type="text" placeholder="Nama Staf" class="form-control">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label fw-bold">Kategori *</label>
+                    <ng-select placeholder="Pilih kategori" formControlName="kategori" [class.border-danger]="formInput.controls.kategori.hasError('required') && submitted">
+                      <ng-option value="masuk">masuk</ng-option>
+                      <ng-option value="libur">Libur</ng-option>
+                    </ng-select>
+                    <div class="form-text text-danger" *ngIf="formInput.controls.kategori.hasError('required') && submitted">
+                      Kategori masuk tidak boleh kosong
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label fw-bold">Tgl Awal *</label>
+                    <div class="input-group">
+                      <input type="text" bsDatepicker
+                      [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                      [outsideClick]="true"
+                      class="form-control"
+                      [minDate]="minDate"
+                      formControlName="tgl_masuk"
+                      [class.border-danger]="formInput.controls.tgl_masuk.hasError('required') && submitted"
+                      placeholder="Tanggal Masuk" id="tgl2">
+                      <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl2')">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    </div>
+                    <div
+                      class="form-text text-danger"
+                      *ngIf="formInput.controls.tgl_masuk.hasError('required') && submitted">
+                        Tanggal masuk tidak boleh kosong
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label fw-bold">Repeat</label>
+                    <div style="display: flex;">
+                      <div class="form-check " style="margin-right: 10px;">
+                        <input class="form-check-input" type="radio" name="repeat" formControlName="repeat" value="none" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          None
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="repeat" formControlName="repeat" value="every">
+                        <label class="form-check-label">
+                          Every
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <br>
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" (keypress)="isNumber($event)" formControlName="repeat_number" class="form-control">
+                      </div>
+                      <div class="col">
+                        <ng-select formControlName="repeat_date">
+                          <ng-option value="day">Day</ng-option>
+                          <ng-option value="week">Week</ng-option>
+                          <ng-option value="month">Month</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" >
+                    <div class="col-form-label fw-bold">End</div>
+                    <div style="display: flex;">
+                      <div class="form-check" style="margin-right: 10px;">
+                        <input class="form-check-input" type="radio" formControlName="end" value="on">
+                        <label class="form-check-label">
+                          On
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="end" value="never">
+                        <label class="form-check-label">
+                          Never (Max. 1 years)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <br>
+                    <div class="input-group">
+                      <input type="text" bsDatepicker [readonly]="formInput.value.end=='on'?false:true"
+                      [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                      [outsideClick]="true"
+                      formControlName="end_on_date"
+                      class="form-control"
+                      [minDate]="minDate"
+                      placeholder="Pilih tanggal"
+                      id="tgl1">
+                      <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl1')">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label fw-bold">Jadwal Sesi</label>
+                      <ng-select
+                        style="flex: 1 1 auto;"
+                        [virtualScroll]="true"
+                        placeholder="Pilih jadwal sesi"
+                        formControlName="id_jadwal_sesi"
+                        [searchable]="true"
+                        [loading]="loadingListJadwalSesi"
+                        [clearable]="true"
+                        [clearSearchOnAdd]="true"
+                        (clear)="prosesSelectJadwalSesi($event, 'clear')"
+                        (search)="prosesSelectJadwalSesi($event, 'search')"
+                        (scrollToEnd)="prosesSelectJadwalSesi($event, 'last_page')"
+                        (open)="prosesSelectJadwalSesi($event, 'open')"
+                      >
+                      <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                      <ng-option *ngFor="let itm of listJadwalSesi" [value]="itm.id_jadwal_sesi">{{itm.nama_sesi}}</ng-option>
+                      </ng-select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label fw-bold">Ruangan</label>
+                    <ng-select
+                      [virtualScroll]="true"
+                      placeholder="Pilih daftar ruang"
+                      [searchable]="true"
+                      formControlName="id_ruang"
+                      [loading]="loadingListDaftarRuang"
+                      [clearable]="true"
+                      [clearSearchOnAdd]="true"
+                      (clear)="prosesSelectDaftarRuang($event, 'clear')"
+                      (search)="prosesSelectDaftarRuang($event, 'search')"
+                      (scrollToEnd)="prosesSelectDaftarRuang($event, 'last_page')"
+                      (open)="prosesSelectDaftarRuang($event, 'open')"
+                      >
+                      <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                      <ng-option *ngFor="let itm of listDaftarRuang" [value]="itm.id_ruang">{{itm.nama_ruang}}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" (click)="jadwalKhusus=!jadwalKhusus" value="1">
+                  <label class="form-check-label">
+                    <b>Anda dapat membuat jadwal khusus</b>
+                    <p>Centang checkbox untuk membuat jadwal khusus</p>
+                  </label>
+                </div>
+              </div>
+          
+          </div>
+          <div class="card p-2" *ngIf="jadwalKhusus">
+            <div class="hedaer ">
+              <h4 style="float: left;">Jadwal Khusus</h4>
+              <button class="btn-space text-light" color="primary" style="float: right;" mat-raised-button type="button" (click)="simpanDetailSesi()"><i class="fa fa-plus"></i> Tambah</button>
+
+
+            </div>
+            <div class="body">
+              <table class="table tabl-sm table-striped table-bordered table-sm">
+                <thead class="pb-3">
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Jadwal Sesi</th>
+                    <th>Ruangan</th>
+                    <th>Jam Mulai</th>
+                    <th>Jam Selesai</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr formArrayName="detail" *ngFor="let item of formInput.get('detail')['controls']; let i = index">
+                    <ng-container [formGroupName]="i">
+                      <td class="p-3" style="vertical-align: top;">{{ i + 1 }}</td>
+                      <td class="p-3" style="vertical-align: top;">{{ item.value.nama_sesi }}</td>
+                      <td class="p-3" style="vertical-align: top;">
+                          <ng-select
+                              style="flex: 1 1 auto;"
+                              [virtualScroll]="true"
+                              placeholder="Pilih daftar ruang"
+                              [searchable]="true"
+                              formControlName="id_ruang"
+                              [loading]="loadingListDaftarRuang"
+                              [clearable]="true"
+                              [clearSearchOnAdd]="true"
+                              (clear)="prosesSelectDaftarRuang($event, 'clear')"
+                              (search)="prosesSelectDaftarRuang($event, 'search')"
+                              (scrollToEnd)="prosesSelectDaftarRuang($event, 'last_page')"
+                              (open)="prosesSelectDaftarRuang($event, 'open')"
+                          >
+                            <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                            <ng-option *ngFor="let itm of listDaftarRuang" [value]="itm.id_ruang">{{itm.nama_ruang}}</ng-option>
+                          </ng-select>
+                      </td>
+                      <td class="p-3" style="vertical-align: top;">
+                        <timepicker  formControlName="jam_mulai" [minuteStep]="1" [showMeridian]="false" ></timepicker>
+                      </td>
+                      <td class="p-3" style="vertical-align: top;">
+                        <timepicker  formControlName="jam_selesai" [minuteStep]="1" [showMeridian]="false" ></timepicker>
+                      </td>
+                      <td class="p-3">
+                        <button class="btn btn-link circle-danger text-ui-danger" type="button" (click)="deleteDetailSesi(i)">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+              
+            </div>
+          </div>
+          <div class="card mb-3" *ngIf="errorMessage != null">
+              <div class="row mb-3">
+  
+                  <div class="alert alert-danger" role="alert">
+                    {{ errorMessage.metaData.message }}
+                    <ul *ngFor="let item of errorMessage.response" >
+                      <li>{{ item.field }} : {{ item.message }}</li>
+                    </ul>
+                  </div>
+  
+                </div>
+          </div>
+
+          <div class="text-right">
+            <button class="btn-space bg-warning text-light" mat-raised-button type="button" [routerLink]="['../../view']" >
+              Cancel
+            </button>
+            <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+              <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <ngx-spinner
+    [name]="'spinner1'"
+    bdColor = "rgba(0, 0, 0, 0.8)"
+    size = "medium"
+    color = "#fff"
+    type = "ball-clip-rotate-multiple"
+    [fullScreen] = "true">
+    <p style="color: white" > Loading... </p>
+</ngx-spinner>
+
+  </div>
+</section>

@@ -1,0 +1,408 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Retur'" [items]="[]" [active_item]="'Retur Pembelian'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-3">Tambah Retur PBF</h3>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      
+      <button type="button" [routerLink]="['../../list-pembelian']"  class="btn-space bg-warning text-light mb-3" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+
+      <div class="card">
+        <div class="header"><h2><b>Informasi Pembelian</b></h2></div>
+        <div class="body">
+          <div class="row" *ngIf="detail">
+            <div class="col-md-6">
+              <div class="row mb-2">
+                <div class="col-md-4">No Faktur</div>
+                <div class="col-md-8 ">
+                  : {{detail.nomor_faktur}}
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4">Tanggal Faktur</div>
+                <div class="col-md-8 ">
+                  : {{convertDate(detail.tgl_faktur_unix)}}
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4">Tanggal Ditrima</div>
+                <div class="col-md-8 ">
+                  : {{convertDate(detail.tgl_diterima_unix)}}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-2">
+                <div class="col-md-4">Metode Pembayaran</div>
+                <div class="col-md-8 ">
+                  : {{detail.pembayaran}}
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4">Jatuh Tempo</div>
+                <div class="col-md-8 ">
+                  : {{convertDate(detail.jatuh_tempo_unix)}}
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4">Nama PBF</div>
+                <div class="col-md-8 ">
+                  : {{detail.nama_supplier}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header">
+          <h2><strong>Pembelian Obat</strong> </h2>
+        </div>
+        <div class="body">
+
+          <table class="table table-sm table-striped table-bordered">
+            <thead>
+              <tr>
+                <td>No</td>
+                <th>Barang</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Harga</th>
+                <th>Diskon</th>
+                <th>Sub Total</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listPembelianObat; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama_obat}}</td>
+                <td>{{item.satuan_qty}}</td>
+                <td>{{item.satuan}}</td>
+                <td>{{Money(item.satuan_harga)}}</td>
+                <td>{{Money(item.diskon_rupiah)}}</td>
+                <td>{{Money(item.total_harga-item.diskon_rupiah)}}</td>
+                <td>
+                  <button class="btn btn-link circle-success text-ui-success" *ngIf="!item.isDisable" (click)="modalRetur(item,i,1)"><i class="far fa-check-square"></i></button>
+                  <button class="btn btn-link circle-success text-ui-success" *ngIf="item.isDisable" disabled><i class="far fa-check-square"></i></button>
+                </td>
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+
+        <div class="header">
+          <h2><strong>Pembelian Alat Kesehatan</strong> </h2>
+        </div>
+        <div class="body">
+
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+              <tr>
+                <td>No</td>
+                <th>Barang</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Harga</th>
+                <th>Diskon</th>
+                <th>Sub Total</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listPembelianAlat; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama_alat_kesehatan}}</td>
+                <td>{{item.satuan_qty}}</td>
+                <td>{{item.satuan}}</td>
+                <td>{{Money(item.satuan_harga)}}</td>
+                <td>{{Money(item.diskon_rupiah)}}</td>
+                <td>{{Money(item.total_harga-item.diskon_rupiah)}}</td>
+                <td>
+                  <button class="btn btn-link circle-success text-ui-success" *ngIf="!item.isDisable" (click)="modalRetur(item,i,0)" ><i class="far fa-check-square"></i></button>
+                  <button class="btn btn-link circle-success text-ui-success" *ngIf="item.isDisable" disabled ><i class="far fa-check-square"></i></button>
+                </td>
+              </tr>
+            
+            </tbody>
+          </table>
+
+          <div class="col-sm-4 offset-sm-8" *ngIf="detail">
+            <table class="table table-sm table-striped table-bordered" width="100%">
+              <tbody>
+                <tr>
+                  <td>Sub Total</td>
+                  <td></td>
+                  <td>{{Money(totalBayar)}}</td>
+                </tr>
+                <tr *ngIf="detail.ppn=='belum'">
+                  <td>PPN</td>
+                  <td>{{detail.ppn_nilai}}%</td>
+                  <td>{{Money(ppn)}}</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td></td>
+                  <td>{{Money(totalRetur)}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" (click)="openMutasi=!openMutasi" style="border-radius: 10px;cursor: pointer; background: white;border-bottom: 0px;padding: 11px 15px 0px 15px;">
+          <h4 style=" float: left;" >Mutasi retur</h4>
+          <span style="float: right;">
+            <i [class]="openMutasi?'fa fa-chevron-up':'fa fa-chevron-down'"></i>
+          </span>
+        </div>
+        <div class="card-body" *ngIf="openMutasi">
+          <h5 class="text-center p-2" *ngIf="mutasi.length==0" style="background-color: rgb(246, 243, 243);"><b>Belum ada mutasi</b></h5>
+          <div *ngFor="let itm of mutasi">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="row mb-2">
+                  <div class="col-md-4">No Retur</div>
+                  <div class="col-md-8">: {{itm.kode_invoice_full}}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-4">Tanggal Retur</div>
+                  <div class="col-md-8">: {{convertDate(itm.created_at_unix)}}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-4">Dilakukan Oleh</div>
+                  <div class="col-md-8">: {{itm.nama_lengkap}}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-4">Status Retur</div>
+                  <div class="col-md-8">: {{itm.status_pengajuan}}</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5>Alasan Retur</h5>
+                    <p>{{itm.alasan_retur}}</p>
+                  </div>
+                </div>
+              </div>
+            
+            </div>
+            <h4>Obat yang diretur</h4>
+            <table class="table table-sm table-striped table-bordered"  >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Barang</th>
+                  <th>Jumlah</th>
+                  <th>Satuan</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let barang of itm.gudang_retur_obat;let i=index">
+                <td>{{i+1}}</td>
+                <td>{{barang.nama_obat}}</td>
+                <td>{{barang.total_qty}}</td>
+                <td>{{barang.satuan}}</td>
+              </tr>
+              <tr *ngIf="itm.gudang_retur_obat.length==0">
+                <td class="text-center" colspan="4"><b>Tidak ada obat yang diretur</b></td>
+              </tr>
+              </tbody>
+            </table>
+            <h4>Alat kesehatan yang diretur</h4>
+            <table class="table table-sm table-striped table-bordered"  >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Barang</th>
+                  <th>Jumlah</th>
+                  <th>Satuan</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let barang of itm.gudang_retur_alat_kesehatan;let i=index">
+                <td>{{i+1}}</td>
+                <td>{{barang.nama_alat_kesehatan}}</td>
+                <td>{{barang.total_qty}}</td>
+                <td>{{barang.satuan}}</td>
+              </tr>
+              <tr *ngIf="itm.gudang_retur_alat_kesehatan.length==0">
+                <td class="text-center" colspan="4"><b>Tidak ada alat kesehatan yang diretur</b></td>
+              </tr>
+              </tbody>
+            </table>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+        <h4><strong>Aktivitas Retur</strong> </h4>
+        </div>
+        <div class="body">
+          <h5><strong>Obat yang diretur</strong> </h5>
+          <table class="table table-sm table-striped table-bordered" width="100%">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Barang</th>
+                <th>In Stock</th>
+                <th>Jumlah </th>
+                <th>Satuan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of listReturObat; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama}}</td>
+                <td>{{item.stock}}</td>
+                <td>{{satuan_qty_obat[i]}}</td>
+                <td>
+                  {{item.satuan}}
+                </td>
+                <td>
+                  <button class="btn btn-link circle-danger text-ui-danger" (click)="hapusRetur(i,item,'obat')"><i class="far fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="body">
+          <h5><strong>Alat kesehatan yang diretur</strong> </h5>
+          <table class="table table-sm table-striped table-bordered" width="100%">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Barang</th>
+                <th>In Stock</th>
+                <th>Jumlah </th>
+                <th>Satuan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listReturAlat; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama}}</td>
+                <td>{{item.stock}}</td>
+                <td>{{satuan_qty_alat[i]}}</td>
+                <td>{{item.satuan}}</td>
+               
+                <td>
+                  <button class="btn btn-link circle-danger text-ui-danger" (click)="hapusRetur(i,item,'alat')"><i class="far fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="body">
+          <div class="form-text text-danger" *ngIf="listReturObat.length==0 && listReturAlat.length==0 && submitted">
+            Retur obat dan alat kesehatan  masih kosong
+          </div>
+        </div>
+        
+        <div class="body">
+        
+            <div class="mb-3 col-sm-6">
+              <label for="text-alasanretur" class="form-label fw-bold">Alasan retur<span class="text-danger"><b>*</b></span></label>
+              <textarea name="alasan" id="text-alasanretur" [(ngModel)]="alasan" rows="5" class="form-control"></textarea>
+              <div class="form-text text-danger" *ngIf="alasan=='' && submitted">
+                Alasan retur tida boleh kosong
+              </div>
+            </div>
+            
+            <!-- <div class="mb-3 col-sm-6">
+              <textarea name="" id="text-alasanretur" rows="5" class="form-control"></textarea>
+            </div> -->
+
+            <div class="col-sm-12 text-center pt-5">
+              <button class="btn-space bg-success text-light" mat-raised-button (click)="simpan()">Simpan Retur</button>
+            </div>
+        </div>
+        
+      </div>
+      
+
+    </div>
+
+    <jw-modal id="modalRetur">
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Penyelesaian Retur</h4>
+      </div>
+      <div class="modal-body" [formGroup]="formInput">
+        <div class="row mb-2">
+          <div class="col-md-5">
+            <label for="">Nama {{returType?"Obat":"Alat Kesehatan"}}</label>
+            <input type="text" class="form-control" readonly formControlName="nama">
+          </div>
+          <div class="col-md-3">
+            <label for="">Jumlah<span class="text-danger"><b>*</b></span></label>
+            <input type="text" (keypress)="isNumber($event)" class="form-control" formControlName="jml">
+            <div class="col-md-12 text-danger" *ngIf="formInput.value.jml<=0&&submitted">
+              Jumlah tidak boleh kosong
+            </div>
+            <div class="col-md-12 text-danger" *ngIf="formInput.value.jml>maxRetur&&submitted">
+              Jumlah tidak boleh lebih dari pembelian
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="">Satuan<span class="text-danger"><b>*</b></span></label>
+            <select  type="text" class="form-control" formControlName="satuan">
+              <option value="">Pilih Satuan</option>
+              <option *ngFor="let item of listSatuan; let i=index" [value]="item.nama_kemasan" [disabled]="item.kemasan_level>satuanJual.kemasan_level" >{{item.nama_kemasan}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <label for="">No Batch</label>
+            <input type="text" class="form-control" readonly formControlName="no_batch">
+          </div>
+          <div class="col-md-6">
+            <label for="">ED</label>
+            <div class="input-group">
+              <input type="text"bsDatepicker disabled
+              [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+              [outsideClick]="true"
+              formControlName="tgl_diterima"
+              class="form-control"
+              placeholder="Pilih tanggal" formControlName="tanggal_ed" id="tgl2">
+              <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl2')">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+
+        <div class="text-right mb-3">
+          <button class="btn-space bg-success text-light" mat-raised-button type="submit" (click)="addRetur()" color="primary">
+            Simpan
+          </button>
+          <button class="btn-space bg-warning text-light" mat-raised-button type="button" (click)="close()" color="primary">
+            Batal
+          </button>
+        </div>
+
+      </div>
+    </jw-modal>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

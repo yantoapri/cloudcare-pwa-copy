@@ -1,0 +1,114 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manajemen Klinik'" [items]="['']" [active_item]="'Informasi Klinik'"></app-breadcrumb>
+    </div>
+
+    <h3 class="text-center mb-3">Informasi Klinik</h3>
+
+    <div class="">
+      <div class="col-md-12">
+
+
+        <div class="card">
+          <div class="header">
+          </div>
+          <div class="body px-4">
+
+            <table class="table">
+              <tbody>
+                <!-- <tr>
+                  <th>Pro</th>
+                  <td>: </td>
+                </tr> -->
+				
+				<tr>
+                  <th style="vertical-align: top;">Nama Pemimpin</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    {{ infoKlinik?.config_nama_pimpinan}}
+                  </td>
+                </tr>
+				<tr>
+                  <th style="vertical-align: top;">PPN</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    {{ infoKlinik?.config_ppn}}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: top;" width="15%">Provinsi</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    {{ infoKlinik?.provinsi}}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: top;" width="15%">Kabupaten / Kota</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    {{ infoKlinik?.kabupaten}}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: top;" width="15%">Kecamatan</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    {{ infoKlinik?.kecamatan}}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: top;" width="15%">Desa / Kelurahan</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    {{ infoKlinik?.desa}}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: top;" width="15%">Alamat Klinik</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    {{ infoKlinik?.alamat_klinik }} {{ infoKlinik?.desa }} {{ infoKlinik?.kecamatan }}
+                    {{ infoKlinik?.kabupaten }} {{ infoKlinik?.provinsi}}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: top;">Header Kop Surat</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    <img src="{{ infoKlinik?.image_header_url }}" class="img img-responsive" width="595" height="100" alt="">
+
+                  </td>
+                </tr>
+				<tr>
+                  <th style="vertical-align: top;">Image TTD</th>
+                  <td style="vertical-align: top;">:</td>
+                  <td style="vertical-align: top;">
+                    <img src="{{ infoKlinik?.image_ttd_url}}" alt="" class="img img-responsive" width="100" height="100">
+                  </td>
+                </tr>
+				
+              </tbody>
+            </table>
+
+          </div>
+          <div class="footer text-center mb-3" *ngIf="btnEdit">
+            <button *ngIf="id!=null" [routerLink]="['../../edit/'+id]" class="btn-space" mat-raised-button color="primary"><i class="far fa-edit"></i></button>
+            <button *ngIf="id==null" [routerLink]="['../edit/']" class="btn-space" mat-raised-button color="primary"><i class="far fa-edit"></i></button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

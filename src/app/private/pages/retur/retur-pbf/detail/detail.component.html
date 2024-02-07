@@ -1,0 +1,112 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Retur'" [items]="[]" [active_item]="'Detail Retur Pembelian'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-3">Detail Retur Pembelian</h3>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      <button type="button" [routerLink]="['../../']" class="btn-space bg-warning text-light mb-3" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali </button>
+
+      <div class="card">
+        <div class="body">
+          <div class="row mb-2">
+            <div class="col-2">No Retur</div>
+            <div class="col-3">: {{detailRetur.kode_invoice_full}}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-2">Retur Tujuan</div>
+            <div class="col-3">: {{detailRetur.retur_tujuan}}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-2">Alasan Retur</div>
+            <div class="col-3">: {{detailRetur.alasan_retur}}</div>
+          </div>
+        </div>
+        <div class="header">
+          <h2><strong>Detail Retur Pembelian Obat</strong> </h2>
+        </div>
+        <div class="body">
+
+          <table class="table table-striped table-bordered table-sm" width="100%" >
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Obat</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Harga</th>
+                <th>Diskon</th>
+                <th>Sub total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of detailRetur.gudang_retur_obat; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama_obat}}</td>
+                <td>{{item.satuan_qty}}</td>
+                <td>{{item.satuan}}</td>
+                <td>{{Money(item.satuan_harga)}}</td>
+                <td>{{Money(item.diskon_rupiah)}}</td>
+                <td>{{Money((item.satuan_harga*item.satuan_qty)-item.diskon_rupiah)}}</td>
+              </tr>
+              <tr>
+                <td colspan="6">Total</td>
+                <td>{{Money(total_obat)}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="header">
+          <h2><strong>Detail Retur Pembelian Alat Kesehatan</strong> </h2>
+        </div>
+        <div class="body">
+
+          <table class="table table-striped table-bordered table-sm" width="100%" >
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Alat Kesehatan</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Harga</th>
+                <th>Diskon</th>
+                <th>Sub total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of detailRetur.gudang_retur_alat_kesehatan; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama_alat_kesehatan}}</td>
+                <td>{{item.satuan_qty}}</td>
+                <td>{{item.satuan}}</td>
+                <td>{{Money(item.satuan_harga)}}</td>
+                <td>{{Money(item.diskon_rupiah)}}</td>
+                <td>{{Money((item.satuan_harga*item.satuan_qty)-item.diskon_rupiah)}}</td>
+              </tr>
+              <tr>
+                <td colspan="6">Total</td>
+                <td>{{Money(total_alat)}}</td>
+              </tr>
+            </tbody>
+          </table>
+            <br>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+    [name]="'spinner1'"
+    bdColor = "rgba(0, 0, 0, 0.8)"
+    size = "medium"
+    color = "#fff"
+    type = "ball-clip-rotate-multiple"
+    [fullScreen] = "true">
+    <p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

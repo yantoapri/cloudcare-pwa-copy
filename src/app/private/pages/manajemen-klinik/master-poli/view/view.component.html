@@ -1,0 +1,109 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manajemen Klinik'" [items]="[]" [active_item]="'Master Poli'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Master Poli</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngIf="btnAdd" (click)="FormModalOpen()" class="btn-space" mat-raised-button color="primary"><i class="fas fa-plus-circle"></i> Tambah Poli</button>
+        <br>
+        <br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Master Poli</strong> </h2>
+          </div>
+          <div class="body">
+
+            <table class="table table-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Poli</th>
+                  <th>Nama Table</th>
+                  <th>Status Aktif</th>
+                  <th style="width:100px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <jw-modal id="modalFormContent">
+
+                  <form [formGroup]="formTambah" (submit)="SubmitForm()">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">{{ titleModal }}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                      <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label fw-bold">Nama Poli</label>
+                        <div class="col-sm-9">
+                          <input type="text"
+                          class="form-control"
+                          [class.border-danger]="formTambah.controls.nama_poli.hasError('required') && submitted"
+                          formControlName="nama_poli" placeholder="Nama Poli">
+                          <div
+                          class="form-text text-danger"
+                          *ngIf="formTambah.controls.nama_poli.hasError('required') && submitted">
+                            Nama poli tidak boleh kosong
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label fw-bold">Nama Tabel</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control"
+                          formControlName="nama_table"
+                          [class.border-danger]="formTambah.controls.nama_table.hasError('required') && submitted"
+                          placeholder="Nama Table">
+                          <div
+                          class="form-text text-danger"
+                          *ngIf="formTambah.controls.nama_table.hasError('required') && submitted">
+                            Nama tabel tidak boleh kosong
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label fw-bold">Status Aktif</label>
+                        <div class="col-sm-9">
+
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" formControlName="status_aktif" id="status_aktif" name="darkmode" (click)="setStatus(this.formTambah.value.status_aktif == 1 ? 0 : 1)" [checked]="formTambah.value.status_aktif==1?true:false">
+								<label class="form-check-label" for="status_aktif">{{formTambah.value.status_aktif?'Aktif':'Tidak Aktif'}}</label>
+							</div>
+
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton" (click)="closeModal()">Batal</button>
+                      <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+                        <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+                        Simpan
+                      </button>
+                    </div>
+                  </form>
+
+            </jw-modal>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

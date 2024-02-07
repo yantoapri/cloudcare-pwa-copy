@@ -1,0 +1,158 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Laporan'" [items]="[]" [active_item]="'Laporan Kunjungan Klinik'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Laporan Kunjungan Klinik</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+
+        <div class="card">
+          <div class="header">
+            <h2><strong>Pencarian</strong> </h2>
+          </div>
+          <div class="body">
+            <form [formGroup]="formInput">
+              <div class="row">
+                <label class="col-sm-2 col-form-label fw-bold">Periode Pendaftaran</label>
+                <div class="col-sm-10">
+                  <input type="text" [class.border-danger]="formInput.value.date_from==null && search" 
+                  formControlName="date_from" placeholder="Periode Pendaftaran" bsDaterangepicker
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY' }"
+                  [maxDate]="maxDate" class="form-control">
+                  <div class="form-text text-danger"
+                      *ngIf="formInput.value.date_from==null && search">
+                      Periode pendaftaran tidak boleh kosong
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-sm-2 col-form-label fw-bold">Pasien</label>
+                <div class="col-sm-10">
+                  <select class="form-select" [class.border-danger]="formInput.value.jenis_pasien==null && search" formControlName="jenis_pasien">
+                    <option value="all" selected>Semua Pasien</option>
+                    <option value="reguler">Reguler</option>
+                    <option value="bpjs">BPJS</option>
+                  </select>
+                  <div class="form-text text-danger"
+                      *ngIf="formInput.value.jenis_pasien==null && search">
+                      Jenis pasien tidak boleh kosong
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label fw-bold">Poliklinik</label>
+                <div class="col-sm-10">
+                  <select class="form-select" [class.border-danger]="formInput.value.id_poliklinik==null && search" formControlName="id_poliklinik">
+                    <option value="all" selected>Semua Poliklinik</option>
+                    <option *ngFor="let item of listPoliklinik; let i=index" value="{{item.id_poliklinik}}">{{item.nama_poliklinik}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label fw-bold">Sesi</label>
+                <div class="col-sm-10">
+                  <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    placeholder="Pilih jadwal sesi"
+                    formControlName="sesi"
+                    [searchable]="true"
+                    [loading]="loadingListJadwalSesi"
+                    [clearable]="true"
+                    (clear)="prosesSelectJadwalSesi($event, 'clear')"
+                    [clearSearchOnAdd]="true"
+                    (search)="prosesSelectJadwalSesi($event, 'search')"
+                    (scrollToEnd)="prosesSelectJadwalSesi($event, 'last_page')"
+                    (open)="prosesSelectJadwalSesi($event, 'open')"
+                  >
+                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                  <ng-option *ngFor="let item of listSesi" [value]="item.id_jadwal_sesi">
+                    {{item.nama_sesi}}
+                  </ng-option>
+                  </ng-select>
+                  <div class="form-text text-danger"
+                      *ngIf="formInput.value.sesi==null && search">
+                      Sesi tidak boleh kosong
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 text-right">
+                  <button class="btn-space bg-success text-light" mat-raised-button color="success" type="button" (click)="export()"><i class="fa fa-download"></i> Excel</button>
+                  <button class="btn-space" mat-raised-button color="primary" (click)="searchAction()" type="button"><i class="fa fa-search"></i> Cari</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="header">
+          </div>
+          <div class="body">
+
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link" [class.active]="tabPane.pane1" (click)="ShowTabPane(1)" type="button" >DATA PASIEN</button>
+                <button class="nav-link" [class.active]="tabPane.pane2" (click)="ShowTabPane(2)" type="button" >REKAM MEDIS</button>
+
+              </div>
+            </nav>
+
+            <div class="tab-content">
+              <div class="tab-pane fade" [class.active]="tabPane.pane1" [class.show]="tabPane.pane1">
+                <div class="row">
+                  <div class="col-xs-12 col-md-12 pt-3">
+                    <div class="table-responsive" >
+                      <table class="table table-sm table-striped table-bordered table-sm table-sm" datatable [dtOptions]="dtOptions" width="100%">
+                        <thead>
+
+                          <tr>
+                            <th>No</th>
+                            <th>No RM</th>
+                            <th>BPJS</th>
+                            <th>Nama</th>
+                            <th>JK</th>
+                            <th>Usia</th>
+                            <th>Alamat</th>
+                            <th>Tgl Registrasi</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane2" [class.show]="tabPane.pane2">
+                <app-rekam-medis [PasienProperty]="pasienJson" [open]="tabPane.pane2"></app-rekam-medis>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+[name]="'spinner1'"
+bdColor = "rgba(0, 0, 0, 0.8)"
+size = "medium"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+[fullScreen] = "true">
+<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

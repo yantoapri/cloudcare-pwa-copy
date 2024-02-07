@@ -1,0 +1,102 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Manajemen Peforma KPI'" [items]="[]" [active_item]="'Manajemen Peforma KPI'"></app-breadcrumb>
+        </div>
+        <h3 class="text-center mb-4">Manajemen Peforma KPI</h3>
+        <div class="">
+            <div class="col-md-12">
+                <div class="text-right mb-2" style="width: 100%;">
+                    <!-- <div class="dropdown btn-download pull-right"  > -->
+                        <button class="btn-space mb-2 dropdown-toggle" mat-raised-button color="basic" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-no-margin" aria-labelledby="dropdownMenuButton1" >
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <svg width="18" style="position: relative;top: -2px;" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.38256 2.39737L11.8576 0.900707C11.9167 0.892226 11.9769 0.896553 12.0342 0.913394C12.0915 0.930235 12.1445 0.959197 12.1897 0.998317C12.2348 1.03744 12.271 1.0858 12.2958 1.14013C12.3206 1.19446 12.3334 1.25348 12.3334 1.31321V18.6857C12.3334 18.7453 12.3206 18.8043 12.2958 18.8586C12.2711 18.9128 12.235 18.9611 12.1899 19.0002C12.1449 19.0393 12.092 19.0683 12.0348 19.0852C11.9776 19.1021 11.9174 19.1066 11.8584 19.0982L1.38173 17.6015C1.18308 17.5732 1.0013 17.4742 0.869801 17.3227C0.738298 17.1711 0.665895 16.9772 0.665894 16.7765V3.22237C0.665895 3.02172 0.738298 2.8278 0.869801 2.67624C1.0013 2.52469 1.18391 2.42567 1.38256 2.39737ZM2.33339 3.94487V16.0532L10.6667 17.2449V2.75321L2.33339 3.94487ZM13.1667 15.8324H15.6667V4.16571H13.1667V2.49904H16.5001C16.7211 2.49904 16.933 2.58684 17.0893 2.74312C17.2456 2.8994 17.3334 3.11136 17.3334 3.33237V16.6657C17.3334 16.8867 17.2456 17.0987 17.0893 17.255C16.933 17.4112 16.7211 17.499 16.5001 17.499H13.1667V15.8324ZM7.50006 9.99904L9.83339 13.3324H7.83339L6.50006 11.4274L5.16673 13.3324H3.16673L5.50006 9.99904L3.16673 6.66571H5.16673L6.50006 8.57071L7.83339 6.66571H9.83339L7.50006 9.99904Z" fill="#039855"/>
+                                    </svg>
+                                    EXCEL
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <svg tyle="position: relative;top: -2px;" width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.16667 2.33269H10.5V5.66602H13.8333V15.666H2.16667V2.33269ZM1.33167 0.666019C1.22278 0.665691 1.11489 0.686812 1.01417 0.728178C0.913442 0.769544 0.821851 0.830345 0.744624 0.907108C0.667397 0.983871 0.606045 1.07509 0.564072 1.17557C0.5221 1.27604 0.500328 1.3838 0.5 1.49269V16.506C0.501746 16.7249 0.589515 16.9342 0.744348 17.0889C0.899181 17.2436 1.10865 17.3312 1.3275 17.3327H14.6725C14.782 17.3319 14.8903 17.3096 14.9912 17.2669C15.092 17.2243 15.1835 17.1622 15.2603 17.0842C15.3372 17.0062 15.3979 16.9138 15.439 16.8123C15.4802 16.7108 15.5009 16.6022 15.5 16.4927V4.83269L11.3333 0.666019H1.33167ZM6.75 5.24935C6.75 6.56352 6.37 8.11352 5.72917 9.54352C5.08583 10.9794 4.2175 12.2077 3.3125 12.9319L4.29583 14.276C6.735 12.6494 9.43583 11.5344 12.0483 11.9077L12.43 10.2919C10.2033 9.55019 8.41667 7.32435 8.41667 5.24935H6.75ZM7.25 10.226C7.4725 9.72852 7.67 9.21269 7.83667 8.69019C8.23447 9.29794 8.7127 9.84905 9.25833 10.3285C8.44 10.4752 7.63833 10.716 6.8625 11.0227C7 10.761 7.12917 10.4952 7.25 10.226Z" fill="#F04438"/>
+                                    </svg>
+                                    PDF
+                                </a>
+                            </li>
+                        </ul>
+                    <!-- </div> -->
+                    <button class="btn-space btn-secondary mb-2 p" mat-raised-button (click)="showFilter=true"><img src="/assets/images/icon-filter.png" alt=""> KPI</button>
+                    
+                    
+                </div>
+                <div class="card mb-2" *ngIf="showFilter">
+                    <div class="px-3 py-2">
+                        <div style="display: contents;">
+                            <h4 style="float: left;">Filter KPI</h4>
+                            <span class="closeFilter" (click)="showFilter=false"><i class="fa fa-times"></i></span>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="formTambah" (ngSubmit)="submitForm()">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label >Peiode  Tanggal</label>
+                                    <div class="input-group">
+                                        <input type="text" formControlName="date_from" bsDaterangepicker 
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY' }"class="form-control">
+                                        <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl')">
+                                        <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Pilih Akun Staff</label>
+                                    <ng-select 
+                                        style="flex: 1 1 auto;" 
+                                        name="akun"  
+                                        formControlName="id_akun"
+                                        [virtualScroll]="true" 
+                                        placeholder="Pilih Akun"
+                                        [searchable]="true" 
+                                        [clearable]="true"
+                                      
+                                        >
+                                           <ng-option value="">Jhon doe</ng-option>
+                                    </ng-select>
+                                </div>
+                                <div class="col-md-3">
+                                    <br>
+                                    <button class="btn-space " mat-raised-button color="primary">Tampilkan</button>
+                                    <!-- <button class="btn btn-link text-warning">Reset</button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="body table-responsive">
+                        <table class="table table-striped table-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Staff</th>
+                                    <th>Nama Akun</th>
+                                    <th>Tanggal</th>
+                                    <th>Jumlah Pasien Dilayani</th>
+                                    <th>Waktu tunggu Rata-Rata(menit)</th>
+                                    <th>Tingkat Kepuasan Pasien (%)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,162 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Dashboard Farmasi'" [items]="[]" [active_item]="'Dashboard Farmasi'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Dashboard Farmasi</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="formInput">
+              <div class="row mb-3">
+                <div class="col-md-2">Periode Kunjungan</div>
+                <div class="col-md-10">
+                  <input type="text" [class.border-danger]="formInput.value.date_from==null && search" 
+                  formControlName="date_from" placeholder="Periode Pendaftaran" bsDaterangepicker 
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY' }"
+                  [maxDate]="maxDate" class="form-control">
+                  <div class="form-text text-danger"
+                      *ngIf="formInput.value.date_from==null && search">
+                      Periode mulai dan selesai tidak boleh kosong
+                  </div>
+                </div>
+              </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    
+                  </div>
+                  <div class="col-md-8 text-right mt-3">
+                    <button class="btn-space" mat-raised-button
+                    color="primary" (click)="loadData()"><i class="fa fa-search"></i> Search</button>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+        <h4 class="my-3">Data Statistik Periode {{setDate(periode[0])}} s/d {{setDate(periode[1])}}</h4>
+        
+        <div class="">
+          <div class="row">
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Jumlah Antrian Pasien Sesi Pagi</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-user-clock text-primary float-start" ></i>
+                      <span class="col-green">{{data?data.total_antrian:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Jumlah Obat Keluar Bulan Ini</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-capsules text-danger float-start" ></i>
+                      <span class="col-green">{{data?data.obat_keluar:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Total Pasien Pasien Sesi Pagi</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-user-injured text-info float-start" ></i>
+                      <span class="col-green">{{data?data.total_pasien_baru:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Jumlah Pasien BPJS Baru Bulan Ini</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-user-injured text-success float-start" ></i>
+                      <span class="col-green">{{data?data.total_pasien_baru_bpjs:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Periksa Pasien BPJS Bulan Ini</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-user-injured text-success float-start" ></i>
+                      <span class="col-green">{{data?data.kunjungan_pasien_bpjs:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Periksa Pasien Reguler Bulan Ini</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-user-injured text-warning float-start" ></i>
+                      <span class="col-green">{{data?data.kunjungan_pasien_reguler:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Periksa Semua Pasien Bulan Ini</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-user-injured text-danger float-start" ></i>
+                      <span class="col-green">{{data?data.total_kunjungan:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card card-box card-statistic-2 ">
+                <div class="card-body">
+                  <div class="clearfix p-2">
+                    <h5 class="m-b-15">Lama Waktu Pasien Berobat</h5>
+                    <h2 class="text-end">
+                      <i class="fas fa-user-clock text-info float-start" ></i>
+                      <span class="col-green">{{data?data.waktu_tindakan:0}}</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+[name]="'spinner1'"
+bdColor = "rgba(0, 0, 0, 0.8)"
+size = "medium"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+[fullScreen] = "true">
+<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

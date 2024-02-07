@@ -1,0 +1,209 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Master Data'" [items]="['Master Data Obat']" [active_item]="'Tambah Stok Obat'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Tambah Stok Obat</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- <button type="button" [routerLink]="['../tambah-stok-obat']" class="btn btn-tambah" > <i class="fas fa-plus"></i> Tambah Stok Obat</button>
+        <button type="button" [routerLink]="['../tambah-obat']" class="btn btn-tambah pull-right" > <i class="fas fa-plus"></i> Tambah Obat</button> -->
+        <button type="button" [routerLink]="['../view']" class="btn btn-orange"> <i class="fas fa-arrow-left"></i> Kembali</button>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <br>
+
+        <div class="card">
+          <div class="header">
+            <h2><strong>Tambah Stok Obat</strong> </h2>
+          </div>
+          <div class="body">
+
+            <form [formGroup]="formInput">
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">No. Nota</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-bookmark"></i> </span>
+                  <input type="text" class="form-control is-invalid" placeholder="Contoh: 002" >
+                  <div class="invalid-feedback" >
+                    No. Nota harus di isi
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Distributor</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-bookmark"></i> </span>
+                  <select name="" id="" class="form-select">
+                    <option value="">Pilih Distributor</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Keterangan</label>
+                <div class="input-group">
+                  <textarea name="" id="" class="form-control" cols="4" rows="2"></textarea>
+                </div>
+              </div>
+
+
+              <hr>
+              <h4 class="pb-3">Form Obat</h4>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Nama Obat</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-medkit"></i> </span>
+                  <select name="" id="" class="form-select">
+                    <option value="">Pilih Nama Obat</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Pengguna Obat</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-cubes"></i> </span>
+                  <select name="" id="" class="form-select" >
+                    <option value="">Pilih Pengguna Obat</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+
+              </div>
+
+              <div class="row g-3">
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Jumlah</label>
+                    <div class="input-group">
+                      <span class="input-group-text"> <i class="fas fa-cubes"></i> </span>
+                      <input type="text" class="form-control" placeholder="Masukkan Jumlah" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Satuan</label>
+                    <div class="input-group">
+                      <span class="input-group-text"> <i class="fas fa-cubes"></i> </span>
+                      <!-- <input type="text" class="form-control" placeholder="Masukkan Jumlah" > -->
+                      <select name="" id="" class="form-select">
+                        <option value="">Pilih Satuan</option>
+                        <option value="">Strip</option>
+                        <option value="">Table</option>
+                        <option value="">Botol</option>
+                        <option value="">Tube (Salep)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Harga Beli</label>
+                    <div class="input-group">
+                      <span class="input-group-text"> <i class="fas fa-money-bill"></i> </span>
+                      <input type="text" class="form-control" placeholder="Masukkan Harga Beli" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Harga Jual Lama</label>
+                    <div class="input-group">
+                      <span class="input-group-text"> <i class="fas fa-money-bill"></i> </span>
+                      <input type="text" class="form-control" >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">PPN (%)</label>
+                    <div class="input-group">
+                      <span class="input-group-text"> <i class="fas fa-money-bill"></i> </span>
+                      <input type="text" class="form-control" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Harga Jual Baru</label>
+                    <div class="input-group">
+                      <span class="input-group-text"> <i class="fas fa-money-bill"></i> </span>
+                      <input type="text" class="form-control" placeholder="Masukan Harga Jual">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Keuntungan (%)</label>
+                    <div class="input-group">
+                      <span class="input-group-text"> <i class="fas fa-money-bill"></i> </span>
+                      <input type="text" class="form-control" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Harga Jual Yang Digunakan</label>
+
+                    <select name="" id="" class="form-select">
+                      <option value="lama">Lama</option>
+                      <option value="baru">Baru</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button class="btn btn-tambah"> <i class="fas fa-plus-circle"></i> Tambah</button>
+              </div>
+
+              <hr>
+
+              <table class="table table-striped table-bordered table-sm table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Nama Obat</th>
+                    <th>Tanggal</th>
+                    <th>Jumlah</th>
+                    <th>Harga</th>
+                    <th>Subtotal</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+
+              </table>
+
+            </form>
+
+          </div>
+          <div class="footer">
+
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-kembali btn-lg"> <i class="fas fa-arrow-left"></i> Kembali</button>
+          <button class="btn btn-simpan btn-lg"> <i class="fas fa-save"></i> Simpan</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

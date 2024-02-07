@@ -1,0 +1,130 @@
+/* MODAL STYLES
+-------------------------------*/
+jw-modal {
+  /* modals are hidden by default */
+  display: none;
+  .open {
+    display: none;
+  }
+
+
+
+  .jw-modal {
+      /* modal container fixed across whole screen */
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(238, 238, 238, 0.556);
+      /* z-index must be higher than .jw-modal-background */
+      z-index: 1000;
+
+      /* enables scrolling for tall modals */
+      overflow: auto;
+      // animation:unfoldOut 1s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+
+      .jw-modal-body {
+          animation:fadein .5s;
+          // animation: unfoldIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          // animation: unfoldOut 1s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+          padding: 10px 20px;
+          background: #fff;
+          /* margin exposes part of the modal background */
+          margin: 30px auto;
+          width: 650px;
+          border-radius: 2%;
+          position: relative;
+          z-index: 1050;
+
+      }
+
+      @media (max-width: 767px) {
+        .jw-modal-body {
+          margin: 30px auto;
+          width: calc(100% - 25px);
+        }
+      }
+      .jw-modal-body-lg {
+          padding: 20px;
+          background: #fff;
+          /* margin exposes part of the modal background */
+          margin: 40px auto;
+          width: 900px auto;
+      }
+  }
+
+  .jw-modal-background {
+      /* modal background fixed across whole screen */
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      /* semi-transparent black  */
+      // background-color: rgb(255, 0, 0);
+      background-color: rgba(238, 238, 238, 0.556);
+      opacity: 0.75;
+
+      /* z-index must be below .jw-modal and above everything else  */
+      z-index: 900;
+
+
+  }
+}
+
+jw-modal.close {
+  // display: block !important;
+  .jw-modal {
+    .jw-modal-body {
+      animation: unfoldOut 0.5s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+
+  }
+}
+
+body.jw-modal-open {
+  /* body overflow is hidden to hide main scrollbar when modal window is open */
+  overflow: hidden;
+  // animation: slideUpLarge .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+body.jw-modal-close {
+  /* body overflow is hidden to hide main scrollbar when modal window is open */
+  overflow: hidden;
+  animation: unfoldOut 0.5s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  // animation: slideUpLarge .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+@keyframes fadein {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@keyframes unfoldIn {
+  0% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+
+@keyframes unfoldOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+}

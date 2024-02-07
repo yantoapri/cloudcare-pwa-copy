@@ -1,0 +1,135 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Pasien'" [items]="['Antrean']" [active_item]="'Pendaftaran Antrean Pasien'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Pendaftaran Antrean Pasien</h3>
+    <div class="">
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Form Pencarian</strong> </h2>
+          </div>
+          <div class="body">
+
+            <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">No. RM</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="No. RM" [(ngModel)]="no_rm">
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">Nama</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="Nama" [(ngModel)]="nama">
+              </div>
+            </div>
+
+            <!-- <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">Alamat</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" #input_alamat placeholder="Alamat">
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-sm-2 col-form-label fw-bold text-end">No. HP</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" #input_no_hp placeholder="No. HP">
+              </div>
+            </div> -->
+
+            <div class="row">
+              <div class="col-sm-12 text-right">
+                <button class="btn-space" mat-raised-button color="primary" (click)="reLoadData()"><i class="fa fa-search"></i> Cari</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <!-- <div class="header"></div> -->
+          <div class="body">
+            <table class="table table-sm table-striped table-bordered table-sm table-striped" datatable [dtOptions]="dtOptions" width="100%">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>No. RM</th>
+                  <th>BPJS</th>
+                  <th>Nama</th>
+                  <th>Alamat</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <jw-modal id="modalFormContent">
+              <form [formGroup]="formTambah" (submit)="SubmitForm()" >
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Form Antrean</h4>
+                </div>
+                <div class="modal-body" #modalBody>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Pilih Poliklinik</label>
+                    <div class="col-sm-9">
+                      <select
+                      formControlName="id_poliklinik"
+
+                      [class.border-danger]="formTambah.controls.id_poliklinik.hasError('required') && submitted"
+                      class="form-select">
+                        <option value="">Pilih Poliklinik</option>
+                        <option *ngFor="let item of listPoliklinik" value="{{ item.id_poliklinik }}">{{ item.nama_poliklinik }}</option>
+                      </select>
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.id_poliklinik.hasError('required') && submitted">
+                        Poliklinik tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+                    {{ errorMessage.metaData.message }}
+                    <ul *ngFor="let item of errorMessage.response" >
+                      <li>{{ item.field }} : {{ item.message }}</li>
+                    </ul>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton" (click)="modalClose()">Batal</button>
+                  <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton">
+                    <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+                    Antrekan
+                  </button>
+                </div>
+              </form>
+            </jw-modal>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

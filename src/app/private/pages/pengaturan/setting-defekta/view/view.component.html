@@ -1,0 +1,33 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Pengaturan'" [items]="[]" [active_item]="'Setting Defekta'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Setting Defekta</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="card">
+          <div class="header">
+            <!-- <h2><strong>Tindakan Medis Umum</strong> </h2> -->
+          </div>
+          <div class="body" >
+
+            <div class="mb-3 row" *ngFor="let itm of listConfig; let i=index">
+              <label class="col-sm-3 col-form-label fw-bold">{{itm.nama_config}}</label>
+              <div class="col-sm-2">
+                <input [type]="itm.value_type" [(ngModel)]="valConfig[i]" class="form-control">
+              </div>
+              <div class="col-md-2"> 
+                <button class="btn-space bg-success text-light" mat-raised-button (click)="update(itm.id_config,valConfig[i])">Simpan</button>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

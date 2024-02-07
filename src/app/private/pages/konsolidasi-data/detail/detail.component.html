@@ -1,0 +1,232 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Konsolidasi Data'" [items]="['Riwayat Konsolidasi Data']" [active_item]="'Detail'"></app-breadcrumb>
+        </div>
+        <h3 class="text-center">Detail Konsolidasi Data</h3>
+
+
+        <div class="">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <table *ngIf="dataDetail!=null">
+							<tr>
+								<td>
+									Nama Sesi
+								</td>
+								<td>: {{dataDetail.nama_sesi}}</td>
+							</tr>
+							<tr>
+								<td>
+									No Antrian
+								</td>
+								<td>: {{dataDetail.no_antrian}}</td>
+							</tr>
+							<tr>
+								<td>
+									Status Antrian
+								</td>
+								<td>: {{dataDetail.status_antrian}}</td>
+							</tr>
+							<tr>
+								<td>
+									Status Merge
+								</td>
+								<td>: {{dataDetail.status_merge?"Berhasil":"Gagal"}}</td>
+							</tr> 
+							<tr>
+								<td>
+									Tanggal Antrian
+								</td>
+								<td>: {{tglConvert(dataDetail.tgl_antrian)}}</td>
+							</tr> 
+						</table>
+						<br><br>
+						<h3><b>DOKTER</b></h3>
+						<div class="row mb-2">
+							<div class="col-md-4">
+								<table *ngIf="dataDetail!=null">
+									<tr>
+										<td>
+											Nama Dokter
+										</td>
+										<td>: {{dataDetail.dokter_umum.akun_dokter.nama_lengkap}}</td>
+									</tr>
+									<tr>
+										<td>
+											BHP
+										</td>
+										<td>: {{dataDetail.dokter_umum.bhp}}</td>
+									</tr>
+									<tr>
+										<td>
+											Biaya Dokter
+										</td>
+										<td>: {{dataDetail.dokter_umum.biaya_dokter}}</td>
+									</tr>
+						
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table *ngIf="dataDetail!=null">
+									<tr>
+										<td>
+											JM/JT
+										</td>
+										<td>: {{dataDetail.dokter_umum.jm+"/"+dataDetail.dokter_umum.jt}}</td>
+									</tr>
+									<tr>
+										<td>
+											Planning
+										</td>
+										<td>: {{dataDetail.dokter_umum.planning}}</td>
+									</tr>
+									<tr>
+										<td>
+											Obyektif Dokter
+										</td>
+										<td>: {{dataDetail.dokter_umum.obyektif_dokter}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table *ngIf="dataDetail!=null">
+									<tr>
+										<td>
+											Resep Obat
+										</td>
+										<td>: {{dataDetail.dokter_umum.resep_obat}}</td>
+									</tr>
+									<tr>
+										<td>
+											Tindakan
+										</td>
+										<td>: {{dataDetail.dokter_umum.tindakan}}</td>
+									</tr>
+									<tr>
+										<td>
+											Lain-lain
+										</td>
+										<td>: {{dataDetail.dokter_umum.lain_lain}}</td>
+									</tr>
+						
+								</table>
+							</div>
+						</div>
+						<h3><b>ASESSMENT</b></h3>
+						<table class="table table-striped table-bordered table-sm mb-4">
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>Kode</th>
+									<th>Nama (EN)</th>
+									<th>Nama (ID)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let item of dataDetail.dokter_umum.assessment; let i=index">
+									<td>{{i+1}}</td>
+									<td>{{item.kode}}</td>
+									<td>{{item.nama_en}}</td>
+									<td>{{item.nama_id}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<h3><b>PERAWAT</b></h3>
+						<div class="row mb-2">
+							<div class="col-md-4">
+								<table *ngIf="dataDetail!=null">
+									<tr>
+										<td>
+											Alergi
+										</td>
+										<td>: {{dataDetail.perawat.alergi}}</td>
+									</tr>
+									<tr>
+										<td>
+											BB/TB
+										</td>
+										<td>: {{dataDetail.perawat.bb+"/"+dataDetail.perawat.tb}}</td>
+									</tr>
+									<tr>
+										<td>
+											Catatan Khusus
+										</td>
+										<td>: {{dataDetail.perawat.catatan_khusus}}</td>
+									</tr>
+						
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table *ngIf="dataDetail!=null">
+									<tr>
+										<td>
+											Diastol/Sistol
+										</td>
+										<td>: {{dataDetail.perawat.diastole+"/"+dataDetail.perawat.sistole}}</td>
+									</tr>
+									<tr>
+										<td>
+											Hambatan
+										</td>
+										<td>: {{dataDetail.perawat.hambatan}}</td>
+									</tr>
+									<tr>
+										<td>
+											HR/RR/Status HR
+										</td>
+										<td>: {{dataDetail.perawat.hr+"/"+dataDetail.perawat.rr+"/"+status_hr}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table *ngIf="dataDetail!=null">
+									<tr>
+										<td>
+											Keterangan RR
+										</td>
+										<td>: {{dataDetail.perawat.keterangan_rr}}</td>
+									</tr>
+									<tr>
+										<td>
+											Suhu
+										</td>
+										<td>: {{dataDetail.perawat.suhu}}</td>
+									</tr>
+									<tr>
+										<td>
+											Keluhan
+										</td>
+										<td>: {{dataDetail.perawat.keluhan}}</td>
+									</tr>
+									
+						
+								</table>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col-md-4">
+								<table *ngIf="dataDetail!=null">
+									<tr>
+										<td>
+											Lain-lain
+										</td>
+										<td>: {{dataDetail.perawat.pxfisik}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+							
+							</div>
+							<div class="col-md-4">
+					
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

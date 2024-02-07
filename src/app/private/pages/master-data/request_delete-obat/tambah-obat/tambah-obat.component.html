@@ -1,0 +1,113 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Master Data'" [items]="['Master Data Obat']" [active_item]="'Tambah Obat'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Tambah Master Data Obat</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" [routerLink]="['../view']" class="btn btn-orange"> <i class="fas fa-arrow-left"></i> Kembali</button>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <br>
+
+        <div class="card">
+          <div class="header">
+            <!-- <h2><strong>Daftar Obat</strong> </h2> -->
+          </div>
+          <div class="body">
+
+            <form [formGroup]="formInput" class="ml-4">
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Nama Obat</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-bookmark"></i> </span>
+                  <input type="text" class="form-control is-invalid" placeholder="Nama Obat" >
+                  <div class="invalid-feedback" >
+                    Nama Obat Harus Diisi
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Deskripsi Obat</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-bookmark"></i> </span>
+                  <input type="text" class="form-control" >
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Pabrik</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-bookmark"></i> </span>
+                  <select name="" id="" class="form-select">
+                    <option value="">Pilih Pabrik</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Harga Jual Satuan Terkecil</label>
+                <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-bookmark"></i> </span>
+                  <input type="text" class="form-control" >
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Data Konversi Satuan</label>
+                <div class="input-group"></div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="strip_tablet" formControlName="konversi_satuan" name="konversi_satuan" id="konversi_satuan_1">
+                  <label class="form-check-label">
+                    BOX > STRIP > TABLET (KAPSUL)
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="botol_tablet" formControlName="konversi_satuan" name="konversi_satuan" id="konversi_satuan_2" >
+                  <label class="form-check-label">
+                    BOX > BOTOL > TABLET (KAPSUL)
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="botol_sirup" formControlName="konversi_satuan" name="konversi_satuan" id="konversi_satuan_3" >
+                  <label class="form-check-label">
+                    BOX > FLASH (BOTOL SIRUP)
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="tube_salep" formControlName="konversi_satuan" name="konversi_satuan" id="konversi_satuan_4" >
+                  <label class="form-check-label">
+                    BOX > TUBE (SALEP)
+                  </label>
+                </div>
+
+
+                <!-- <div class="input-group">
+                  <span class="input-group-text"> <i class="fas fa-bookmark"></i> </span>
+                  <input type="text" class="form-control" >
+                </div> -->
+
+                <div class="text-center ">
+                  <div class="btn-group">
+                    <button class="btn btn-lg btn-simpan"><i class="fa fa-save"></i> Simpan</button>
+
+                  </div>
+
+                </div>
+              </div>
+
+            </form>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

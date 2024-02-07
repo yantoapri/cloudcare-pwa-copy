@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-xs-12 col-md-6 pt-3">
+    <div *ngIf="hiddenDataTable">
+
+      <table class="table table-sm table-striped table-bordered table-sm hover" width="100%" datatable [dtOptions]="dtOptions">
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Dokter</th>
+          </tr>
+        </thead>
+        <tbody #bodyTable></tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="col-xs-12 col-md-6 pt-3">
+
+    <h4>REKAM MEDIS</h4>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item"><b class="fw-3">KAJIAN SUBYEKTIF : </b></li>
+      <li class="list-group-item">
+        {{ rekamMedis.perawat == null ? '-' : rekamMedis.perawat.keluhan }}
+      </li>
+      <li class="list-group-item"><b class="fw-bolder">KAJIAN OBYEKTIF : </b></li>
+      <li class="list-group-item">
+        <ng-container *ngIf="rekamMedis.perawat != null">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td width="20%">Tekanan Darah</td>
+                <td>{{ rekamMedis.perawat.sistole }}/{{ rekamMedis.perawat.diastole }} mmHg</td>
+              </tr>
+              <tr>
+                <td>Suhu</td>
+                <td>{{ rekamMedis.perawat.suhu }}°C</td>
+              </tr>
+              <tr>
+                <td>HR</td>
+                <td>{{ rekamMedis.perawat.hr }} X/Menit</td>
+              </tr>
+              <tr>
+                <td>RR</td>
+                <td>{{ rekamMedis.perawat.rr }} X/Menit</td>
+              </tr>
+              <tr>
+                <td>Tinggi Badan</td>
+                <td>{{ rekamMedis.perawat.tb }} CM</td>
+              </tr>
+              <tr>
+                <td>Berat Badan</td>
+                <td>{{ rekamMedis.perawat.bb }} KG</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+
+      </li>
+      <li class="list-group-item"><b class="fw-bolder">KAJIAN OBYEKTIF DOKTER : </b></li>
+      <li class="list-group-item">{{ rekamMedis.dokter_umum == null ? '-' : rekamMedis.dokter_umum.obyektif_dokter }}</li>
+      <li class="list-group-item"><b class="fw-bolder">ASSESMENT : </b></li>
+      <li class="list-group-item">
+        <ng-container *ngIf="rekamMedis.dokter_umum != null; else newDeb">
+          <ul *ngFor="let item of rekamMedis.dokter_umum.assessment; let i = index">
+            <li for="">{{ i + 1 }}. {{item.nama_en}} ({{item.kode}})</li>
+          </ul>
+        </ng-container>
+        <ng-template #newDeb>
+          -
+        </ng-template>
+
+      </li>
+      <li class="list-group-item"><b class="fw-bolder">PLANNING : </b></li>
+      <li class="list-group-item">{{ rekamMedis.dokter_umum == null ? '-' :  rekamMedis.dokter_umum.planning }}</li>
+      <li class="list-group-item"><b class="fw-bolder">TINDAKAN DOKTER : </b></li>
+      <li class="list-group-item">{{ rekamMedis.dokter_umum == null ? '-' :  rekamMedis.dokter_umum.tindakan }}</li>
+      <li class="list-group-item"><b class="fw-bolder">TINDAKAN RUJUKAN : </b></li>
+      <li class="list-group-item">-</li>
+      <li class="list-group-item"><b class="fw-bolder">TINDAKAN FISIOTERAPI : </b></li>
+      <li class="list-group-item">-</li>
+      <li class="list-group-item"><b class="fw-bolder">OBAT RESEP : </b></li>
+      <li class="list-group-item">{{ rekamMedis.dokter_umum == null ? '-' :  rekamMedis.dokter_umum.resep_obat }}</li>
+    </ul>
+
+  </div>
+</div>
+<ngx-spinner
+[name]="'spinner1'"
+bdColor = "rgba(0, 0, 0, 0.8)"
+size = "medium"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+[fullScreen] = "true">
+  <p style="color: white" > Loading... </p>
+</ngx-spinner>

@@ -1,0 +1,47 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Stock Opname'" [items]="['Barang']" [active_item]="'Stock Opname'">
+            </app-breadcrumb>
+        </div>
+        <h3 class="text-center">Stock Opname</h3>
+
+
+        <div class="">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button *ngIf="btnAdd" type="button" (click)="mulai()" class="btn-space mb-3" mat-raised-button color="primary">
+                    <i class="fas fa-plus"></i>
+                    Mulai Stock Opname
+                </button>
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <h4><strong>Riwayat Stock Opname</strong> </h4>
+                            <table class="table table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+                                <thead>
+                                    <tr>
+                                        <th width="30">No</th>
+                                        <th>Mulai Stock Opname</th>
+                                        <th scope="col">Selesai Stock Opname</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

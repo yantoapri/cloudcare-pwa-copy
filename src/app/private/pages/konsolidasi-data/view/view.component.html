@@ -1,0 +1,96 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Konsolidasi Data'" [items]="[]" [active_item]=""></app-breadcrumb>
+        </div>
+        <h3 class="text-center">Konsolidasi Data</h3>
+
+
+        <div class="">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="row mb-2">
+                            <label class="col-2">From Merge</label>
+                            <div class="col-10">
+								
+                                <ng-select 
+									style="flex: 1 1 auto;"
+									name="fromMerge"
+									[(ngModel)]="fromMerge"
+                                    [virtualScroll]="true"
+									placeholder="Pilih Pasien"
+									[searchable]="true"
+									[clearable]="true"
+                                    (clear)="prosesSelectPasien($event, 'clear')"
+									[loading]="loadingPasien"
+                                    [clearSearchOnAdd]="true"
+									[ngModelOptions]="{standalone: true}"
+									(search)="prosesSelectPasien($event, 'search')"
+									(scrollToEnd)="prosesSelectPasien($event, 'last_page')"
+									(open)="prosesSelectPasien($event, 'open')"
+									>
+                                        <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                       <ng-option *ngFor="let item of listPasien; let i=index" [value]="item.id_pasien" [disabled]="check(1,item.id_pasien)" >{{item.full_rm+" | "+item.nama}}</ng-option>
+                                </ng-select>
+								<div class="text-danger" *ngIf="submitted&&fromMerge==''">*From merge tidak boleh kosong</div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label class="col-2">To Merge</label>
+                            <div class="col-10">
+                                <ng-select style="flex: 1 1 auto;" name="toMerge"  [(ngModel)]="toMerge"
+                                    [virtualScroll]="true"  placeholder="Pilih Pasien" [searchable]="true" [clearable]="true"
+									(clear)="prosesSelectPasien($event, 'clear')"
+									[loading]="loadingPasien"
+                                    [clearSearchOnAdd]="true"
+									[ngModelOptions]="{standalone: true}"
+									(search)="prosesSelectPasien($event, 'search')"
+									(scrollToEnd)="prosesSelectPasien($event, 'last_page')"
+									(open)="prosesSelectPasien($event, 'open')"
+									>
+                                        <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                       <ng-option *ngFor="let item of listPasien; let i=index" [disabled]="check(2,item.id_pasien)" [value]="item.id_pasien">{{item.full_rm+" | "+item.nama}}</ng-option>
+                                </ng-select>
+								<div class="text-danger" *ngIf="submitted&&toMerge==''">*To merge tidak boleh kosong</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer px-4 pb-3  text-right">
+                        <button class="btn-space" mat-raised-button color="primary" (click)="cari()"><i class="fas fa-search"></i> Cari</button>
+                    </div>
+                </div>
+                <div class="card" *ngIf="fromMerge!=''&&toMerge!=''&&submitted">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal Kunjungan </th>
+                                        <th>Sesi Antrian</th>
+                                        <th>No Antrian</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

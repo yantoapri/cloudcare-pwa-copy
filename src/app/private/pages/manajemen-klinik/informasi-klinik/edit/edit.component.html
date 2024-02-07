@@ -1,0 +1,332 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manajemen Klinik'" [items]="[]" [active_item]="'Informasi Klinik'"></app-breadcrumb>
+    </div>
+
+    <h3 class="text-center mb-3">Informasi Klinik</h3>
+    <div class="col-md-12 mb-3">
+      <button type="button" *ngIf="id_klinik!=null" [routerLink]="['../../view/'+id_klinik]" class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+      <button type="button" *ngIf="id_klinik==null" [routerLink]="['../view']" class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+    </div>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+
+
+        <div class="card">
+          <form [formGroup]="formInput" (submit)="submitForm()">
+            <div class="header">
+            </div>
+            <div class="body">
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Nama Pimpinan Klinik <span class="text-danger">*</span></label>
+                <div class="input-group ">
+                  <input type="text" formControlName="nama_pimpinan" class="form-control" placeholder="Nama Pimpinan Klinik" >
+                </div>
+                <p class="mt-2 text-danger" *ngIf="formInput.value.nama_pimpinan==''&&submitted">
+                  Nama Pimpinan Klinik tidak boleh kosong
+                </p>
+              </div>
+
+			        <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">PPN <span class="text-danger">*</span></label>
+                <div class="input-group ">
+                  <input type="text" (keypress)="isNumber($event)" formControlName="ppn" class="form-control" placeholder="PPN" >
+                </div>
+                <p class="mt-2 text-danger" *ngIf="formInput.value.ppn==null&&submitted">
+                  PPN tidak boleh kosong
+                </p>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Provinsi</label>
+                <div class="input-group col-sm-12">
+
+                  <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    (change)="changeProvinsi(tipeAlamat.KTP)"
+                    placeholder="Pilih Provinsi"
+                    [loading]="loadingSelectProv"
+                    [searchable]="true"
+                    [(ngModel)]="idProvinsiKtp"
+                    [ngModelOptions]="{standalone: true}"
+                    [clearable]="true"
+                    [clearSearchOnAdd]="true"
+                    (search)="prosesSelectProvinsi($event, 'search', tipeAlamat.KTP)"
+                    (scrollToEnd)="prosesSelectProvinsi($event, 'last_page', tipeAlamat.KTP)"
+                    (open)="prosesSelectProvinsi($event, 'open', tipeAlamat.KTP)"
+                    (clear)="prosesSelectDesa($event, 'clear', tipeAlamat.KTP)"
+
+                  >
+                    <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                    <ng-option *ngFor="let item of listProvinsiKtp" [value]="item.id">
+                      {{item.name}}
+                    </ng-option>
+                  </ng-select>
+
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Kabupaten / Kota</label>
+                <div class="input-group ">
+                  <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    (change)="changeKabupaten(tipeAlamat.KTP)"
+                    [loading]="loadingSelectKab"
+                    placeholder="Pilih Kabupaten"
+                    [searchable]="true"
+                    [(ngModel)]="idKabupatenKtp"
+                    [ngModelOptions]="{standalone: true}"
+                    [clearable]="true"
+                    [clearSearchOnAdd]="true"
+                    (search)="prosesSelectKabupaten($event, 'search', tipeAlamat.KTP)"
+                    (scrollToEnd)="prosesSelectKabupaten($event, 'last_page', tipeAlamat.KTP)"
+                    (open)="prosesSelectKabupaten($event, 'open', tipeAlamat.KTP)"
+                    (clear)="prosesSelectDesa($event, 'clear', tipeAlamat.KTP)"
+
+                  >
+                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                  <ng-option *ngFor="let item of listKabupatenKtp" [value]="item.id">{{item.name}}</ng-option>
+                </ng-select>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Kecamatan</label>
+                <div class="input-group ">
+                  <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    (change)="changeKecamatan(tipeAlamat.KTP)"
+                    [loading]="loadingSelectKec"
+                    placeholder="Pilih Kecamatan"
+                    [searchable]="true"
+                    [(ngModel)]="idKecamatanKtp"
+                    [ngModelOptions]="{standalone: true}"
+                    [clearable]="true"
+                    [clearSearchOnAdd]="true"
+                    (search)="prosesSelectKecamatan($event, 'search', tipeAlamat.KTP)"
+                    (scrollToEnd)="prosesSelectKecamatan($event, 'last_page', tipeAlamat.KTP)"
+                    (open)="prosesSelectKecamatan($event, 'open', tipeAlamat.KTP)"
+                    (clear)="prosesSelectDesa($event, 'clear', tipeAlamat.KTP)"
+
+                  >
+                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                  <ng-option *ngFor="let item of listKecamatanKtp" [value]="item.id">{{item.name}}</ng-option>
+                </ng-select>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Desa / Kelurahan</label>
+                <div class="input-group ">
+                  <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    [loading]="loadingSelectDes"
+                    placeholder="Pilih Desa"
+                    [searchable]="true"
+                    [(ngModel)]="idDesaKtp"
+                    [ngModelOptions]="{standalone: true}"
+                    [clearable]="true"
+                    [clearSearchOnAdd]="true"
+                    (search)="prosesSelectDesa($event, 'search', tipeAlamat.KTP)"
+                    (scrollToEnd)="prosesSelectDesa($event, 'last_page', tipeAlamat.KTP)"
+                    (open)="prosesSelectDesa($event, 'open', tipeAlamat.KTP)"
+                    (clear)="prosesSelectDesa($event, 'clear', tipeAlamat.KTP)"
+
+                  >
+                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                  <ng-option *ngFor="let item of listDesaKtp" [value]="item.id">{{item.name}}</ng-option>
+                </ng-select>
+                </div>
+              </div>
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Time Zone <span class="text-danger">*</span></label>
+                <div class="col-sm-12">
+                  <ng-select
+                    style="flex: 1 1 auto;"
+                    [virtualScroll]="true"
+                    [loading]="loadingSelectZone"
+                    placeholder="Pilih Time Zone"
+                    [searchable]="true"
+                    [(ngModel)]="timeZone"
+                    [ngModelOptions]="{standalone: true}"
+                    [clearable]="true"
+                    [clearSearchOnAdd]="true"
+                    (search)="prosesSelectZone($event, 'search')"
+                    (scrollToEnd)="prosesSelectZone($event, 'last_page')"
+                    (open)="prosesSelectZone($event, 'open')"
+                    (clear)="prosesSelectZone($event, 'clear')"
+
+                  >
+                  <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                <ng-option *ngFor="let item of listZone" [value]="item.id_time_zone">{{item.nama_zone}}</ng-option>
+                </ng-select>
+                  <p class="mt-2 text-danger" *ngIf="timeZone==null&&submitted">
+                    Time Zone tidak boleh kosong
+                  </p>
+                </div>
+              </div>
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Alamat Klinik</label>
+                <div class="input-group ">
+                  <textarea class="form-control" cols="5" rows="5" formControlName="alamat_klinik"  placeholder="Alamat Klinik"></textarea>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Header Kop Surat</label>
+                <div class="input-group ">
+                  <input type="file" class="form-control" (change)="handleFileInputHeader($event)" placeholder="Image Header">
+                </div>
+                <p class="p-2 fw-bold">Ukuran foto untuk di utamakan width : 595 , height 100 </p>
+                <div *ngIf="imageUrl" class="pt-3">
+                  <img  [src]="imageUrl"  width="595" height="100">
+                </div>
+              </div>
+				<div class="col-md-12"  *ngIf="imgChangeEvtHeader!=''">
+					<div class="col-md-12 text-center">
+						<button (click)="zoomIn()" type="button" class="btn-space bg-secondary text-light" mat-raised-button><i class="fas fa-search-plus"></i></button>
+						<button (click)="zoomOut()" type="button" class="btn-space bg-secondary text-light" mat-raised-button><i class="fas fa-search-minus"></i></button>
+						<button class="btn-space" mat-raised-button color="primary" type="button" title="Crop" (click)="doneHeader()">
+							<i class="fas fa-crop"></i>
+						</button>
+					</div>
+					<image-cropper 
+					[imageChangedEvent]="imgChangeEvtHeader" 
+					[cropperStaticWidth]="595"
+        	[cropperStaticHeight]="100" 
+					format="png" 
+          [imageQuality]="100"
+					[alignImage]="'center'"
+					(imageCropped)="cropImgHeader($event)" 
+				>
+					</image-cropper>
+          <div class="mt-2 text-danger" *ngIf="submitted&&imageUrl==''&&imgChangeEvtHeader!=''">
+            *Anda belum melakukan crop image
+          </div>
+				</div>
+				
+				<div class="mb-3 col-sm-12">
+					<label class="form-label fw-bold">Image TTD</label>
+					<div class="input-group ">
+					<input type="file" class="form-control" (change)="handleFileInputTTD($event)" placeholder="Image TTD">
+					</div>
+					<p class="p-2 fw-bold">Ukuran foto untuk di utamakan width : 100 , height 100 </p>
+					<div *ngIf="imageUrlTTD" class="pt-3">
+					<img width="100" height="100" [src]="imageUrlTTD" class="image">
+					</div>
+          
+				</div>
+				<div class="col-md-12" *ngIf="imgChangeEvtTTD!=''">
+					<div class="col-md-12 text-center">
+						<button (click)="zoomIn()" type="button" class="btn-space bg-secondary text-light" mat-raised-button><i class="fas fa-search-plus"></i></button>
+						<button (click)="zoomOut()" class="btn-space bg-secondary text-light" mat-raised-button><i class="fas fa-search-minus"></i></button>
+						<button class="btn-space" mat-raised-button color="primary" type="button" title="Crop" (click)="doneTTD()">
+							<i class="fas fa-crop"></i>
+						</button>
+					</div>
+					<image-cropper 
+					[imageChangedEvent]="imgChangeEvtTTD" 
+					[maintainAspectRatio]="true" 
+					[aspectRatio]="1 / 1"
+					[cropperStaticWidth]="100"
+        	[cropperStaticHeight]="100" 
+					format="png" 
+          [imageQuality]="100"
+					[canvasRotation]="canvasRotation"
+					[(transform)]="transform"
+					[alignImage]="'center'"
+					[allowMoveImage]="allowMoveImage"
+					(imageCropped)="cropImgTTD($event)" 
+					(imageLoaded)="imgLoadTTD()"
+					(cropperReady)="initCropperTTD()" 
+					(loadImageFailed)="imgFailedTTD()">
+					</image-cropper>
+          <div class="mt-2 text-danger" *ngIf="submitted&&imageUrlTTD==''&&imgChangeEvtTTD!=''">
+            *Anda belum melakukan crop image
+          </div>
+				</div>
+        <div class="mb-3 col-sm-12">
+					<label class="form-label fw-bold">Image Logo</label>
+					<div class="input-group ">
+					<input type="file" class="form-control" (change)="handleFileInputLogo($event)" placeholder="Image Logo">
+					</div>
+					<p class="p-2 fw-bold">Ukuran foto untuk di utamakan width : 100 , height 100 </p>
+					<div *ngIf="imageUrlTTD" class="pt-3">
+					<img  width="100" height="100"  [src]="imageUrlLogo" class="image">
+					</div>
+				</div>
+        <div class="col-md-12" *ngIf="imgChangeEvtLogo!=''">
+					<div class="col-md-12 text-center">
+						<button (click)="zoomIn()" type="button" class="btn-space bg-secondary text-light" mat-raised-button><i class="fas fa-search-plus"></i></button>
+						<button (click)="zoomOut()" type="button" class="btn-space bg-secondary text-light" mat-raised-button><i class="fas fa-search-minus"></i></button>
+						<button class="btn-space" mat-raised-button color="primary" type="button" title="Crop" (click)="doneLogo()">
+							<i class="fas fa-crop"></i>
+						</button>
+					</div>
+					<image-cropper 
+					[imageChangedEvent]="imgChangeEvtLogo" 
+					[maintainAspectRatio]="true" 
+					[aspectRatio]="1/1"
+					[cropperStaticWidth]="100"
+        	[cropperStaticHeight]="100" 
+					format="png" 
+          [imageQuality]="100"
+					[canvasRotation]="canvasRotation"
+					[(transform)]="transform"
+					[alignImage]="'center'"
+					[allowMoveImage]="allowMoveImage"
+					(imageCropped)="cropImgLogo($event)" 
+					(imageLoaded)="imgLoadLogo()"
+					(cropperReady)="initCropperLogo()" 
+					(loadImageFailed)="imgFailedLogo()">
+					</image-cropper>
+          <div class="mt-2 text-danger" *ngIf="submitted&&imageUrlLogo==''&&imgChangeEvtLogo!=''">
+            *Anda belum melakukan crop image
+          </div>
+				</div>
+				<div class="mb-3 col-sm-12">
+					<div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+					{{ errorMessage?.metaData?.message }}
+					<ul *ngFor="let item of errorMessage.response" >
+						<li>{{ item?.field }} : {{ item.message }}</li>
+					</ul>
+					</div>
+				</div>
+
+
+
+            </div>
+            <div class="footer text-center mb-3">
+              <button class="btn-space bg-success text-light" mat-raised-button type="submit" >
+
+                <!-- <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i> -->
+                  Simpan
+              </button>
+
+            </div>
+          </form>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

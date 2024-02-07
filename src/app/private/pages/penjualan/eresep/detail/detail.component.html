@@ -1,0 +1,287 @@
+<section class="content">
+	<div class="content-block" id="eresep">
+		<div class="block-header">
+		<app-breadcrumb [title]="'Detail E-Resep'" [items]="['Data E-Resep']" [active_item]="'Detail E-Resep'"></app-breadcrumb>
+		</div>
+		<h3 class="text-center mb-4">Detail E-Resep</h3>
+		<div class="col-md-12 mb-3">
+		<button type="button" [routerLink]="['../../../e-resep']"  class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+		</div>
+		<div class="">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="body" >
+						<h3><b>Data Pasien</b></h3>
+						<ul class="list-group px-2 mb-2">
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										No.Eresep
+									</div>
+									<div class="col-md-6 text-right">
+										<b>0234344</b>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										Nama Pasein
+									</div>
+									<div class="col-md-6 text-right">
+										<b>Aguna Gusti</b>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										Umur
+									</div>
+									<div class="col-md-6 text-right">
+										<b>22 tahun</b>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										Jenis kelamin
+									</div>
+									<div class="col-md-6 text-right">
+										<b>Perempuan</b>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										No.Rekam medis
+									</div>
+									<div class="col-md-6 text-right">
+										<b>1120234344</b>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<h3><b>Data Priksa</b></h3>
+						<ul class="list-group px-2 mb-2">
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										Tgl.Priksa
+									</div>
+									<div class="col-md-6 text-right">
+										<b>22 Sep 2022</b>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										Nama Dokter
+									</div>
+									<div class="col-md-6 text-right">
+										<b>Dr.Pratama widya</b>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										Klinik
+									</div>
+									<div class="col-md-6 text-right">
+										<b>Klinik intan indah</b>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-md-6">
+										Poli
+									</div>
+									<div class="col-md-6 text-right">
+										<b>Umum</b>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="card">
+					<div class="body">
+						<div class="alert alert-info mb-3 pb-5">
+							<b class="left pt-1 text-dark fs-5">E-Resep</b>
+						</div>
+						<div class="card mb-2 p-3 text-dark" >
+							<div class="row">
+								<div class="col-12" >
+									<h5>
+										Alegrino 10 strips (3 x 1)
+									</h5>
+									<p class="pb-0">
+										Sesudah makan | pagi,siang,malam<br>
+										<span class="text-secondary">Tidak ada catatan</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card mb-2 p-3 text-dark" >
+							<div class="row">
+								<div class="col-12" >
+									<h5>
+										Alegrino 10 strips (3 x 1)
+									</h5>
+									<p class="pb-0">
+										Sesudah makan | pagi,siang,malam<br>
+										<span class="text-secondary">Tidak ada catatan</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="alert alert-info mb-3 pb-5">
+							<b class="left pt-1 text-dark fs-5">Apotek</b>
+						</div>
+						<div class="card mb-2 p-3 text-dark" >
+							<p>-</p>
+						</div>	
+						<div class="alert alert-info mb-3 pb-5">
+							<b class="left pt-1 text-dark fs-5">Masa berlaku</b>
+						</div>
+						<div class="card mb-2 p-3 text-dark" >
+							<p><i>Masa berlaku sampai 30 Sep 2022</i></p>
+						</div>
+						<br><br><br>
+						<div class="row">
+							<div class="col-md-8">
+								<div class="alert alert-warning mb-3 pb-5">
+									Pastikan anda sudah memberikan obat sesuai E-Resep dan catatan berlaku sebelum anda menyelesaikan E-Resep ini
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="d-grid">
+									<button type="button" (click)="prosesEresep()" class="btn-space" mat-raised-button color="primary">Proses E-Resep</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<jw-modal id="modalFormContent" >
+    	<div class="modal-body" id="modalEresep">
+			<style>
+			
+				.col4 {
+					flex: 0 0 auto;
+					width: 33.33333333%;
+				}
+				.w100{
+					width:100%;
+				}
+				.pb5 {
+					padding-bottom: 3rem !important;
+					}
+				.pt1 {
+				padding-top: 0.25rem !important;
+				}
+				.left{
+					float:left;
+				}
+				.right{
+					float:right;
+				}
+				.p3 {
+					padding: 1rem !important;
+					}
+				.text-dark{
+					color:black;
+				}
+				
+				.fs5 {
+				font-size: 1.25rem !important;
+				}
+				
+			</style>
+			<div style="--bs-gutter-x: 1.5rem;
+				--bs-gutter-y: 0;
+				display: flex;
+				flex-wrap: wrap;
+				margin-top: calc(var(--bs-gutter-y) * -1);
+				margin-right: calc(var(--bs-gutter-x) * -.5);
+				margin-left: calc(var(--bs-gutter-x) * -.5);">
+				<div style="flex: 0 0 auto;
+					width: 66.66666667%;">
+					<h3><b>0234254</b></h3>
+					<p><b>Aguna Gusti</b></p>
+					<p>22 Tahun | Perempuan</p>
+					<P>Tgl.Priksa: 22 Sep 2022</P>
+					<p>Dr.Pratama widya angga</p>
+				</div>
+				<div style="flex: 0 0 auto;
+					width: 33.33333333%;">
+					sss
+					<img src="http://localhost:4200/assets/images/qrcode.png" style="width:100%">
+				</div>
+			</div>
+			<div style="padding: 1rem 1rem; margin-bottom: 1rem; border: 1px solid black; border-radius: 0.25rem; background: rgb(182 216 239 / 56%) !important;" class="mb pb5">
+				<b class="left pt1 text-dark fs5">E-Resep</b>
+			</div>
+			<div style="display: flex; flex-direction: column;min-width: 0;
+				word-wrap: break-word;background-clip: border-box;border: 1px solid black;
+				border-radius: 0.25rem; margin-bottom:10px;padding-left:10px" class=" mb p3 text-dark" >
+				<div class="row-custome">
+					<div class="w100" >
+						<h5>
+							Alegrino 10 strips (3 x 1)
+						</h5>
+						<p style="padding-bottom:0px">
+							Sesudah makan | pagi,siang,malam<br>
+							<span style="color:silver">Tidak ada catatan</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div style="display: flex; flex-direction: column;min-width: 0;
+				word-wrap: break-word;background-clip: border-box;border: 1px solid black;
+				border-radius: 0.25rem; margin-bottom:10px;padding-left:10px" class="mb p3 text-dark" >
+				<div class="row-custome">
+					<div class="w100" >
+						<h5>
+							Alegrino 10 strips (3 x 1)
+						</h5>
+						<p style="padding-bottom:0px">
+							Sesudah makan | pagi,siang,malam<br>
+							<span style="color:silver">Tidak ada catatan</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div style="padding: 1rem 1rem; margin-bottom: 1rem; border: 1px solid black; border-radius: 0.25rem; background: rgb(182 216 239 / 56%) !important;" class=" mb3 pb5">
+				<b class="left pt1 text-dark fs5">Apotek</b>
+			</div>
+			<div style="display: flex; flex-direction: column;min-width: 0;
+				word-wrap: break-word;background-clip: border-box;border: 1px solid black;
+				border-radius: 0.25rem; margin-bottom:10px;padding:10px"  class="mb p3 text-dark" >
+				Klinik intan indah
+			</div>
+			<div style="padding: 1rem 1rem; margin-bottom: 1rem; border: 1px solid black; border-radius: 0.25rem; background: rgb(182 216 239 / 56%) !important;" class=" mb3 pb5">
+				<b class="left pt1 text-dark fs5 ">Masa Berlaku</b>
+			</div>
+			<div style="display: flex; flex-direction: column;min-width: 0;
+				word-wrap: break-word;background-clip: border-box;border: 1px solid black;
+				border-radius: 0.25rem; padding:10px"  class="mb2 p3 text-dark" >
+				<i>Masa berlaku sampai 14 Sep 2022</i>
+			</div>
+			<br><br>
+			<p style="text-align:right;padding:10px"><i>Dicetak tanggal: 22 Sep 2022</i></p>
+        </div>
+       	<div class="modal-footer">
+            <button class="btn-space bg-warning text-light" mat-raised-button type="button" (click)="modalClose()">OK</button>
+        </div>
+  	</jw-modal>
+</section>

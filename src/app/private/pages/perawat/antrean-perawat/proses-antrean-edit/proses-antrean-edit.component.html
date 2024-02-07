@@ -1,0 +1,220 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Perawat'" [items]="['Antrean Perawat']" [active_item]="'Edit Antrean Perawat ' + poli_name"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Edit Antrean Perawat {{ poli_name }}</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <form [formGroup]="formTambah" (submit)="SubmitForm()">
+            <!-- <div class="header"></div> -->
+            <div class="body">
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Nama Pasien</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <input type="text" (focus)="setTime()" class="form-control" readonly formControlName="nama_pasien">
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Alergi</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <input type="text" (focus)="setTime()" formControlName="alergi" class="form-control" placeholder="Alergi">
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Catatan Khusus</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <!-- <input type="text" formControlName="catatan_khusus" class="form-control" placeholder="Catatan Khusus"> -->
+                  <textarea cols="3" rows="3" (focus)="setTime()" formControlName="catatan_khusus" class="form-control"></textarea>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Hambatan</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <input type="text" (focus)="setTime()" formControlName="hambatan" class="form-control" placeholder="Hambatan">
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Keluhan</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <!-- <input type="text" formControlName="keluhan" class="form-control" placeholder="Keluhan"> -->
+                  <textarea cols="5" rows="3" (focus)="setTime()"
+                  [class.border-danger]="formTambah.controls.keluhan.hasError('required') && submitted"
+                  formControlName="keluhan" class="form-control"></textarea>
+                </div>
+                <div class="form-text text-danger"
+                  *ngIf="formTambah.controls.keluhan.hasError('required') && submitted">
+                  Keluhan tidak boleh kosong
+                </div>
+              </div>
+              <hr>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Tekanan Darah Sistole</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <input type="text"(keypress)="isNumber($event)" (focus)="setTime()" formControlName="sistole" class="form-control" placeholder="Tekanan Darah Sistole">
+
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Tekanan Darah Diastole</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <input type="text"(focus)="setTime()" (keypress)="isNumber($event)" formControlName="diastole" class="form-control" placeholder="Tekanan Darah Diastole">
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">Suhu Badan</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <input type="nmber" (focus)="setTime()" (keypress)="isNumber($event)" formControlName="suhu" class="form-control" placeholder="Suhu Badan">
+                  <span class="input-group-text">°C</span>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">RR</label>
+                <div class="input-group ">
+                  <span class="input-group-text"> <i class="fas fa-user-alt"></i> </span>
+                  <input type="text"formControlName="rr" (keypress)="isNumber($event)" (focus)="setTime()" class="form-control">
+                  <span class="input-group-text"> X/Menit </span>
+                  <input type="text" (focus)="setTime()" formControlName="keterangan_rr" class="form-control">
+                  <span class="input-group-text"> Keterangan </span>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">HR</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                  <input type="text"formControlName="hr" (keypress)="isNumber($event)" (focus)="setTime()" class="form-control">
+                  <span class="input-group-text"> X/Menit </span>
+                  <select formControlName="status_hr" (focus)="setTime()"  class="form-select">
+                    <option value="teratur">Teratur</option>
+                    <option value="tidak_teratur">Tidak Teratur</option>
+                  </select>
+                  <span class="input-group-text"> Frekuensi </span>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">TB</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                  <input type="text"formControlName="tb" (keypress)="isNumber($event)" (focus)="setTime()" class="form-control" placeholder="Tinggi Badan">
+                  <span class="input-group-text"> Cm </span>
+                </div>
+              </div>
+
+              <div class="mb-3 col-sm-12">
+                <label class="form-label fw-bold">BB</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                  <input type="text"formControlName="bb" (focus)="setTime()" (keypress)="isNumber($event)" class="form-control" placeholder="Berat Badan">
+                  <span class="input-group-text"> Kg </span>
+                </div>
+              </div>
+              <div class="card text-dark  mb-3">
+                <div class="card-header">TINDAKAN MEDIS</div>
+                <div class="card-body">
+                  <div class="row mb-1">
+                    <label class="col-sm-3 col-form-label ">TINDAKAN</label>
+                    <div class="col-sm-7">
+                      <ng-select (focus)="setTime()"
+                        style="flex: 1 1 auto;"
+                        [virtualScroll]="true"
+                        placeholder="Pilih Tindakan"
+                        [loading]="loadingTindakanMedis"
+                        [searchable]="true"
+                        [(ngModel)]="idTindakanMedis"
+                        [ngModelOptions]="{standalone: true}"
+                        [clearable]="true"
+                        [clearSearchOnAdd]="true"
+                        (search)="prosesSelectTindakanMedis($event, 'search')"
+                        (scrollToEnd)="prosesSelectTindakanMedis($event, 'last_page')"
+                        (open)="prosesSelectTindakanMedis($event, 'open')"
+                        (clear)="prosesSelectTindakanMedis($event, 'clear')"
+                      >
+                      <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                      <ng-option *ngFor="let item of listTindakanMedis" [value]="item.id_tindakan_medis">{{item.nama_tindakan}}</ng-option>
+                      </ng-select>
+                    </div>
+                    <div class="col-sm-1">
+                      <button (click)="addTindakanMedis()" type="button" class="btn-space" mat-raised-button color="primary"><i class="fa fa-plus-circle"></i></button>
+                    </div>
+                  </div>
+                  <hr>
+                  <table class="table" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Tindakan</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <tr formArrayName="tindakan_medis" *ngFor="let item of formTambah.get('tindakan_medis')['controls']; let i = index">
+                        <ng-container [formGroupName]="i">
+                          <td>{{ item.value.nama_tindakan }}</td>
+
+                          <td><input (focus)="setTime()" type="text" formControlName="keterangan" placeholder="keterangan" class="form-control"></td>
+                          <td><button class="btn btn-link circle-danger text-ui-danger" (click)="hapusTindakanMedis(i)" type="button">
+                            <i class="far fa-trash-alt"></i></button></td>
+
+                        </ng-container>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+                {{ errorMessage.metaData.message }}
+                <ul *ngFor="let item of errorMessage.response" >
+                  <li>{{ item.field }} : {{ item.message }}</li>
+                </ul>
+              </div>
+
+            </div>
+            <div class="footer">
+
+              <div class="text-center mb-3">
+                <button class="btn-space bg-warning text-light" mat-raised-button  (click)="buttonKembali()" [disabled]="isLoadingButton" type="button" >
+                  <i class="fa fa-arrow-circle-left"></i> Kembali
+                </button>
+                <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+                  <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+                  Lanjutkan Antrean
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

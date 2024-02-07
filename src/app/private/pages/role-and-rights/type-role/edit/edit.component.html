@@ -1,0 +1,121 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Role & Rights'" [items]="['Role', 'View']" [active_item]="'Edit Tipe Role'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Edit Tipe Role</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-md-12 mb-3">
+        <button type="button" [routerLink]="['../../view']" [disabled]="isLoadingButton" class="btn-space bg-warning text-light" mat-raised-button> <i class="fas fa-arrow-left"></i> Kembali</button>
+        </div>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Form Edit Tipe Role</strong> </h2>
+          </div>
+          <div class="body">
+
+            <form [formGroup]="formTambah" (ngSubmit)="submitForm()">
+				<div class="row mb-3">
+                <label for="exampleFormControlInput1" class="col-sm-2 col-form-label fw-bold">Group Code</label>
+                <div class="col-sm-9">
+                  <select formControlName="kode_group" class="form-select" [class.border-danger]="formTambah.controls.kode_group.hasError('required') && submitted">
+                    <option value="">Pilih Group Code</option>
+                    <option *ngFor="let item of group_code" value="{{ item.id }}">{{ item.nama }}</option>
+                  </select>
+                  <!-- <span style="font-size: 10px;">* Data right muncul sesuai tipe role yang di pilih</span> -->
+                  <div class="form-text text-danger"  *ngIf="formTambah.controls.kode_group.hasError('required')  && submitted">
+                    Group Code tidak boleh kosong
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="row mb-3">
+                <label for="exampleFormControlInput1" class="col-sm-2 col-form-label fw-bold">Tipe Role</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" (keyup)="checkTipeRole($event.target.value)" formControlName="tipe_role" [class.border-danger]="formTambah.controls.tipe_role.hasError('required') && submitted || formTambah.controls.tipe_role.hasError('pattern') && submitted">
+                  <div class="form-text text-danger"  *ngIf="formTambah.controls.tipe_role.hasError('required') && submitted">
+                    Tipe role tidak boleh kosong
+                  </div>
+                  <div class="form-text text-danger" *ngIf="validateTipeRole">
+                    Tipe role hanya boleh huruf dan sepasi
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="exampleFormControlInput1" class="col-sm-2 col-form-label fw-bold">Rights</label>
+                <div class="col-sm-10">
+                  <ul>
+                    <li *ngFor="let item of dataMenuRepair; let i = index;">
+                      <div>
+                        <input type="checkbox" (change)="fieldsChangeRepair($event, i)" [indeterminate]="item.indeterminate" [checked]="item.value_checkbox">
+                        <label class="ps-2">{{ item.nama }}</label>
+                      </div>
+                      <ul>
+                        <li *ngFor="let item_child_1 of item.child; let ii = index;">
+                          <div>
+                            <input type="checkbox" (change)="fieldsChangeRepairKedua($event, i, ii)" [indeterminate]="item_child_1.indeterminate" [checked]="item_child_1.value_checkbox">
+                            <label class="ps-2">{{ item_child_1.nama }}</label>
+                          </div>
+                          <ul>
+                            <li *ngFor="let item_child_2 of item_child_1.child; let iii = index;">
+                              <div>
+                                <input type="checkbox" (change)="fieldsChangeRepairKetiga($event, i, ii, iii)" [indeterminate]="item_child_2.indeterminate" [checked]="item_child_2.value_checkbox">
+                                <label class="ps-2">{{ item_child_2.nama }}</label>
+                              </div>
+                              <ul>
+                                <li *ngFor="let item_child_3 of item_child_2.child; let iv = index;">
+                                  <div>
+                                    <input type="checkbox" (change)="fieldsChangeRepairKeempat($event, i, ii, iii, iv)" [indeterminate]="item_child_3.value_checkbox ? false : item_child_3.indeterminate" [checked]="item_child_3.value_checkbox">
+                                    <label class="ps-2">{{ item_child_3.nama }}</label>
+                                  </div>
+                                  <ul>
+                                    <li *ngFor="let item_child_4 of item_child_3.child; let v = index;">
+                                      <div>
+                                        <input type="checkbox" (change)="fieldsChangeRepairKelima($event, i, ii, iii, iv, v)" [indeterminate]="item_child_4.indeterminate" [checked]="item_child_4.value_checkbox">
+                                        <label class="ps-2">{{ item_child_4.nama }}</label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button class="btn-space bg-success text-light" mat-raised-button [disabled]="isLoadingButton" type="submit">
+
+                  <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-save': !isLoadingButton}"></i>
+                  Simpan
+                </button>
+              </div>
+
+            </form>
+          </div>
+          <div class="footer">
+            <div class="mb-4">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

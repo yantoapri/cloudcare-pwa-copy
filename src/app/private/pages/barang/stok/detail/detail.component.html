@@ -1,0 +1,138 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Stock Alat Kesehatan'" [items]="[]" [active_item]="'Detail Alat Kesehatan'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Detail Alat Kesehatan<br>{{alat}}</h3>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="row mb-3">
+          <div class="col-6">
+            <button type="button" [routerLink]="['../../../view']" class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn-space bg-info text-light" mat-raised-button (click)="editKatalog(dataStok['id_alat_kesehatan'])">Update Harga</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="header">
+            <h4 class="text-center w100"> </h4>
+          </div>
+          <div class="body">
+            <table width="100%" class="table tabl-sm table-striped table-bordered table-sm mb-3">
+              <tbody>
+                <tr>
+                  <th>
+                    Stock Total
+                    <br>
+                    <h4> <strong> {{dataStok['stok']+" "+dataStok['kemasan_singkatan']}} </strong></h4>
+                  </th>
+                  <th>
+                    Stock Minimun
+                    <br>
+                    <h4> <strong>{{dataStok['stok_minimum']!=undefined?dataStok['stok_minimum']:'0'}} {{dataStok['kemasan_singkatan']}} </strong></h4>
+                  </th>
+                  <th>
+                    Rata-rata Jual
+                    <h4> <strong> {{dataStok['rata_rata_jual']!=undefined?dataStok['rata_rata_jual']:'0'}} {{dataStok['kemasan_singkatan']+"/mgg"}}  </strong></h4>
+                  </th>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <h3>Detail harga</h3>
+            <table class="table tabl-sm table-striped table-bordered table-sm mb-3">
+              <tbody>
+                <tr>
+                  <td>
+                    Harga Jual
+                    <br>
+                    {{money(dataStok['harga_jual'])+"/"+dataStok['kemasan']}}
+                  </td>
+                  <td>
+                    Harga Pokok
+                    <br>
+                    {{money(dataStok['harga_pokok_terkini'])+"/"+dataStok['kemasan']}}
+                  </td>
+                  <td>
+                    Margin
+                    <br>
+                    {{dataStok['margin']+"%"}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="body">
+            <h4><strong>Batch Pada Stock</strong></h4>
+            <p>Dalam Tablet</p>
+
+            <table class="table tabl-sm table-striped table-bordered table-sm" width="100%"  datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+					        <th>No</th>
+                  <th>Tanggal Beli</th>
+                  <th>Harga Pokok</th>
+                  <th>No. Batch</th>
+                  <th>ED</th>
+                  <th>Stok</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="body">
+
+            <h4><strong>Riwayat Stock</strong></h4>
+            <p>Dalam Tablet</p>
+
+            <table class="table tabl-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptionsRiwayat">
+              <thead>
+                <tr class="text-center">
+					        <th rowspan="2">No</th>
+                  <th rowspan="2">Waktu</th>
+                  <th rowspan="2">Kegiatan</th>
+                  <th rowspan="2">Oleh</th>
+                  <th  rowspan="2">Batch</th>
+                  <th colspan="2">Jumlah</th>
+                  <th rowspan="2">Stock</th>
+                </tr>
+                <tr class="text-center">
+                  <td>Masuk</td>
+                  <td>Keluar</td>
+                </tr>
+
+              </thead>
+              <tbody>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

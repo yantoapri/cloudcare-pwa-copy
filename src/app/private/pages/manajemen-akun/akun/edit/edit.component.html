@@ -1,0 +1,253 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manajemen Akun'" [items]="['Akun']" [active_item]="'Edit Akun'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Manajemen Akun</h3>
+    <div class="col-md-12 mb-3">
+      <button type="button" [routerLink]="['../../view']" class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+    </div>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <br>
+        <br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Edit Akun</strong> </h2>
+          </div>
+          <div class="body">
+
+            <form [formGroup]="formTambah" (ngSubmit)="submitForm()">
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Nama Role<span class="text-danger">*</span></label>
+                  <div class="col-sm-9">
+    
+					<ng-select 
+							style="flex: 1 1 auto;" 
+							name="role_akun"  
+							formControlName="role_akun"
+                            [virtualScroll]="true" 
+                            placeholder="Pilih Nama Role"
+                            [searchable]="true" 
+                            [clearable]="true"
+                            [loading]="loadingRole"
+                            (search)="prosesSelectRole($event, 'search')"
+                            (scrollToEnd)="prosesSelectRole($event, 'last_page')"
+                            (open)="prosesSelectRole($event, 'open')"
+                            (change)="ChangeRoleAKun($event)"
+                            >
+                                <ng-option *ngFor="let item of listRoleAKun; let i=index" [value]="item.id_akun_role">{{ item.nama_role }} - Level {{ item.level_akun }}</ng-option>
+                        </ng-select>
+                    <div class="form-text text-danger"  *ngIf="formTambah.controls.role_akun.hasError('required') && submitted">
+                      Role tidak boleh kosong
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3" *ngIf="!hideKlinik">
+                  <label class="col-sm-2 col-form-label fw-bold">Klinik<span class="text-danger">*</span></label>
+                  <div class="col-sm-9">
+                        <ng-select 
+                            style="flex: 1 1 auto;" 
+                            name="nama_klinik"  
+                            [virtualScroll]="true" 
+                            placeholder="Pilih Nama Klinik"
+                            [searchable]="true" 
+                            [clearable]="true"
+                            [multiple]="multi"
+                            [loading]="loadingKlinik"
+                            formControlName="id_klinik" 
+                            [class.border-danger]="formTambah.controls.id_klinik.hasError('required') && submitted"
+                            (search)="prosesSelectKlinik($event, 'search')"
+                            (scrollToEnd)="prosesSelectKlinik($event, 'last_page')"
+                            (open)="prosesSelectKlinik($event, 'open')"
+                            (change)="ChangeKlinikAKun($event)"
+                            >
+                                <ng-option *ngFor="let item of listKlinik; let i=index" [value]="item.id_klinik">{{ item.nama_klinik }}</ng-option>
+                        </ng-select>
+                    <div class="form-text text-danger"
+                    *ngIf="formTambah.controls.id_klinik.hasError('required') && submitted">
+                      Klinik tidak boleh kosong
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Nama Lengkap<span class="text-danger">*</span></label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Nama Lengkap" formControlName="nama_lengkap" class="form-control"
+                    [class.border-danger]="formTambah.controls.nama_lengkap.hasError('required') && submitted">
+                    <div class="form-text text-danger"  *ngIf="formTambah.controls.nama_lengkap.hasError('required') && submitted">
+                      Nama lengkap tidak boleh kosong
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Email<span class="text-danger">*</span></label>
+                  <div class="col-sm-9">
+                    <input type="email" placeholder="Email" formControlName="email" class="form-control"
+                    [class.border-danger]="(formTambah.controls.email.hasError('required') && submitted) || (formTambah.controls.email.hasError('email') && submitted)">
+                    <div class="form-text text-danger"  *ngIf="formTambah.controls.email.hasError('required') && submitted">
+                      Email tidak boleh kosong
+                    </div>
+                    <div class="form-text text-danger"  *ngIf="formTambah.controls.email.hasError('email') && submitted">
+                      Email tidak valid
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">No. HP<span class="text-danger">*</span></label>
+                  <div class="col-sm-9">
+                    <div class="input-group">
+                        <ng-select 
+                      class="selectFlag"
+                      name="dial_code"  
+                      formControlName="dial_code"
+                                    [virtualScroll]="true" 
+                      bindLabel="name"
+                                    bindValue="dial_code" 
+                      placeholder="Dial Code"
+                      [searchable]="true" 
+                      [clearable]="true"
+                      [loading]="loadingState"
+                      (search)="prosesSelectState($event, 'search')"
+                      (scrollToEnd)="prosesSelectState($event, 'last_page')"
+                      (open)="prosesSelectState($event, 'open')"
+                      (change)="ChangeState($event)"
+                      [items]="listState"
+                      >
+                      <ng-template ng-label-tmp let-item="item">
+                        <span class="left"><img width="20px" [src]="'/assets/images/flag/'+item.flag+'.png'" class="flag img img-responsive mx-2" /></span> <b class="px-2 right">{{ item.dial_code }}</b>
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                        <span class="left"><img [src]="'/assets/images/flag/'+item.flag+'.png'" class="flag img img-responsive mx-2" />{{ item.name }}</span> <b class="px-2 right">({{ item.dial_code }})</b>
+                      </ng-template>
+                        </ng-select>
+                      <input type="text" (keypress)="isNumber($event)" formControlName="no_hp" class="form-control" placeholder="No. HP">
+                    </div>
+                    <div class="form-text text-danger" *ngIf="(formTambah.controls.dial_code.hasError('required')||formTambah.controls.no_hp.hasError('required')) && submitted">
+                      Dial code dan No Hp tidak boleh kosong
+                     </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Username<span class="text-danger">*</span></label>
+                  <div class="col-sm-9">
+                    <input type="text" readonly class="form-control" formControlName="nameakun" placeholder="Username" (keydown.space)="$event.preventDefault();"
+                    [class.border-danger]="(formTambah.controls.nameakun.hasError('required') && submitted) || (formTambah.controls.nameakun.hasError('whitespace') && submitted)">
+                    <div class="form-text text-danger" *ngIf="formTambah.controls.nameakun.hasError('required') && submitted">
+                      Username tidak boleh kosong
+                    </div>
+                    <div class="form-text text-danger" *ngIf="formTambah.controls.nameakun.hasError('whitespace') && submitted">
+                      Username tidak valid
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Password </label>
+                  <div class="col-sm-9">
+                    <div class="input-group custome-input">
+                      <input
+                      [type]="!hide?'password':'text'"
+                      formControlName="password"
+                      class="form-control"
+                      [class.border-danger]="(formTambah.controls.password.hasError('required') && submitted) || (formTambah.controls.password.hasError('minlength') && submitted)">
+                      <span class="input-icon" (click)="hide=!hide">
+                        <i [class]="hide?'far fa-eye':'far fa-eye-slash'"></i>
+                      </span>
+                    </div>
+                    <div class="form-text text-danger"  *ngIf="formTambah.controls.password.hasError('required') && submitted">
+                      Password tidak boleh kosong
+                    </div>
+                    <div class="form-text text-danger" *ngIf="formTambah.controls.password.hasError('minlength') && submitted">
+                      Password harus lebih dari 6 huruf
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Retype Password</label>
+                  <div class="col-sm-9">
+                    <div class="input-group custome-input">
+                      <input
+                      [type]="!hideRetype?'password':'text'"
+                      formControlName="confirm_password"
+                      class="form-control"
+                      [class.border-danger]="(formTambah.controls.confirm_password.hasError('required') && submitted) || (formTambah.controls.confirm_password.hasError('minlength') && submitted)">
+                      <span class="input-icon" (click)="hideRetype=!hideRetype">
+                        <i [class]="hideRetype?'far fa-eye':'far fa-eye-slash'"></i>
+                      </span>
+                    </div>
+                   
+                    <div class="form-text text-danger" *ngIf="formTambah.controls.confirm_password.hasError('required') && submitted">
+                      Password tidak boleh kosong
+                    </div>
+                    <div class="form-text text-danger" *ngIf="formTambah.controls.confirm_password.hasError('matching') && submitted">
+                      Password tidak sama
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Status Aktif</label>
+                  <div class="col-sm-9">
+                    <input type="radio" class="btn-check" formControlName="status_akun"  id="success-outlined" value="1" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="success-outlined">Aktif</label>
+
+                    <input type="radio" class="btn-check" formControlName="status_akun"  id="danger-outlined" value="0" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="danger-outlined">Tidak Aktif</label>
+                  </div>
+                </div> -->
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label fw-bold">Status {{ labelStatusAkun }}</label>
+                  <div class="col-sm-9">
+                    <div class="form-check form-switch form-switch-lg">
+                      <input
+                      class="form-check-input checked" type="checkbox"
+                      #saveStatusAkunCheckbox
+                      [checked]="statusAkunValueCheckbox"
+                      (change)="changeStatusAkun(saveStatusAkunCheckbox.checked)"
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="errorMessage != null" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Kesalahan : </strong> {{ errorMessage.metaData.message }}
+                </div>
+
+                <div *ngIf="errorMessage!= null">
+                  <div *ngFor="let item of errorMessage.response" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ item.field }} : </strong> {{ item.message }}
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button class="btn-space bg-success text-light" mat-raised-button [disabled]="isLoadingButton" type="submit">
+                    <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-save': !isLoadingButton}"></i>
+                    Simpan
+                  </button>
+
+                </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

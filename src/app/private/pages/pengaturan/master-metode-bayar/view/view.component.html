@@ -1,0 +1,144 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Pengaturan'" [items]="[]" [active_item]="'Master Metode Bayar'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Master Metode Bayar</h3>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="card">
+          <div class="header">
+            <h2><strong>Metode Yang diterima</strong> </h2>
+          </div>
+          <div class="body">
+            <form>
+
+              <div class="row">
+                <!-- <label class="col-sm-2 col-form-label fw-bold">Tunai</label> -->
+                <div class="col-sm-6">
+                  <label class="fw-bold">
+                    <input type="checkbox" value="senin" checked>
+                     Tunai <i class="fa fa-money-bill"></i>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- <label class="col-sm-2 col-form-label fw-bold">Transfer Bank</label> -->
+                <div class="col-sm-6">
+                  <label class="fw-bold">
+                    <input type="checkbox" value="senin">
+                      Transfer Bank <i class="fa fa-money-check-alt"></i>
+                  </label>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <button type="button" *ngIf="btnAdd" (click)="btnTambahBaru()" class="btn-space mb-3" mat-raised-button color="primary"><i class="fas fa-plus"></i> Tambah Baru</button>
+
+        <div class="card">
+          <div class="header">
+            <h2><strong>Daftar Rekening Transfer</strong> </h2>
+          </div>
+          <div class="body">
+
+            <table class="table table-sm table-striped table-bordered table-sm table-striped" width="100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th [width]="30">No</th>
+                  <th>Bank</th>
+                  <th>Pemilik Rekening</th>
+                  <th>No Rekening</th>
+                  <th [width]="100">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<jw-modal id="modalFormContent">
+  <form [formGroup]="formInput" (submit)="SubmitForm()" >
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ titleModal }}</h4>
+    </div>
+    <div class="modal-body">
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-bold">Nama Bank <span class="color-red">*</span></label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control"
+          [class.border-danger]="formInput.controls.nama_bank.hasError('required') && submitted"
+          placeholder="Nama Bank" formControlName="nama_bank">
+          <div
+          class="form-text text-danger"
+          *ngIf="formInput.controls.nama_bank.hasError('required') && submitted">
+            Nama bank tidak boleh kosong
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-bold">Pemilik Rekening <span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" 
+          [class.border-danger]="formInput.controls.pemilik_rekening.hasError('required') && submitted"
+          placeholder="Pemilik Rekening" formControlName="pemilik_rekening">
+          <div
+          class="form-text text-danger"
+          *ngIf="formInput.controls.pemilik_rekening.hasError('required') && submitted">
+            Pemilik rekening tidak boleh kosong
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-bold">No. Rekening <span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+          <input type="text" (keypress)="isNumber($event)" class="form-control"
+          [class.border-danger]="formInput.controls.no_rekening.hasError('required') && submitted"
+          placeholder="No. Rekening" formControlName="no_rekening">
+          <div
+          class="form-text text-danger"
+          *ngIf="formInput.controls.no_rekening.hasError('required') && submitted">
+            No. rekening tidak boleh kosong
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+        {{ errorMessage.metaData.message }}
+        <ul *ngFor="let item of errorMessage.response" >
+          <li>{{ item.field }} : {{ item.message }}</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton" (click)="modalClose()">Batal</button>
+      <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+        <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+        Simpan
+      </button>
+    </div>
+  </form>
+</jw-modal>

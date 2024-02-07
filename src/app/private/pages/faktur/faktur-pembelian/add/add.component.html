@@ -1,0 +1,519 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Master Data'" [items]="['Faktur']" [active_item]="'Tambah Faktur'"></app-breadcrumb>
+    </div>
+
+    <h3 class="text-center">Faktur Pembelian</h3>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-md-12 mb-3">
+          <button type="button" [routerLink]="['../view']" class="btn-space bg-warning text-light" mat-raised-button><i
+            class="fas fa-arrow-left"></i> Kembali</button>
+        </div>
+        <div class="card">
+          <div class="header">
+            <h4><strong>Catat Faktur</strong></h4>
+          </div>
+          <form [formGroup]="formInput">
+            <div class="body">
+
+              <div class="row g-3">
+                <div class="col">
+                  <div class="mb-3 col-sm-12">
+                    <div class="col-sm-8">
+                      <label class="form-label fw-bold">Nama PBF <span class="text-danger">*</span></label>
+                      <div class="input-group">
+                        <ng-select 
+                        style="flex: 1 1 auto;" 
+                        formControlName="id_supplier"
+                        [class.border-danger]="formInput.controls.id_supplier.hasError('required') && savefaktur"
+                        [virtualScroll]="true"
+                        placeholder="Pilih Supplier" 
+                        [loading]="isLoadingPBF"
+                        [searchable]="true" 
+                        [clearable]="true"
+                        (clear)="prosesSelectPBF($event, 'clear')"
+                        [clearSearchOnAdd]="true"
+                        (search)="prosesSelectPBF($event, 'search')"
+                        (scrollToEnd)="prosesSelectPBF($event, 'last_page')"
+                        (open)="prosesSelectPBF($event, 'open')"
+                        >
+                        <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                        <ng-option *ngFor="let itm of optionSupplier" [value]="itm.id_supplier">{{itm.nama_supplier}}</ng-option>
+                        </ng-select>
+
+                      </div>
+                      <div class="form-text text-danger"
+                        *ngIf="formInput.controls.id_supplier.hasError('required') && savefaktur">
+                        Supplier tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col">
+                  <div class="mb-3 col-sm-12">
+                    <div class="col-sm-8">
+                      <label class="form-label fw-bold">Nomor Faktur <span class="text-danger">*</span></label>
+                      <div class="input-group">
+                        <input type="text" formControlName="nomor_faktur"
+                          [class.border-danger]="formInput.controls.nomor_faktur.hasError('required') && savefaktur"
+                          class="form-control" placeholder="Nomor Faktur">
+
+                      </div>
+                      <div class="form-text text-danger"
+                        *ngIf="formInput.controls.nomor_faktur.hasError('required') && savefaktur">
+                        Nomor faktur tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3 col-sm-8">
+                <div class="col col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Tanggal faktur <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <div class="input-group">
+                        <input type="text" bsDatepicker formControlName="tgl_faktur"
+                        [class.border-danger]="formInput.controls.tgl_faktur.hasError('required') && savefaktur"
+                        [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                        [outsideClick]="true" class="form-control" id="tgl1">
+                        <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl1')">
+                          <i class="fa fa-calendar"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-text text-danger"
+                      *ngIf="formInput.controls.tgl_faktur.hasError('required') && savefaktur">
+                      Tanggal faktur tidak boleh kosong
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Tanggal diterima <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" bsDatepicker formControlName="tgl_diterima"
+                        [class.border-danger]="formInput.controls.tgl_diterima.hasError('required') && savefaktur"
+                        [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                        [outsideClick]="true" class="form-control" id="tgl2">
+                        <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl2')">
+                          <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                    <div class="form-text text-danger"
+                      *ngIf="formInput.controls.tgl_diterima.hasError('required') && savefaktur">
+                      Tanggal trima tidak boleh kosong
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h4><strong>Pembayaran</strong></h4>
+
+              <div class="row g-3 col-sm-8">
+                <div class="col col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Metode <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <select class="form-select" formControlName="pembayaran"
+                        [class.border-danger]="formInput.controls.pembayaran.hasError('required') && savefaktur">
+                        <option value="kredit">Kredit</option>
+                        <option value="tunai">Tunai</option>
+                      </select>
+                      <div class="form-text text-danger"
+                        *ngIf="formInput.controls.pembayaran.hasError('required') && savefaktur">
+                        Pembayaran tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Jatuh Tempo <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" bsDatepicker formControlName="jatuh_tempo"
+                        [class.border-danger]="formInput.controls.jatuh_tempo.hasError('required') && savefaktur"
+                        [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                        [outsideClick]="true" class="form-control" id="tgl3">
+                        <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl3')">
+                          <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                    <div class="form-text text-danger"
+                      *ngIf="formInput.controls.jatuh_tempo.hasError('required') && savefaktur">
+                      Jatuh tempo tidak boleh kosong
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h4><strong>Penerimaan</strong></h4>
+
+              <div class="row g-3 col-sm-8">
+                <div class="col col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Harga sudah termasuk PPN? <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <select class="form-select" formControlName="ppn" (change)="setPPN($event)"
+                        [class.border-danger]="formInput.controls.ppn.hasError('required') && savefaktur">
+                        <option value="belum">Belum, tambahkan PPN di akhir</option>
+                        <option value="sudah">Ya, sudah termasuk PPN</option>
+                      </select>
+                    </div>
+                    <div class="form-text text-danger"
+                      *ngIf="formInput.controls.ppn.hasError('required') && savefaktur">
+                      PPN tidak boleh kosong
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row px-3 ">
+                <div class="col-sm-12 card pt-3">
+                  <div class="mb-2">
+                    <button class="btn-space" mat-raised-button color="primary" type="button" (click)="btnClickTambah(1)">Tambah Obat</button>
+                  </div>
+                  <label *ngIf="listObat.length<=0" class="alert alert-warning text-center mt-3"><strong>Belum ada obat
+                      pada
+                      faktur ini</strong></label>
+                  <div class="table-responsive" *ngIf="listObat.length>0">
+                    <table class="table tabl-sm table-striped table-bordered table-sm" width="100%">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th width="200">Barang</th>
+                          <th width="100">Batch</th>
+                          <th width="150">ED</th>
+                          <th width="100">Jumlah Satuan</th>
+                          <th width="200">Harga Beli</th>
+                          <th width="100">Diskon</th>
+                          <th width="200">Subtotal</th>
+                          <td width="200">Action</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of listObat;let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{item.obat.nama_obat}}</td>
+                          <td>{{item.no_batch}}</td>
+                          <td>{{convertDate(item.tanggal_ed)}}</td>
+                          <td class="text-left">{{item.satuan_qty+' '+item.target_kemasan}}</td>
+                          <td class="text-right">{{ Money(item.satuan_harga)+'/'+item.target_kemasan }}</td>
+                          <td style="width:100px">
+                            {{(item.diskon_value)?(item.jenis_diskon=="persen")?item.diskon_value+"%":Money(item.diskon_value):"-"}}
+                          </td>
+                          <td class="text-right">{{Money(item.sub_total)}}</td>
+                          <td>
+                            <button class="btn btn-link circle-primary text-ui-primary mb-2" (click)="setEdit(i,item,1)"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-link circle-danger text-ui-danger mb-2" (click)="deleteItem(i,1)"><i class="far fa-trash-alt"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                  <!-- ------------------------------------------------------------------------------------------ -->
+                  <div class="mb-2 mt-3">
+                    <button class="btn-space" mat-raised-button color="primary" type="button" (click)="btnClickTambah(2)">Tambah Alat
+                      Kesehatan</button>
+                  </div>
+                  <label *ngIf="listBarang.length<=0" class="alert alert-warning text-center mt-3"><strong>Belum ada
+                      barang pada
+                      faktur ini</strong></label>
+                  <div class="table-responsive" *ngIf="listBarang.length>0">
+                    <table class="table tabl-sm table-striped table-bordered table-sm" width="100%">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th width="200">Barang</th>
+                          <th width="100">Batch</th>
+                          <th width="150">ED</th>
+                          <th width="100">Jumlah Satuan</th>
+                          <th width="200">Harga Beli</th>
+                          <th width="100">Diskon</th>
+                          <th width="200">Subtotal</th>
+                          <td width="200">Action</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of listBarang;let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{item.alat.nama_alat_kesehatan}}</td>
+                          <td>{{item.no_batch}}</td>
+                          <td>{{convertDate(item.tanggal_ed)}}</td>
+                          <td class="text-left">{{item.satuan_qty+" "+item.target_kemasan}}</td>
+                          <td class="text-right">{{ Money(item.satuan_harga) }} {{"/"+item.target_kemasan}}</td>
+                          <td style="width:100px">
+                            {{(item.diskon_value)?(item.jenis_diskon=="persen")?item.diskon_value+"%":Money(item.diskon_value):"-"}}
+                          </td>
+                          <td class="text-right">{{Money(item.sub_total)}}</td>
+                          <td>
+                            <button class="btn btn-link circle-primary text-ui-primary mb-2" (click)="setEdit(i,item,2)"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-link circle-danger text-ui-danger mb-2" (click)="deleteItem(i,2)"><i class="far fa-trash-alt"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+
+                  <div class="col-sm-4 offset-sm-8">
+                    <table class="table table-sm" width="100%">
+                      <tbody>
+                        <tr>
+                          <td>Subtotal</td>
+                          <td></td>
+                          <td class="text-end">{{Money(sub_total)}}</td>
+                        </tr>
+                        <tr *ngIf="formInput.value.ppn=='belum'">
+                          <td width="100">PPN</td>
+                          <td class="text-center" width="80">
+                            <input type="text" (keypress)="isNumber($event)" (keyup)="setTotal()" value="11" class="form-control" formControlName="ppn_nilai">
+                          </td>
+                          <td class="text-end" >
+                            <span>{{Money(ppn)}}</span>
+                          </td>
+                        </tr>
+                        <tr style="background-color: #eee;">
+                          <td><strong>Total Faktur</strong></td>
+                          <td></td>
+                          <td class="text-end"><strong>{{Money(total_faktur)}}</strong></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="footer text-center mb-3">
+              <button class="btn-space bg-success text-light" mat-raised-button (click)="btnSave()">Simpan </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<jw-modal id="modalFormContent">
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"></h4>
+  </div>
+  <div class="modal-body">
+
+    <div class="mb-3 row">
+      <ng-select 
+      style="flex: 1 1 auto;" 
+      *ngIf="isAddObat" 
+      name="id_obat" 
+      [virtualScroll]="true"
+      [(ngModel)]="id_obat"
+      (change)="selectData(1)" 
+      [loading]="isLoadingObat"
+      placeholder="Pilih Obat"
+      [searchable]="true" 
+      [clearable]="true"
+      (clear)="prosesSelectObat($event, 'clear')"
+      [clearSearchOnAdd]="true"
+      (search)="prosesSelectObat($event, 'search')"
+      (scrollToEnd)="prosesSelectObat($event, 'last_page')"
+      (open)="prosesSelectObat($event, 'open')"
+      >
+      <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+      <ng-option *ngFor="let itm of optionObat" [value]="itm.id_obat">{{itm.nama_obat}}</ng-option>
+      </ng-select>
+      <ng-select 
+	  	style="flex: 1 1 auto;" 
+      *ngIf="isAddAlatKesehatan" 
+      name="id_alat_kesehatan"
+      [(ngModel)]="id_alat_kesehatan"
+      [virtualScroll]="true"
+      (change)="selectData($event,2)" 
+      placeholder="Pilih Alat Kesehatan" 
+      [loading]="isLoadingAlat"
+      [searchable]="true" 
+      [clearable]="true"
+      (clear)="prosesSelectAlat($event, 'clear')"
+      [clearSearchOnAdd]="true"
+      (search)="prosesSelectAlat($event, 'search')"
+      (scrollToEnd)="prosesSelectAlat($event, 'last_page')"
+      (open)="prosesSelectAlat($event, 'open')"
+      >
+      <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+      <ng-option *ngFor="let itm of optionAlatKesehatan" [value]="itm.id_alat_kesehatan">{{itm.nama_alat_kesehatan}}</ng-option>
+      </ng-select>
+    </div>
+    <form [formGroup]="formBarang" (submit)="btnSimpanFormModal()">
+      <div class="" *ngIf="vbFormInputModal == true">
+
+        <h3 *ngIf="isAddObat"><strong>{{selectDataObat.nama_obat}}</strong></h3>
+        <h3 *ngIf="isAddAlatKesehatan"><strong>{{selectDataAlat.nama_alat_kesehatan}}</strong></h3>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label fw-bold">Jumlah<span class="text-danger">*</span></label>
+          <div class="col-sm-4">
+            <input type="text" (keypress)="isNumber($event)" min="1" formControlName="satuan_qty"
+              [class.border-danger]="formBarang.controls.satuan_qty.hasError('required') && submitted"
+              class="form-control">
+            <div class="form-text text-danger" *ngIf="formBarang.controls.satuan_qty.hasError('required') && submitted">
+              Jumlah tidak boleh kosong
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <ng-select style="flex: 1 1 auto;" *ngIf="isAddObat" formControlName="satuan"
+              [class.border-danger]="formBarang.controls.satuan.hasError('required') && submitted"
+              [virtualScroll]="true" [items]="selectDataObat.obat_kemasan" bindLabel="target_kemasan"
+              bindValue="nama_kemasan" (change)="setKemasan($event,isAddObat)" placeholder="Pilih Satuan" [searchable]="true" [clearable]="true">
+              <ng-template ng-label-tmp let-item="item">
+                <span>{{ (item.nama_kemasan)?item.nama_kemasan+" ("+item.target_qty+"
+                  "+item.target_kemasan+")":"" }}</span>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                <span>{{ (item.nama_kemasan)?item.nama_kemasan+" ("+item.target_qty+"
+                  "+item.target_kemasan+")":"" }}</span>
+              </ng-template>
+            </ng-select>
+            <ng-select style="flex: 1 1 auto;" *ngIf="isAddAlatKesehatan" name="satuan"
+              [class.border-danger]="formBarang.controls.satuan.hasError('required') && submitted"
+              formControlName="satuan" (change)="setKemasan($event,isAddObat)" [virtualScroll]="true" [items]="selectDataAlat.alat_kesehatan_kemasan"
+              bindLabel="target_kemasan" bindValue="nama_kemasan" placeholder="Pilih Satuan" [searchable]="true"
+              [clearable]="true">
+              <ng-template ng-label-tmp let-item="item">
+                <span>{{ (item.nama_kemasan)?item.nama_kemasan+" ("+item.target_qty+"
+                  "+item.target_kemasan+")":"" }}</span>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                <span>{{ (item.nama_kemasan)?item.nama_kemasan+" ("+item.target_qty+"
+                  "+item.target_kemasan+")":"" }}</span>
+              </ng-template>
+            </ng-select>
+            <div class="form-text text-danger" *ngIf="formBarang.controls.satuan.hasError('required') && submitted">
+              Satuan tidak boleh kosong
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label fw-bold">Harga Beli<span class="text-danger">*</span></label>
+          <div class="col-sm-4">
+            <div class="input-group" style="width:100%">
+              <input currencyMask [options]="optionsCur" formControlName="satuan_harga"
+              [class.border-danger]="formBarang.controls.satuan_harga.hasError('required') && submitted"
+              class="form-control">
+              <span class="input-group-text" *ngIf="!formBarang.controls.satuan.hasError('required')">
+                /{{formBarang.value.target_kemasan}}
+              </span>
+            </div>
+           
+            <div class="form-text text-danger"
+              *ngIf="formBarang.controls.satuan_harga.hasError('required') && submitted">
+              Harga beli tidak boleh kosong
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label fw-bold">Diskon<span class="text-danger">*</span></label>
+          <div class="col-sm-4">
+            <select formControlName="jenis_diskon"
+              [class.border-danger]="formBarang.controls.jenis_diskon.hasError('required') && submitted"
+              class="form-select">
+              <option value="persen">%</option>
+              <option value="rupiah">Rp</option>
+            </select>
+            <div class="form-text text-danger"
+              *ngIf="formBarang.controls.jenis_diskon.hasError('required') && submitted">
+              Jenis diskon tidak boleh kosong
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" (keypress)="isNumber($event)" formControlName="diskon_value" *ngIf="formBarang.value.jenis_diskon=='persen'"
+              [class.border-danger]="formBarang.controls.diskon_value.hasError('required') && submitted"
+              class="form-control">
+              <input currencyMask [options]="optionsCur" formControlName="diskon_value" *ngIf="formBarang.value.jenis_diskon=='rupiah'"
+              [class.border-danger]="formBarang.controls.diskon_value.hasError('required') && submitted"
+              class="form-control">
+            <div class="form-text text-danger"
+              *ngIf="formBarang.controls.diskon_value.hasError('required') && submitted">
+              Diskon tidak boleh kosong
+            </div>
+          </div>
+        </div>
+
+        <h5 class="judul-kemasan mb-3"><strong>Info Batch</strong></h5>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label fw-bold">Tanggal ED<span class="text-danger">*</span></label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <input type="text" formControlName="tanggal_ed" bsDatepicker
+              [class.border-danger]="formBarang.controls.tanggal_ed.hasError('required') && submitted"
+              [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+              [outsideClick]="true" class="form-control" id="tgl4">
+              <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl4')">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+            <div class="form-text text-danger" *ngIf="formBarang.controls.tanggal_ed.hasError('required') && submitted">
+              Tanggal ED tidak boleh kosong
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label fw-bold">No. Batch<span class="text-danger">*</span></label>
+          <div class="col-sm-4">
+            <input type="text" formControlName="no_batch"
+              [class.border-danger]="formBarang.controls.no_batch.hasError('required') && submitted"
+              class="form-control">
+            <div class="form-text text-danger" *ngIf="formBarang.controls.no_batch.hasError('required') && submitted">
+              No batch tidak boleh kosong
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row" *ngIf="vbFormInputModal == true">
+        <div class="col-sm-12 text-end">
+
+          <button class="btn-space bg-warning text-light" mat-raised-button type="button" (click)="modalClose()">Batal</button>
+          <button class="btn-space bg-success text-light" mat-raised-button type="submit" >Simpan</button>
+
+        </div>
+      </div>
+      <div class="row" *ngIf="vbFormInputModal == false">
+        <div class="col-sm-12 text-end">
+
+          <button class="btn-space bg-warning text-light" mat-raised-button type="button" (click)="modalClose()">Batal</button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</jw-modal>
+<ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>

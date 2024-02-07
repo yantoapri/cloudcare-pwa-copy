@@ -1,0 +1,112 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Rekam Medis'" [items]="['Pasien']" [active_item]="'Detail'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-3">Detail Rekam Medis Pasien</h3>
+    
+    <button type="button" [routerLink]="['../../view']" class="btn-space bg-warning text-light mb-3" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="card">
+        <div class="header">
+
+        </div>
+        <div class="body">
+
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link" [class.active]="tabPane[0]" (click)="ShowTabPane(0)" type="button" >DETAIL PASIEN</button>
+              <button class="nav-link" [class.active]="tabPane[1]" (click)="ShowTabPane(1)" type="button" >DIAGNOSA</button>
+            </div>
+          </nav>
+          <div class="tab-content">
+            <div class="tab-pane fade" [class.active]="tabPane[0]" [class.show]="tabPane[0]">
+              <div class="row">
+                <div class="col-xs-12 col-md-12 pt-3">
+                  <table class="table table-sm" width="100%">
+                    <tbody>
+                      <tr>
+                        <th width="15%">No RM</th>
+                        <td width="35%">: {{ pasien?.full_rm }}</td>
+                        <th width="15%">Jenis Kelamin</th>
+                        <td width="35%">: {{ pasien?.jenis_kelamin}}</td>
+                      </tr>
+                      <tr>
+                        <th>No BPJS</th>
+                        <td>: {{ pasien?.no_bpjs }}</td>
+                        <th>Golongan Darah</th>
+                        <td>: {{ pasien?.golongan_darah }}</td>
+                      </tr>
+                      <tr>
+                        <th>NIK</th>
+                        <td>: {{ dekryp(pasien?.nik) }}</td>
+                        <th>Agama</th>
+                        <td>: {{ pasien?.agama }}</td>
+                      </tr>
+                      <tr>
+                        <th>Nama</th>
+                        <td>: {{ pasien?.nama }} </td>
+                        <th>Status Perkawinan</th>
+                        <td>: {{ pasien?.status_perkawinan }}</td>
+                      </tr>
+                      <tr>
+                        <th>TTL</th>
+                        <td>: {{ pasien?.tempat_lahir }} {{ convertDate(dekryp(pasien?.tgl_lahir)) }}</td>
+                        <th>Perkerjaan</th>
+                        <td>: {{ pasien?.pekerjaan }}</td>
+                      </tr>
+                      <tr>
+                        <th>No Telp</th>
+                        <td>: {{ dekryp(pasien?.no_hp) }}</td>
+                        <th>Kewarganegaraan</th>
+                        <td>: {{ pasien?.kewarganegaraan }}</td>
+                      </tr>
+                      <tr>
+                        <th>Alamat</th>
+                        <td>:
+                          <span *ngIf="pasien?.jenis_alamat == 'ktp'">
+                            {{dekryp(pasien.alamat.ktp.alamat) + ' ' +
+                            pasien.alamat.ktp.village + ' ' +
+                            pasien.alamat.ktp.district + ' ' +
+                            pasien.alamat.ktp.regency +  ' ' +
+                            pasien.alamat.ktp.province}}
+                          </span>
+                          <span *ngIf="pasien?.jenis_alamat == 'domisili'">
+                            {{dekryp(pasien.alamat.domisili.alamat) + ' ' +
+                            pasien.alamat.domisili.village + ' ' +
+                            pasien.alamat.domisili.district + ' ' +
+                            pasien.alamat.domisili.regency +  ' ' +
+                            pasien.alamat.domisili.province}}
+                          </span>
+                     
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" [class.active]="tabPane[1]" [class.show]="tabPane[1]">
+              <app-print></app-print>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<ngx-spinner
+[name]="'spinner1'"
+bdColor = "rgba(0, 0, 0, 0.8)"
+size = "medium"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+[fullScreen] = "true">
+  <p style="color: white" > Loading... </p>
+</ngx-spinner>

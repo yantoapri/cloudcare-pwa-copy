@@ -1,0 +1,68 @@
+<section class="content">
+	<div class="content-block">
+		<div class="block-header">
+		<app-breadcrumb [title]="'Resep'" [items]="['E-Resep']" [active_item]=""></app-breadcrumb>
+		</div>
+		<h3 class="text-center mb-4">E-Resep</h3>
+
+		<div class="">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="body">
+						<mat-tab-group mat-align-tabs="start">
+							<mat-tab label="E-Resep Proses" >
+								<h3><b>E-Resep Proses</b></h3><br>
+
+								<table class="table tabl-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+									<thead>
+										<tr>
+										<th>No</th>
+										<th>Nama Pasien</th>
+										<th>Umur</th>
+										<th>No.Rekam Medis</th>
+										<th>No.ERESEP</th>
+										<th>Aksi</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+							</mat-tab>
+							<mat-tab label="E-Resep Selesai">
+								<h3><b>E-Resep Selesai</b></h3><br>
+
+								<table class="table tabl-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+									<thead>
+										<tr>
+										<th>No</th>
+										<th>Nama Pasien</th>
+										<th>Umur</th>
+										<th>No.Rekam Medis</th>
+										<th>No.ERESEP</th>
+										<th>Aksi</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+							</mat-tab>
+						</mat-tab-group>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="body">
+						<h3><b>No.EResep</b></h3><br>
+						<input type="text" class="form-control" placeholder="Masukan No E-Resep">
+						<div class="d-grid mt-3">
+							<button type="button" *ngIf="btnCek" class="btn-space  btn-block" mat-raised-button color="primary">Cek Data E-Resep</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

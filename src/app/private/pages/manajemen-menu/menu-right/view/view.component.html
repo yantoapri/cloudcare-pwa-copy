@@ -1,0 +1,83 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Manajemen Menu'" [items]="[]" [active_item]="'Menu Right'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Menu Right</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Form Pencarian</strong></h2>
+          </div>
+          <div class="body">
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label fw-bold text-end">Nama Menu</label>
+              <div class="col-sm-10">
+					          <ng-select 
+                    style="flex: 1 1 auto;" 
+                    [(ngModel)]="id_select_menu"
+                    name="id_select_menu"  
+                    placeholder="Pilih Menu"
+                    [searchable]="true" 
+                    [clearable]="true"
+                    (search)="prosesSelectMenu($event, 'search')"
+                    (open)="prosesSelectMenu($event, 'open')"
+                    >
+                        <ng-option *ngFor="let item of listMenuExistRight; let i=index" [value]="item.id_menu">{{ "Level "+item.level_menu+" - "+item.nama_menu }}</ng-option>
+                    </ng-select>
+              	</div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 text-right">
+                <button class="btn-space" mat-raised-button color="primary" (click)="reLoadData()"><i class="fa fa-search"></i> Cari</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-md-12 mb-3">
+        <button type="button" *ngIf="btnAdd" [routerLink]="['../add']" class="btn-space" mat-raised-button color="primary"><i class="fas fa-plus"></i> Tambah Baru</button>
+        </div>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Menu Right</strong> </h2>
+          </div>
+          <div class="body">
+
+            <table class="table table-sm table-striped table-bordered table-sm" datatable [dtOptions]="dtOptions" width="100%">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Status Right</th>
+                  <th>Status RW</th>
+                  <th>Nama Menu</th>
+                  <th>Action Code</th>
+                  <th>Status Aktif</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

@@ -1,0 +1,173 @@
+<section class="content">
+  <div class="content-block" >
+    <div class="block-header">
+      <app-breadcrumb [title]="'Chat'" [items]="[]" [active_item]="'Rekam Medis'"></app-breadcrumb>
+    </div>
+	<div class="col-md-12 mb-3">
+    	<button type="button" [routerLink]="['../view']" class="btn-space bg-warning text-light" mat-raised-button><i
+        class="fas fa-arrow-left"></i> Kembali</button>
+	</div>
+    <div class="">
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-body py-2">
+					<h5><b>Kajian Subyektif</b></h5>
+					<textarea name="" id="" class="form-control"></textarea>
+					<br>
+					<h5><b>Kajian Obyektif</b></h5>
+					<div class="row mb-2">
+						<div class="col-md-6">
+							<label for="">Tekanan Darah</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text">mmhg</span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Suhu</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text">mmhg</span>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-md-6">
+							<label for="">HR</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text">x/menit</span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Keterangan HR</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-md-6">
+							<label for="">RR</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text">x/menit</span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Keterangan RR</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-md-6">
+							<label for="">Tinggi Badan</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text">cm</span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Berat Badan</label>
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-text">kg</span>
+							</div>
+						</div>
+					</div>
+					<h5><b>Kajian Obyektif Dokter</b></h5>
+					<textarea name="" id="" class="form-control"></textarea><br>
+					<h5><b>Assesment</b></h5>
+					<textarea name="" id="" class="form-control"></textarea><br>
+					<h5><b>Planning</b></h5>
+					<textarea name="" id="" class="form-control"></textarea><br>
+					<h5><b>Tindakan Dokter</b></h5>
+					<textarea name="" id="" class="form-control"></textarea><br>
+					<h5><b>Tindakan Rujukan</b></h5>
+					<textarea name="" id="" class="form-control"></textarea><br>
+					<div class="alert alert-info mb-3 pb-5">
+						<b class="left pt-1 text-dark fs-5">E-Resep</b>
+						<button class="btn-space bg-success text-light" mat-raised-button (click)="addObat()">
+							<i class="fas fa-plus"></i> Obat
+						</button>
+					</div>
+					<br>
+					<div class="card mb-2 p-3 text-dark" >
+						<div class="row">
+							<div class="col-10">
+								<h5>
+									Alegrino 10 strips (3 x 1)
+								</h5>
+								<p class="pb-0">
+									Sesudah makan | pagi,siang,malam<br>
+									<span class="text-secondary">Tidak ada catatan</span>
+								</p>
+							</div>
+							<div class="col-2 text-center ">
+								<i class="fas fa-trash fs-5 text-danger" style="position:relative;top: 35px;"></i>
+							</div>
+						</div>
+					</div>
+					<div class="card mb-2 p-3 text-dark" >
+						<div class="row">
+							<div class="col-10">
+								<h5>
+									Alegrino 10 strips (3 x 1)
+								</h5>
+								<p class="pb-0">
+									Sesudah makan | pagi,siang,malam<br>
+									<span class="text-secondary">Tidak ada catatan</span>
+								</p>
+							</div>
+							<div class="col-2 text-center ">
+								<i class="fas fa-trash fs-5 text-danger" style="position:relative;top: 35px;"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-body">
+					<h5><b>Data Pasien</b></h5>
+					<div class="card">
+						<div class="card-body">
+							<h6><b>Arguna Gusti</b></h6>
+							<p>Perempuan, 22 Tahun <br> NO.RM:0003</p>
+						</div>
+					</div>
+					<h5><b>Riwayat Pasien</b></h5>
+					<div class="card p-3 mb-2">
+						<div class="row ">
+							<div class="col-10">
+								<p class="fs-5 my-0">12 Sep 2022 | Chat Dokter</p>
+								<p class="my-0">Umum | Dr.Pratama Widya Angga</p>
+							</div>
+							<div class="col-2">
+								<button class="btn btn-link"><i class="fas fa-arrow-right fs-3"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="card p-3 mb-2">
+						<div class="row ">
+							<div class="col-10">
+								<p class="fs-5 my-0">12 Sep 2022 | Chat Dokter</p>
+								<p class="my-0">Umum | Dr.Pratama Widya Angga</p>
+							</div>
+							<div class="col-2">
+								<button class="btn btn-link"><i class="fas fa-arrow-right fs-3"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+  </div>
+</section>
+

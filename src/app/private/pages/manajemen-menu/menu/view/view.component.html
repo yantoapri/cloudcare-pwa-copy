@@ -1,0 +1,273 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Manajemen Menu'" [items]="[]" [active_item]="'Menu'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Menu</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngIf="btnAdd" (click)="FormModalOpen()" class="btn-space" mat-raised-button color="primary"><i class="fas fa-plus"></i> Tambah Menu</button>
+        <br>
+        <br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Menu</strong> </h2>
+          </div>
+          <div class="body">
+            <div class="table-responsive">
+              <table class="table table-sm table-striped table-bordered table-sm" datatable [dtOptions]="dtOptions" width="100%">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Menu</th>
+                    <th>Parent ID</th>
+                    <th>Level Menu</th>
+                    <th>No Urut</th>
+                    <th>Path URL</th>
+                    <th>Module Name</th>
+                    <th>Icon Type</th>
+                    <th>Icon</th>
+                    <th>Class</th>
+                    <th>Group Title</th>
+                    <th>Badge</th>
+                    <th>Badge Class</th>
+
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <jw-modal id="modalFormContent">
+              <form [formGroup]="formTambah" (submit)="SubmitForm()">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">{{ titleModal }}</h4>
+                </div>
+                <div class="modal-body">
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Level Menu</label>
+                    <div class="col-sm-9">
+                      <select formControlName="level_menu"
+                      [class.border-danger]="formTambah.controls.level_menu.hasError('required') && submitted"
+                      class="form-select" >
+                        <option value="">Pilih Level Menu</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.level_menu.hasError('required') && submitted">
+                        Level menu tidak boleh kosong
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+					
+                    <label class="col-sm-3 col-form-label fw-bold">Parent</label>
+                    <div class="col-sm-9">
+                        <ng-select 
+                          name="parent_id"  
+                          formControlName="parent_id"
+                          [class.border-danger]="formTambah.controls.parent_id.hasError('required') && submitted"
+                          placeholder="Pilih Parent"
+                          [searchable]="true" 
+                          [clearable]="true"
+                          [loading]="loadingParent"
+                          (search)="prosesSelectParent($event, 'search')"
+                          (open)="prosesSelectParent($event, 'open')"
+                          >
+                          <ng-option *ngFor="let item of listMenu" [value]="item.id_menu">
+                            {{ item.nama_menu }} - level {{ item.level_menu }}
+                          </ng-option>
+							
+                        </ng-select>
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.parent_id.hasError('required') && submitted">
+                        Parent tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Nama Menu</label>
+                    <div class="col-sm-9">
+                      <input
+                      type="text"
+                      class="form-control"
+                      formControlName="nama_menu"
+                      [class.border-danger]="formTambah.controls.nama_menu.hasError('required') && submitted"
+                      placeholder="Nama Menu">
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.nama_menu.hasError('required') && submitted">
+                        Nama Menu tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Nomor Urut</label>
+                    <div class="col-sm-9">
+                      <input
+                      type="text" (keypress)="isNumber($event)"
+                      class="form-control"
+                      formControlName="no_urut"
+                      [class.border-danger]="formTambah.controls.no_urut.hasError('required') && submitted"
+                      placeholder="Nomor Urut">
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.no_urut.hasError('required') && submitted">
+                        Nomor urut tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Path URL</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" formControlName="path_url">
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Module Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" formControlName="module_name">
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Icon Type</label>
+                    <div class="col-sm-9">
+                     	<select formControlName="icon_type" class="form-select" >
+							<option value="">Pilih Icon Type</option>
+							<option value="material-icons-two-tone	">material-icons-two-tone	</option>
+						</select>
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Icon</label>
+                    <div class="col-sm-9">
+						<div class="input-group input-group-icon ">
+							<input type="text" class="form-control" formControlName="icon">
+							<span class="input-group-text icon  dropdown" >
+								<button type="button"  (click)="iconShow()" class="btn btn-link" data-bs-toggle="dropdown">
+									<i class="fas fa-smile" id="btnIcon"></i>
+								</button>
+							</span>
+						</div>
+						<div class="card dropdownIcon" id="dropdownIcon" *ngIf="dropDownIcon">
+							<div class="card-body">
+								<div class="col-md-12 mb-2">
+									<input type="text" placeholder="Search Icon" (keyup)="cariIcon($event.target.value)" class="form-control " name="search" >
+								</div>
+								<mat-tab-group *ngIf="searchIcon!=''">
+									<mat-tab >
+										<ng-template mat-tab-label class="capital">Search</ng-template>
+										<div class="row text-dark " >
+											<div class="col-2 " *ngFor="let item of arrSearch;">
+												<mat-icon aria-hidden="true" class="pointer hover-blue" (click)="setIcon(item)" [aria-label]="item">{{item}}</mat-icon>
+											</div>
+										</div>
+									</mat-tab>
+								</mat-tab-group>
+								<mat-tab-group *ngIf="searchIcon==''">
+									<mat-tab *ngFor="let tb of tab">
+										<ng-template mat-tab-label class="capital">{{tb}}</ng-template>
+										<div class="row text-dark">
+											<div class="col-2" *ngFor="let item of arrIcon[tb]">
+												<mat-icon aria-hidden="true" class="pointer hover-blue" (click)="setIcon(item)" [aria-label]="item">{{item}}</mat-icon>
+											</div>
+										</div>
+									</mat-tab>
+								</mat-tab-group>
+							</div>
+						</div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Class</label>
+                    <div class="col-sm-9">
+						<select formControlName="class" class="form-select" >
+							<option value="">Pilih Class</option>
+							<option value="menu-ml">menu-ml</option>
+							<option value="menu-toggle">menu-toggle</option>
+						</select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Group Title</label>
+                    <div class="col-sm-9">
+						<div class="form-check form-switch ">
+							<input class="form-check-input" type="checkbox" (change)="setGroup(this.formTambah.value.group_title == 1 ? 0 : 1)" [checked]="formTambah.value.group_title==1?true:false" id="group_title" name="darkmode">
+							<label class="form-check-label" for="group_title">{{formTambah.value.group_title==1?'Ya':'Tidak'}}</label>
+						</div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Badge</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" formControlName="badge">
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Badge Class</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" formControlName="badge_class">
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Status Aktif</label>
+                    <div class="col-sm-9">
+					  	<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" formControlName="status_aktif" id="status_aktif" name="darkmode" (click)="setStatus(this.formTambah.value.status_aktif == 1 ? 0 : 1)" [checked]="formTambah.value.status_aktif==1?true:false">
+							<label class="form-check-label" for="status_aktif">{{formTambah.value.status_aktif?'Aktif':'Tidak Aktif'}}</label>
+						</div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+                    {{ errorMessage.metaData.message }}
+                    <ul *ngFor="let item of errorMessage.response" >
+                      <li>{{ item.field }} : {{ item.message }}</li>
+                    </ul>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton" (click)="modalClose()">Batal</button>
+                  <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton" color="primary">
+                    <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+                    Simpan
+                  </button>
+                </div>
+              </form>
+            </jw-modal>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

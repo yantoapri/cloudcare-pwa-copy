@@ -1,0 +1,231 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Detail Penjualan'" [items]="['Data Penjualan']" [active_item]="'Detail Penjualan'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Detail Penjualan</h3>
+	<div class="col-md-12 mb-3">
+	<button type="button" [routerLink]="['/penjualan/data-penjualan']" class="btn-space bg-warning text-light" mat-raised-button>
+          <i class="fas fa-arrow-left"></i> Kembali
+    </button>
+	<button type="button" (click)="print()" class="btn-space bg-success text-light pull-right" mat-raised-button  id="print"><i class="fa fa-print"></i>
+	Print</button>
+
+	</div>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="card" >
+			<div class="body" *ngIf="dataDetail!=undefined">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row mb-2">
+							<div class="col-6">No Transaksi</div>
+							<div class="col-6">: {{dataDetail.kode_invoice_full}}</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col-6">Metode Pembayaran</div>
+							<div class="col-6">: {{dataDetail.metode_pembayaran}}</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col-6">Diskon</div>
+							<div class="col-6">: {{Money(totalDiskon)}}</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h3><b>TOTAL BAYAR: {{Money(total)}}</b></h3>
+					</div>	
+				</div>
+			</div>
+			<div class="header">
+			<b>Penjualan Obat</b>
+			</div>
+			<div class="body">
+				<table class="table table-striped table-bordered table-sm" width="100%" >
+					<thead>
+						<tr>
+							<th style="width: 30px;">No</th>
+							<th style="width: 200px;">Nama Barang</th>
+							<th style="width: 150px;" class="text-right">Harga</th>
+							<th style="width: 100px;">Jumlah</th>
+							<th style="width: 100px;">Satuan</th>
+							<th style="width: 100px;">Diskon</th>
+							<th style="width: 150px;" class="text-right">Sub Total</th>
+						</tr>
+					</thead>
+					<tbody *ngIf="dataDetail!=undefined">
+						<tr *ngFor="let item of dataDetail.penjualan_detail; let i=index">
+							<td>{{i+1}}</td>
+							<td>{{item.nama_obat}}</td>
+							<td>{{Money(item.satuan_harga)}}</td>
+							<td>{{item.satuan_qty}}</td>
+							<td>{{item.satuan}}</td>
+							<td>{{Money(item.diskon_rupiah)}}</td>
+							<td>{{Money(item.total_harga-item.diskon_rupiah)}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="header">
+				<b>Penjualan Alat Kesehatan</b>
+			</div>
+			<div class="body">
+				<table class="table table-striped table-bordered table-sm" width="100%" >
+					<thead>
+						<tr>
+							<th style="width: 30px;">No</th>
+							<th style="width: 200px;">Nama Barang</th>
+							<th style="width: 150px;" class="text-right">Harga</th>
+							<th style="width: 100px;">Jumlah</th>
+							<th style="width: 100px;">Satuan</th>
+							<th style="width: 100px;">Diskon</th>
+							<th style="width: 150px;" class="text-right">Sub Total</th>
+						</tr>
+					</thead>
+					<tbody *ngIf="dataDetail!=undefined">
+						<tr *ngFor="let item of dataDetail.penjualan_alat_kesehatan; let i=index">
+							<td>{{i+1}}</td>
+							<td>{{item.nama_alat_kesehatan}}</td>
+							<td>{{Money(item.satuan_harga)}}</td>
+							<td>{{item.satuan_qty}}</td>
+							<td>{{item.satuan}}</td>
+							<td>{{Money(item.diskon_rupiah)}}</td>
+							<td>{{Money(item.total_harga-item.diskon_rupiah)}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<br><br>
+				<div class="row">
+					<div class="col-md-9"></div>
+					<div class="col-md-3">
+						<table style="width:100%">
+							<tr>
+								<td>Subtotal</td>
+								<td>
+									:<span class="text-right ">{{Money(this.dataDetail?.total_bayar)}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td>PPN ({{ppnPercent}}%)</td>
+								<td>:<span class="text-right ">{{Money(ppn)}}</span></td>
+							</tr>
+							<tr>
+								<td>Total</td>
+								<td>:<span class="text-right ">{{Money(total)}}</span></td>
+							</tr>
+						</table>
+						
+					</div>
+				</div>
+			</div>
+        </div>
+		<div id="contentPrint" >
+			<style>
+				.container {
+					max-width: 400px;
+					margin: 0 auto;
+					padding: 10px;
+					border: 1px solid #ccc;
+					box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+				}
+				.header {
+					text-align: center;
+					border-bottom: 2px solid #ccc;
+					padding-bottom: 5px;
+					margin-bottom: 5px;
+				}
+				.info {
+					font-size: 8pt;
+					text-align: center;
+					margin-top: 5px;
+				}
+				.items {
+					margin-top: 5px;
+					border-top: 1px solid #ccc;
+					border-bottom: 1px solid #ccc;
+					padding: 5px 0;
+				}
+				table {
+					width: 100%;
+					border-collapse: collapse;
+				}
+				th, td {
+					border: none;
+					border-bottom: 1px solid #ccc;
+					padding: 5px;
+					text-align: left;
+				}
+				th {
+					font-weight: bold;
+					border-top: 1px solid #ccc;
+				}
+				.total {
+					margin-top: 5px;
+					text-align: right;
+					font-weight: bold;
+					border-top: 2px solid #ccc;
+					padding-top: 5px;
+				}
+			</style>
+			<div class="container" style="font-family: 'Courier New', monospace;
+            font-size: 10pt; " *ngIf="dataDetail!=undefined">
+				<div class="header">
+					<h2>KWITANSI PENJUALAN BARANG</h2>
+					<p>Apotek {{klinik.nama}}</p>
+				</div>
+				<div class="info">
+					<p>Tanggal: {{convertDate(dataDetail.created_at_unix)}}</p>
+					<p>No. Kwitansi: {{dataDetail.kode_invoice_full}}</p>
+					<p>Kasir: {{dataDetail.akun.nama_lengkap}}</p>
+				</div>
+			
+				<div class="items">
+					<table>
+						<tr>
+							<th>No</th>
+							<th>Nama Barang</th>
+							<th>Harga</th>
+							<th>Qty</th>
+							<th>Total</th>
+						</tr>
+						<tbody >
+							<tr *ngFor="let item of dataDetail.penjualan_detail; let i=index">
+								<td>{{i+1}}</td>
+								<td>{{item.nama_obat}}</td>
+								<td align="right">{{Money(item.satuan_harga)}}</td>
+								<td>{{item.satuan_qty}}</td>
+								<td align="right">{{Money(item.sub_total)}}</td>
+							</tr>
+							<tr *ngFor="let item of dataDetail.penjualan_alat_kesehatan; let i=index">
+								<td>{{i+1}}</td>
+								<td>{{item.nama_alat_kesehatan}}</td>
+								<td align="right">{{Money(item.satuan_harga)}}</td>
+								<td>{{item.satuan_qty}}</td>
+								<td align="right">{{Money(item.sub_total)}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="total">
+					<p>Subtotal: {{Money(dataDetail?.total_bayar)}}<p>
+					<p>PPN ({{ppnPercent}}%): {{Money(ppn)}}</p>
+					<p>Total: {{Money(total)}}</p>
+				</div>
+				<div class="info">
+					<p>Terima kasih atas kunjungan Anda!</p>
+				</div>
+			</div>
+		</div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+  [name]="'spinner1'"
+  bdColor = "rgba(0, 0, 0, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "ball-clip-rotate-multiple"
+  [fullScreen] = "true">
+  <p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

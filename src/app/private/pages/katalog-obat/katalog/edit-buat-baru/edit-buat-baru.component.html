@@ -1,0 +1,258 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Katalog Obat'" [items]="[]" [active_item]="'Edit Katalog'"></app-breadcrumb>
+    </div>
+
+    <h3 class="text-center mb-3">Edit Katalog</h3>
+    <div class="col-md-12 mb-3">
+    <button type="button" [routerLink]="[last]"  class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+    </div>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <form [formGroup]="formInput" (submit)="submitInput()">
+            <div class="header">
+              <h4><strong>Edit Katalog</strong></h4>
+            </div>
+            <div class="body">
+
+              <div class="row mb-3">
+                <label class=" col-sm-2 col-form-label fw-bold">Nama Barang <span class="col-red">*</span></label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control"
+                  [class.border-danger]="formInput.controls.nama_barang.hasError('required') && submitted"
+                  formControlName="nama_barang">
+                  <div
+                  class="form-text text-danger"
+                  *ngIf="formInput.controls.nama_barang.hasError('required') && submitted">
+                    Nama barang tidak boleh kosong
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label fw-bold">Satuan Terkecil <span class="col-red">*</span></label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" formControlName="kemasan_terkecil"
+                  (keyup)="ambilSingkatan($event.target.value, 'parent')"
+                  [class.border-danger]="formInput.controls.kemasan_terkecil.hasError('required') && submitted"
+                  placeholder="Contoh: tablet, kapsul, lembar">
+                  <div
+                  class="form-text text-danger"
+                  *ngIf="formInput.controls.kemasan_terkecil.hasError('required') && submitted">
+                    Satuan terkecil tidak boleh kosong
+                  </div>
+                </div>
+                <label class="col-sm-2 col-form-label fw-bold">Singkatan <span class="col-red">*</span></label>
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" formControlName="kemasan_terkecil_singkatan"
+                  [class.border-danger]="formInput.controls.kemasan_terkecil_singkatan.hasError('required') && submitted"
+                  placeholder="3 huruf">
+                  <div
+                  class="form-text text-danger"
+                  *ngIf="formInput.controls.kemasan_terkecil_singkatan.hasError('required') && submitted">
+                    Singkatan tidak boleh kosong
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label fw-bold">Komposisi</label>
+                <div class="col-sm-4">
+                  <textarea [class.border-danger]="formInput.controls.komposisi.hasError('required') && submitted"
+                  formControlName="komposisi"cols="5" rows="5" class="form-control"></textarea>
+                  <div class="form-text text-danger"
+                  *ngIf="formInput.controls.komposisi.hasError('required') && submitted">
+                    Spesifikasi tidak boleh kosong
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="alert alert-info">
+                    <strong>Info: Untuk edit stok dapat dilakukan di stokopname</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class=" col-sm-2 col-form-label fw-bold">Harga Jual <span class="col-red">*</span></label>
+                <div class="col-sm-4">
+                  <input class="form-control" currencyMask [options]="optionsCur"
+                  [class.border-danger]="formInput.controls.harga_jual.hasError('required') && submitted"
+                  formControlName="harga_jual">
+                  <div
+                  class="form-text text-danger"
+                  *ngIf="(formInput.controls.harga_jual.hasError('required')||formInput.value.harga_jual<=0) && submitted">
+                    Harga jual harus lebih dari 0
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class=" col-sm-2 col-form-label fw-bold">No Sertifikat Halal</label>
+                <div class="col-sm-4">
+                  <input  class="form-control"formControlName="no_setifikat">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class=" col-sm-2 col-form-label fw-bold">Masa Berlaku Sertifikat</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <input type="text" bsDatepicker formControlName="expired_date"
+                      [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                      [outsideClick]="true" class="form-control" id="tgl2">
+                      <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl2')">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                </div>
+              </div>
+              <h5 class="judul-kemasan mb-3"><strong>Satuan & Kemasan</strong></h5>
+
+              <div class="alert alert-warning" *ngIf="this.formInput.value.kemasan.length == 0">
+                <h3><strong>Tips</strong></h3>
+                <p>Untuk memudahkan, buat kemasan dari kecil (contoh: strip isi 8 tablet) ke besar (contoh: box isi 10 strip)</p>
+              </div>
+
+              <div class="row mx-5 table-responsive" formArrayName="kemasan">
+
+                <table class="table tabl-sm table-striped table-bordered table-sm" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Nama</th>
+                      <th>Singkatan</th>
+                      <th>Isi</th>
+                      <th style="width: 170px;">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr   *ngFor="let item of formInput.get('kemasan')['controls']; let i = index">
+                      <ng-container [formGroupName]="i">
+                        <td>{{ item.value.nama }} </td>
+                        <td>{{ item.value.singkatan }}</td>
+                        <td>{{ item.value.isi+'/'+item.value.satuan }}</td>
+                        <td>
+                          <button class="btn btn-link circle-primary text-ui-primary mb-1" *ngIf="i>0" type="button" (click)="editListKemasan(i)">
+                            <i class="far fa-edit"></i>
+                          </button>
+                          <button class="btn btn-link circle-primary text-ui-danger mb-1"  *ngIf="i>0"  type="button" (click)="hapusListKemasaan(i)">
+                            <i class="far fa-trash-alt"></i>
+                          </button>
+                        </td>
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+              <button class="btn-space" mat-raised-button color="primary" type="button" (click)="btnTambahKemasan()">Tambah satuan/kemasan</button>
+
+
+            </div>
+            <div class="footer text-center my-3">
+              <button class="btn-space bg-success text-light" mat-raised-button type="submit">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<jw-modal id="modalFormContent">
+  <form [formGroup]="formKemasan" (submit)="submitKemasan()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ formKemasanTitle }}</h4>
+    </div>
+    <div class="modal-body">
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-bold"><span class="text-danger">*</span>Nama kemasan</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control"
+          formControlName="nama"
+          (keyup)="ambilSingkatan($event.target.value, 'child')"
+          [class.border-danger]="formKemasan.controls.nama.hasError('required') && submittedKemasan"
+          placeholder="Contoh: strip, box, dus">
+          <div
+          class="form-text text-danger"
+          *ngIf="formKemasan.controls.nama.hasError('required') && submittedKemasan">
+            Nama kemasan tidak boleh kosong
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-bold"><span class="text-danger">*</span>Singkatan</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control"
+          [class.border-danger]="formKemasan.controls.singkatan.hasError('required') && submittedKemasan"
+          formControlName="singkatan"
+          placeholder="3 huruf">
+          <div
+          class="form-text text-danger"
+          *ngIf="formKemasan.controls.singkatan.hasError('required') && submittedKemasan">
+            Singkatan tidak boleh kosong
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-bold"><span class="text-danger">*</span>Isi</label>
+        <div class="col-sm-2">
+          <input type="text" (keypress)="isNumber($event)"
+          [class.border-danger]="formKemasan.controls.isi.hasError('required') && submittedKemasan"
+          formControlName="isi"
+          class="form-control">
+          <div
+          class="form-text text-danger"
+          *ngIf="formKemasan.controls.isi.hasError('required') && submittedKemasan">
+            Isi tidak boleh kosong
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label fw-bold">Satuan</label>
+        <div class="col-sm-4">
+          <select formControlName="satuan" class="form-select">
+            <option value="" hidden>---Pilih Satuan---</option>
+            <ng-container *ngFor="let item of formInput.value.kemasan; let i = index">
+              <option *ngIf="aksiModalKemasan == 'update' && indexListKemasan != i"  value="{{item.singkatan}}">{{
+                item.nama }}</option>
+              <option *ngIf="aksiModalKemasan == 'add'" value="{{item.singkatan}}">{{
+                  item.nama }}</option>
+            </ng-container>
+
+          </select>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-space bg-warning text-light" mat-raised-button type="button"  (click)="closeBtnTambahKemasan()">Batal</button>
+      <button class="btn-space bg-success text-light" mat-raised-button type="submit" color="primary">
+        <i class="fa fa-check"></i>
+        Simpan
+      </button>
+
+    </div>
+  </form>
+</jw-modal>
+<ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>

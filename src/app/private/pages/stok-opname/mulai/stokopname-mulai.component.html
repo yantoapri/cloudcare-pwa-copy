@@ -1,0 +1,455 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Stock Opname'" [items]="['Stock Opname']" [active_item]="'Stock Opname'">
+            </app-breadcrumb>
+        </div>
+        <h3 class="text-center">Stock Opname</h3>
+
+        <button class="btn-space bg-warning text-light mb-3" mat-raised-button (click)="go('/stok-opname')">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </button>
+        <button class="btn-space mb-3" mat-raised-button color="primary" (click)="finish()">
+            <i class="fas fa-file"></i> Selesaikan Stock Opname
+        </button>
+
+
+        <div class="" >
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <nav ngbNav #nav="ngbNav" class="nav-tabs">
+                            <ng-container ngbNavItem>
+                                <a ngbNavLink>Obat Belum Diperiksa </a>
+                                <ng-template ngbNavContent>
+                                    <p class="alert alert-info" *ngIf="status==1">
+                                        <b class="mr-2"><i class="fa fa-info-circle"></i></b>
+                                        Anda sudah  menyelesaikan stock opname, silahkan selesaikan peninjauan stock opname
+                                    </p>
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <h4><b>Obat Belum Dipriksa</b></h4>
+                                        </div>
+                                        <div class="col-6">
+                                            <!-- <button class="btn btn-info pull-right">Export</button> -->
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-sm" datatable [dtOptions]="dtOptionsBelum" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th width="30">No</th>
+                                                <th>Nama Barang</th>
+                                                <th width="100">Aksi</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                           
+                                        </tbody>
+                                    </table>
+                                </ng-template>
+                            </ng-container>
+                            <ng-container ngbNavItem>
+                                <a ngbNavLink (click)="tabSudah()">Obat Sudah Diperiksa</a>
+                                <ng-template ngbNavContent>
+                                    <p class="alert alert-info" *ngIf="status==1">
+                                        <b class="mr-2"><i class="fa fa-info-circle"></i></b>
+                                        Anda sudah  menyelesaikan stock opname, silahkan selesaikan peninjauan stock opname
+                                    </p>
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <h4><b>Obat Sudah Dipriksa</b></h4>
+                                        </div>
+                                        <div class="col-6">
+                                            <!-- <button class="btn btn-info pull-right">Export</button> -->
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-sm" style="width:100%" datatable [dtOptions]="dtOptionsSudah">
+                                        <thead>
+                                            <tr>
+                                                <th width="30">No</th>
+                                                <th>Nama Barang</th>
+                                                <th width="100">Aksi</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                               
+                                        </tbody>
+                                    </table>
+                                </ng-template>
+                            </ng-container>
+							<ng-container ngbNavItem>
+                                <a ngbNavLink (click)="tabBlmAlat()">Alat Belum diperiksa</a>
+                                <ng-template ngbNavContent>
+                                    <p class="alert alert-info" *ngIf="status==1">
+                                        <b class="mr-2"><i class="fa fa-info-circle"></i></b>
+                                        Anda sudah  menyelesaikan stock opname, silahkan selesaikan peninjauan stock opname
+                                    </p>
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <h4><b>Alat Belum Dipriksa</b></h4>
+                                        </div>
+                                        <div class="col-6">
+                                            <!-- <button class="btn btn-info pull-right">Export</button> -->
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-sm" style="width:100%" datatable [dtOptions]="dtOptionsAlatBelum">
+                                        <thead>
+                                            <tr>
+                                                <th width="30">No</th>
+                                                <th>Nama Barang</th>
+                                                <th width="100">Aksi</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                               
+                                        </tbody>
+                                    </table>
+                                </ng-template>
+                            </ng-container>
+							<ng-container ngbNavItem>
+                                <a ngbNavLink (click)="tabSudahAlat()">Alat Sudah Diperiksa</a>
+                                <ng-template ngbNavContent>
+                                    <p class="alert alert-info" *ngIf="status==1">
+                                        <b class="mr-2"><i class="fa fa-info-circle"></i></b>
+                                        Anda sudah  menyelesaikan stock opname, silahkan selesaikan peninjauan stock opname
+                                    </p>
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <h4><b>Alat Sudah Dipriksa</b></h4>
+                                        </div>
+                                        <div class="col-6">
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-sm" style="width:100%" datatable [dtOptions]="dtOptionsAlatSudah">
+                                        <thead>
+                                            <tr>
+                                                <th width="30">No</th>
+                                                <th>Nama Barang</th>
+                                                <th width="100">Aksi</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                               
+                                        </tbody>
+                                    </table>
+                                </ng-template>
+                            </ng-container>
+                        </nav>
+
+                        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+                        <jw-modal id="blmDipriksa">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+                            </div>
+                            <div class="modal-body" *ngIf="obat">
+                                <table class="table" width="100%" >
+                                    <thead>
+                                        <tr>
+                                            <th>Kemasan</th>
+                                            <th>Jumlah</th>
+                                            <th>Stok</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="isAdd">
+                                        <tr *ngFor="let item of obat.obat_kemasan;let i=index" >
+                                            <td>{{item.nama_kemasan}}</td>
+                                            <td *ngIf="i<=1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.target_qty}} x</span> 
+                                                    <input type="text" (keypress)="isNumber($event)" (change)="tampilBatch({'id_obat':obat.id_obat,'jumlah':total})" (keyup)="setTotalObat(1)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i]==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td *ngIf="i>1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.kemasan_konversi.substring(0,item.kemasan_konversi.length-1)}}  x</span> 
+                                                    <input type="text" (keypress)="isNumber($event)" (change)="tampilBatch({'id_obat':obat.id_obat,'jumlah':total})" (keyup)="setTotalObat(1)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i]==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td>{{sub_total[i]}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>TOTAL</td>
+                                            <td>
+                                            </td>
+                                            <td>{{total}}</td>
+                                        </tr>
+                                    </tbody>
+									<tbody *ngIf="isEdit">
+                                        <tr *ngFor="let item of obat.stok_opname_obat_detail;let i=index">
+                                            <td>{{item.satuan}}</td>
+                                            <td *ngIf="i<=1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.satuan_qty}} x</span> 
+                                                    <input type="text" (keypress)="isNumber($event)" (change)="tampilBatch({'id_obat':obat.id_obat,'jumlah':total})" (keyup)="setTotalObat(2)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i].toString()==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td *ngIf="i>1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.satuan_konversi.substring(0,item.satuan_konversi.length-1)}}  x </span> 
+                                                    <input type="text" (keypress)="isNumber($event)" (change)="tampilBatch({'id_obat':obat.id_obat,'jumlah':total})" (keyup)="setTotalObat(2)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i].toString()==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td>{{sub_total[i]}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>TOTAL</td>
+                                            <td>
+                                            </td>
+                                            <td>{{total}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                               
+                                <br>
+                                <div class="text-center mb-3">
+                                    <button class="btn-space" mat-raised-button color="primary" *ngIf="!showBatch" (click)="tampilBatch({'id_obat':obat.id_obat,'jumlah':total})">Tampilkan Batch</button>
+                                </div>
+                                <div *ngIf="showBatch">
+                                    <table style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Batch</th>
+                                                <th>Stok Awal</th>
+                                                <th>Stok Terkini</th>
+                                                <th>Tgl ED</th>
+                                                <th>Stokopname</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let itm of listBatch;let i=index;" [style]="{'background':checkExpired(itm.tanggal_ed_unix)?'#ff8c8c':'none'}">
+                                                <td>{{itm.no_batch}}</td>
+                                                <td>{{itm.stok_awal}}</td>
+                                                <td>{{itm.stok}}</td>
+                                                <td>{{convertDate(itm.tanggal_ed_unix)}}</td>
+                                                <td>
+                                                    <input type="text" (keypress)="isNumber($event)" [(ngModel)]="batch[i]" class="form-control" style="width: 80px;">
+                                                    <p class="text-danger" *ngIf="parseNum(batch[i])<0">
+                                                        stok opname tidak boleh kosong
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-link circle-danger text-ui-danger" *ngIf="itm.search&&itm.stok==0" (click)="remove(i)">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="alert alert-danger mt-2" *ngIf="warningBatch!=''">{{warningBatch}}</div>
+                                    <br>
+                                    <ng-select style="flex: 1 1 auto;" [(ngModel)]="no_batch"
+                                        (change)="setBatch($event)"
+                                        [virtualScroll]="true" placeholder="Pilih Batch" [searchable]="true" [clearable]="true"
+                                        [loading]="isLoadingObat"
+                                        [clearSearchOnAdd]="true"
+                                        [clearable]="true"
+                                        (search)="prosesSelectBatchObat($event, 'search')"
+                                        (scrollToEnd)="prosesSelectBatchObat($event, 'last_page')"
+                                        (open)="prosesSelectBatchObat($event, 'open')"
+                                        (clear)="prosesSelectBatchObat($event, 'clear')"
+
+                                        >
+                                        <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                        <ng-option *ngFor="let item of dataBatchObat" [value]="item.no_batch">{{item.no_batch}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="modal-footer mt-3">
+                                <button class="btn-space bg-warning text-light" mat-raised-button type="button"
+                                    (click)="modalClose('blmDipriksa');reset()">Batal</button>
+                                <button *ngIf="isAdd&&showBatch" class="btn-space bg-success text-light" mat-raised-button type="buton" (click)="save(obat.id_obat)" color="primary">
+                                    Simpan
+                                </button>
+								<button *ngIf="isEdit && showBatch" class="btn-space bg-success text-light" mat-raised-button type="buton" (click)="update(obat.id_stok_opname_obat)" color="primary">
+                                    Update
+                                </button>
+                            </div>
+
+                        </jw-modal>
+
+						<jw-modal id="blmDipriksaAlat">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+                            </div>
+                            <div class="modal-body" *ngIf="alat">
+                                <table class="table" width="100%" >
+                                    <thead>
+                                        <tr>
+                                            <th>Kemasan</th>
+                                            <th>Jumlah</th>
+                                            <th>Stok</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="isAdd">
+                                        <tr *ngFor="let item of alat.alat_kesehatan_kemasan;let i=index">
+                                            <td>{{item.nama_kemasan}}</td>
+                                            <td *ngIf="i<=1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.target_qty}} x</span> 
+                                                    <input type="text" (keypress)="isNumber($event)" (change)="tampilBatch({'id_alat_kesehatan':alat.id_alat_kesehatan,'jumlah':total})" (keyup)="setTotalAlat(1)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i]==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td *ngIf="i>1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.kemasan_konversi.substring(0,item.kemasan_konversi.length-1)}} x</span> 
+                                                    <input type="text" (keypress)="isNumber($event)" (change)="tampilBatch({'id_alat_kesehatan':alat.id_alat_kesehatan,'jumlah':total})" (keyup)="setTotalAlat(1)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i]==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td>{{sub_total[i]}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>TOTAL</td>
+                                            <td>
+                                            </td>
+                                            <td>{{total}}</td>
+                                        </tr>
+                                    </tbody>
+									<tbody *ngIf="isEdit">
+                                        <tr *ngFor="let item of alat.stok_opname_alat_kesehatan_detail;let i=index">
+                                            <td>{{item.satuan}}</td>
+                                            <td *ngIf="i<=1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.satuan_qty}} x</span> 
+                                                    <input type="text" (keypress)="isNumber($event)"
+                                                     (change)="tampilBatch({'id_alat_kesehatan':alat.id_alat_kesehatan,'jumlah':total})"  (keyup)="setTotalAlat(2)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i].toString()==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td *ngIf="i>1">
+                                                <div class="input-group" style="width:150px;">
+                                                    <span class="px-2 mt-2">{{item.satuan_konversi.substring(0,item.satuan_konversi.length-1)}}  x </span> 
+                                                    <input type="text" (keypress)="isNumber($event)" 
+                                                    (change)="tampilBatch({'id_alat_kesehatan':alat.id_alat_kesehatan,'jumlah':total})" (keyup)="setTotalAlat(2)" value="0" min="0" name="qty" [(ngModel)]="qty[i]" class="form-control" />
+                                                </div>
+                                                <div class="text-danger" *ngIf="qty[i].toString()==''">
+                                                    Jumlah tidak boleh kosong
+                                                </div>
+                                            </td>
+                                            <td>{{sub_total[i]}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>TOTAL</td>
+                                            <td>
+                                            </td>
+                                            <td>{{total}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <br>
+                                <div class="text-center mb-3">
+                                    <button class="btn-space" mat-raised-button color="primary" *ngIf="!showBatch" (click)="tampilBatch({'id_alat_kesehatan':alat.id_alat_kesehatan,'jumlah':total})">Tampilkan Batch</button>
+                                </div>
+                                <div *ngIf="showBatch">
+                                    <table style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Batch</th>
+                                                <th>Stok Awal</th>
+                                                <th>Stok Terkini</th>
+                                                <th>Tgl ED</th>
+                                                <th>Stokopname</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let itm of listBatch;let i=index;" [style]="{'background':checkExpired(itm.tanggal_ed_unix)?'#ff8c8c':'none'}">
+                                                <td>{{itm.no_batch}}</td>
+                                                <td>{{itm.stok_awal}}</td>
+                                                <td>{{itm.stok}}</td>
+                                                <td>{{convertDate(itm.tanggal_ed_unix)}}</td>
+                                                <td>
+                                                    <input type="text" (keypress)="isNumber($event)" [(ngModel)]="batch[i]" class="form-control" style="width: 80px;">
+                                                    <p class="text-danger" *ngIf="parseNum(batch[i])<0">
+                                                        stok opname tidak boleh kosong
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-link circle-danger text-ui-danger" *ngIf="itm.search&&itm.stok==0" (click)="remove(i)">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="alert alert-danger mt-2" *ngIf="warningBatch!=''">{{warningBatch}}</div>
+                                    <br>
+                                    <ng-select style="flex: 1 1 auto;" [(ngModel)]="no_batch"
+                                        (change)="setBatchAlat($event)"
+                                        [virtualScroll]="true"  placeholder="Pilih Batch" [searchable]="true" [clearable]="true"
+                                        [loading]="isLoadingAlat"
+                                        [clearable]="true"
+                                        [clearSearchOnAdd]="true"
+                                        (search)="prosesSelectBatchAlat($event, 'search')"
+                                        (scrollToEnd)="prosesSelectBatchAlat($event, 'last_page')"
+                                        (open)="prosesSelectBatchAlat($event, 'open')"
+                                        (clear)="prosesSelectBatchAlat($event, 'clear')"
+                                        >
+                                        <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+                                        <ng-option *ngFor="let item of dataBatchAlat" [value]="item.no_batch">{{item.no_batch}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="modal-footer mt-2">
+                                <button class="btn-space bg-warning text-light" mat-raised-button type="button"
+                                    (click)="modalClose('blmDipriksaAlat');reset()">Batal</button>
+                                <button *ngIf="isAdd && showBatch" class="btn-space bg-success text-light" mat-raised-button type="buton" (click)="saveAlat(alat.id_alat_kesehatan)" color="primary">
+                                    Simpan
+                                </button>
+								<button *ngIf="isEdit && showBatch" class="btn-space bg-success text-light" mat-raised-button type="buton" (click)="updateAlat(alat.id_stok_opname_alat_kesehatan)" color="primary">
+                                    Update
+                                </button>
+                            </div>
+
+                        </jw-modal>
+
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

@@ -1,0 +1,121 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Manajemen Menu'" [items]="[]" [active_item]="'Repo'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Repo</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngIf="btnAdd" (click)="FormModalOpen()" class="btn-space" mat-raised-button color="primary"><i class="fas fa-plus"></i> Tambah Repo</button>
+        <br>
+        <br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Repo</strong> </h2>
+          </div>
+          <div class="body">
+
+            <table class="table table-sm table-striped table-bordered table-sm" datatable [dtOptions]="dtOptions" width="100%">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Key Repo</th>
+                  <th>Nama Repo</th>
+                  <th>URL Repo</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+
+            <jw-modal id="modalFormContent">
+              <form [formGroup]="formTambah" (submit)="SubmitForm()">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">{{ titleModal }}</h4>
+                </div>
+                <div class="modal-body">
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Key Repo</label>
+                    <div class="col-sm-9">
+                      <input
+                      type="text"
+                      class="form-control"
+                      formControlName="key_repo"
+                      [class.border-danger]="formTambah.controls.key_repo.hasError('required') && submitted"
+                      placeholder="Key Repo">
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.key_repo.hasError('required')  && submitted">
+                        Key repo tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">Nama Repo</label>
+                    <div class="col-sm-9">
+                      <input type="text"
+                      class="form-control"
+                      formControlName="nama_repo"
+                      [class.border-danger]="formTambah.controls.nama_repo.hasError('required') && submitted"
+                      placeholder="Nama Repo">
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.nama_repo.hasError('required') && submitted">
+                        Nama repo tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label fw-bold">URL Repo</label>
+                    <div class="col-sm-9">
+                      <input type="text"
+                      class="form-control"
+                      formControlName="url_repo"
+                      [class.border-danger]="formTambah.controls.url_repo.hasError('required') && submitted"
+                      placeholder="URL Repo">
+                      <div
+                      class="form-text text-danger"
+                      *ngIf="formTambah.controls.url_repo.hasError('required') && submitted">
+                        URL repo tidak boleh kosong
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+                    {{ errorMessage.metaData.message }}
+                    <ul *ngFor="let item of errorMessage.response" >
+                      <li>{{ item.field }} : {{ item.message }}</li>
+                    </ul>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn-space bg-warning text-light" mat-raised-button type="button" [disabled]="isLoadingButton"  (click)="modalClose()">Batal</button>
+                  <button class="btn-space bg-success text-light" mat-raised-button type="submit" [disabled]="isLoadingButton"  color="primary">
+                    <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-save': !isLoadingButton}"></i>
+                    Simpan
+                  </button>
+                </div>
+              </form>
+            </jw-modal>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

@@ -1,0 +1,89 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Laporan'" [items]="['Obat']" [active_item]="'Laporan Pembelian Obat'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Laporan Pembelian Obat</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="card">
+          <div class="header">
+            <h2><strong>Pencarian</strong> </h2>
+          </div>
+          <div class="body">
+            <form [formGroup]="formInput">
+              <div class="row">
+                <label class="col-sm-2 col-form-label fw-bold">Tanggal Transaksi</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="date_from" bsDaterangepicker [maxDate]="maxDate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY' }" class="form-control">
+                  <p class="text-danger" *ngIf="formInput.value.date_from==''&&search">Tanggal transaksi tidak boleh kosong</p>
+                </div>
+              </div>
+
+              <!-- <div class="row">
+                <label class="col-sm-2 col-form-label fw-bold">Penggunaan Obat</label>
+                <div class="col-sm-8">
+                  <select class="form-select" formControlName="pengguna">
+                    <option value="all" selected>Semua Pengguna</option>
+                    <option value="klinik">Klinik</option>
+                    <option value="fisioterapi">Fisioterapi</option>
+                    <option value="pribadi/external">Pribadi/External</option>
+                  </select>
+                  <p class="text-danger" *ngIf="formInput.value.pengguna==null&&search">Penggunaan Obat tidak boleh kosong</p>
+                </div>
+              </div> -->
+
+              <div class="row">
+                <div class="col-sm-12 text-right">
+                  <button class="btn-space bg-success text-light" mat-raised-button color="success" type="button" (click)="export()"><i class="fa fa-download"></i> Excel</button>
+                  <button class="btn-space" mat-raised-button
+                  color="primary" (click)="reLoadData()" type="button"><i class="fa fa-search"></i> Cari</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="header">
+          </div>
+          <div class="body">
+
+            <div class="table-responsive">
+              <table class="table  table-striped table-bordered table-sm table-sm" width="100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Tgl. Faktur</th>
+                  <th>No. Faktur</th>
+                  <th>PBF/Supplier</th>
+                  <th>Pencatat</th>
+                  <th>Pembayaran</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+[name]="'spinner1'"
+bdColor = "rgba(0, 0, 0, 0.8)"
+size = "medium"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+[fullScreen] = "true">
+<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

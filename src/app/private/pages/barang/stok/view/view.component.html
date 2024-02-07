@@ -1,0 +1,46 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Stok Alat Kesehatan'" [items]="[]" [active_item]="'View Stok Alat Kesehatan'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Stok Alat Kesehatan</h3>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="card">
+          <div class="header">
+            <!-- <h2><strong>Metode Yang diterima</strong> </h2> -->
+          </div>
+          <div class="body">
+
+            <table class="table tabl-sm table-striped table-bordered table-sm" width="100%"datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Barang</th>
+                  <th>Stok</th>
+                  <th>ED Terdekat</th>
+                  <th>Harga Jual(per &#64;)</th>
+                  <td>Aksi</td>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

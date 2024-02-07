@@ -1,0 +1,47 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Role & Rights'" [items]="[]" [active_item]="'Tipe Role'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Tipe Role</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" [routerLink]="['../tambah']" class="btn-space" mat-raised-button color="primary"><i class="fas fa-plus"></i> Tambah Tipe Role</button>
+        <br>
+        <br>
+        <div class="card">
+          <div class="header">
+            <h2><strong>Tipe Role</strong> </h2>
+          </div>
+          <div class="body">
+
+            <table class="table table-striped table-bordered table-sm table-sm" datatable [dtOptions]="dtOptions" width="100%">
+              <thead>
+                <tr>
+                  <th style="width: 30px;">No</th>
+                  <th>Tipe Role</th>
+                  <th [width]="100">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+
+
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

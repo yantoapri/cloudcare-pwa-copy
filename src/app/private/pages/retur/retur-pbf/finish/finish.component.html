@@ -1,0 +1,284 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Retur'" [items]="[]" [active_item]="'Detail Retur Pembelian'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-3">Penyelesaian Retur Barang Masuk</h3>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      <div class="row mb-2 mt-5">
+        <div class="col-md-12">
+          <ng-select 
+							style="flex: 1 1 auto;" 
+							[virtualScroll]="true"
+              (change)="setRetur($event)"
+							placeholder="No Retur" 
+							[searchable]="true" 
+							[clearable]="true"
+              [loading]="isLoadingRetur"
+              [clearSearchOnAdd]="true"
+							(search)="prosesSelect($event, 'search')"
+							(scrollToEnd)="prosesSelect($event, 'last_page')"
+							(open)="prosesSelect($event, 'open')"
+							(clear)="prosesSelect($event, 'clear')"
+
+						  >
+              <ng-option value="" disabled>Please enter 3 or more characters</ng-option>
+              <ng-option *ngFor="let item of listRetur" [value]="item">{{item.kode_invoice_full}}</ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="card">
+        <div class="header"><h4><b>Informasi Retur</b></h4></div>
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <div class="row mb-2">
+                <div class="col-3">No Retur</div>
+                <div class="col-9">: {{detailRetur.kode_invoice_full}}</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-3">No Faktur</div>
+                <div class="col-9">:<button class="btn btn-link" *ngIf="detailRetur.pembelian!=undefined" (click)="getPembelianById(detailRetur.pembelian.id_pembelian)">{{detailRetur.pembelian.nomor_faktur}}</button></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-3">Tanggal Retur</div>
+                <div class="col-9">: {{detailRetur.created_at_unix!=undefined?convertDate(detailRetur.created_at_unix):''}}</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-3">Dilakukan Oleh</div>
+                <div class="col-9">: {{detailRetur.nama_lengkap}}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="header"><h5><b>Alasan</b></h5></div>
+                <div class="body">
+                  {{detailRetur.alasan_retur}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <label >Tanggal Barang Kembali <span class="text-danger"><b>*</b></span></label>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <input type="text" bsDatepicker
+              [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+              [outsideClick]="true"
+              [(ngModel)]="tglTrima" 
+              class="form-control"
+              id="tgl1"
+              placeholder="Tanggal Barang Kembali"
+              style="border-right: 0px;"
+              >
+              <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl1')">
+                <i class="fa fa-calendar"></i>
+              </span>
+              </div>
+              <p class="text-danger" *ngIf="tglTrima==''&&submitted">Tanggal Barang Kembali tidak boleh kosong</p>
+            </div>
+          </div>
+          <label >Tanggal Faktur Barang Pengganti<span class="text-danger"><b>*</b></span></label>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <input type="text" bsDatepicker
+              [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+              [outsideClick]="true"
+              [(ngModel)]="tglFaktur" 
+              class="form-control"
+              id="tgl2"
+              placeholder="Tanggal Faktur Barang Pengganti"
+              style="border-right: 0px;"
+              >
+              <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('tgl2')">
+                <i class="fa fa-calendar"></i>
+              </span>
+              </div>
+              <p class="text-danger" *ngIf="tglFaktur==''&&submitted">Tanggal Faktur Barang Pengganti tidak boleh kosong</p>
+            </div>
+          </div>
+          <label >Nomor Faktur Barang Pengganti<span class="text-danger"><b>*</b></span></label>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <input type="text" [(ngModel)]="noFaktur" placeholder="Nomor Faktur Barang Pengganti"  class="form-control">
+              <p class="text-danger" *ngIf="noFaktur==''&&submitted">Nomor Faktur Barang Pengganti tidak boleh kosong</p>
+            </div>
+          </div>
+        </div>
+        <div class="header">
+          <h2><strong>Obat Pengganti</strong> </h2>
+        </div>
+        <div class="body">
+
+          <table class="table table-striped table-bordered table-sm" width="100%" >
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Barang</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Batch</th>
+                <th>ED</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="detailRetur.gudang_retur_obat">
+              <tr *ngFor="let item of detailRetur.gudang_retur_obat; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama_obat}}</td>
+                <td>{{item.satuan_qty}}</td>
+                <td>{{item.satuan}}</td>
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="batchObat[i]">
+                  <p class="text-danger" *ngIf="batchObat[i]==''&&submitted">Batch tidak boleh kosong</p>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <input type="text" bsDatepicker  [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                  [outsideClick]="true" class="form-control" [(ngModel)]="edObat[i]"
+                  style="border-right: 0px;" [id]="'edObat'+i"
+                  >
+                  <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('edObat'+i)">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                  </div>
+                  <p class="text-danger" *ngIf="edObat[i]==''&&submitted">Expired date tidak boleh kosong</p>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="!detailRetur.gudang_retur_obat">
+              <tr>
+                <td colspan="6" class="text-center"><b>Tidak ada barang yang diganti</b></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="header">
+          <h2><strong>Alat Kesehatan Pengganti</strong> </h2>
+        </div>
+        <div class="body">
+
+          <table class="table table-striped table-bordered table-sm" width="100%" >
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Barang</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Batch</th>
+                <th>ED</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="detailRetur.gudang_retur_alat_kesehatan">
+              <tr *ngFor="let item of detailRetur.gudang_retur_alat_kesehatan; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.nama_alat_kesehatan}}</td>
+                <td>{{item.satuan_qty}}</td>
+                <td>{{item.satuan}}</td>
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="batchAlat[i]">
+                  <p class="text-danger" *ngIf="batchAlat[i]==''&&submitted">Batch tidak boleh kosong</p>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <input type="text" bsDatepicker  [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY', returnFocusToInput: true }"
+                    [outsideClick]="true" class="form-control" [(ngModel)]="edAlat[i]" 
+                    [id]="'edAlat'+i"
+                    >
+                    <span class="input-group-text" style="cursor: pointer;background: white; border-left: 0px;" (click)="onFocus('edAlat'+i)">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                  <p class="text-danger" *ngIf="edAlat[i]==''&&submitted">Expired date tidak boleh kosong</p>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="!detailRetur.gudang_retur_alat_kesehatan">
+              <tr>
+                <td colspan="6" class="text-center"><b>Tidak ada barang yang diganti</b></td>
+              </tr>
+            </tbody>
+          </table>
+        <br>
+        <div class="text-center pt-5" *ngIf="detailRetur.gudang_retur_obat!=undefined||detailRetur.gudang_retur_alat_kesehatan!=undefined">
+          <button class="btn-space bg-success text-light" mat-raised-button (click)="selesai()">Selesai</button>
+        </div>
+			  </div>
+      
+      </div>
+    </div>
+  </div>
+  <jw-modal id="modalRetur">
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Informasi  Pembelian</h4>
+    </div>
+    <div class="modal-body" *ngIf="info!=null">
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">No Faktur</div>
+            <div class="col-md-6">: {{info.nomor_faktur}}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">Metode Pembayaran</div>
+            <div class="col-md-6">: {{info.pembayaran}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">Tanggal Faktur</div>
+            <div class="col-md-6">: {{info.tgl_faktur}}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">Jatuh Tempo</div>
+            <div class="col-md-6">: {{convertDate(info.jatuh_tempo_unix)}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">Tanggal Diterima</div>
+            <div class="col-md-6">: {{convertDate(info.tgl_diterima_unix)}}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">No PBF</div>
+            <div class="col-md-6">: {{info.kode_invoice_full}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+
+      <div class="text-right mb-3">
+        <button class="btn-space bg-warning text-light" mat-raised-button type="button" (click)="close()" color="primary">
+          Keluar
+        </button>
+      </div>
+
+    </div>
+  </jw-modal>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

@@ -1,0 +1,79 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Log Alat Kesehatan'" [items]="[]" [active_item]="'Log Alat Kesehatan'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Log Alat Kesehatan</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+        <div class="card">
+          <div class="header">
+            <!-- <h2><strong>Jadwal Sesi</strong> </h2> -->
+          </div>
+          <div class="body">
+
+            <table class="table tabl-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th width="30">No</th>
+                  <th>Kode invoice</th>
+                  <th>kode invoice des</th>
+                  <th>Kode invoice referensi</th>
+                  <th>Created At</th>
+                  <th>Created At Unix</th>
+                  <th>Harga beli</th>
+                  <th>Harga Jual</th>
+                  <th>id akun create</th>
+                  <th>id akun update</th>
+                  <th>id barang</th>
+                  <th>id klinik</th>
+                  <th>id log transaksi obat</th>
+                  <th>id transaksi referensi</th>
+                  <th>id transaksi referensi parent</th>
+                  <th>kegiatan</th>
+                  <th>keterangan</th>
+                  <th>kode invoice referensi tujuan</th>
+                  <th>nama barang</th>
+                  <th>nama lengkap admin</th>
+                  <th>no batch</th>
+                  <th>no urut tujuan</th>
+                  <th>stok akhir</th>
+                  <th>stok awal</th>
+                  <th>stok keluar</th>
+                  <th>stok masuk</th>
+                  <th>tanggal ed</th>
+                  <th>tanggal ed unix</th>
+                  <th>tanggal invoice</th>
+                  <th>tanggal invoice unix</th>
+                  <th>transaksi jenis</th>
+                  <th>transaksi kategori</th>
+                  <th>transaksi status</th>
+                  <th>uang keluar</th>
+                  <th>uang masuk</th>
+                  <th>updated at</th>
+                  <th>updated at unix</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>
+

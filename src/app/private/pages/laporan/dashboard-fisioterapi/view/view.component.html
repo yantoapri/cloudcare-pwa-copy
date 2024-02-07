@@ -1,0 +1,184 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Dashboard Fisioterapi'" [items]="[]" [active_item]="'Dashboard Fisioterapi'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Dashboard Fisioterapi</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="formInput">
+              <div class="row mb-3">
+                <div class="col-md-2">Periode Kunjungan</div>
+                <div class="col-md-10">
+                  <input type="text" [class.border-danger]="formInput.value.date_from==null && search" 
+                  formControlName="date_from" placeholder="Periode Pendaftaran" bsDaterangepicker 
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', rangeInputFormat : 'DD/MM/YYYY' }" class="form-control">
+                  <div class="form-text text-danger"
+                      *ngIf="formInput.value.date_from==null && search">
+                      Periode mulai dan selesai tidak boleh kosong
+                  </div>
+                </div>
+              </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    
+                  </div>
+                  <div class="col-md-8 text-right">
+                    <button class="btn-space" mat-raised-button color="primary" (click)="loadData()"><i class="fa fa-search"></i> Search</button>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+        <h4 class="my-3">Data Statistik Periode {{setDate(formInput.value.date_from[0])}} s/d {{setDate(formInput.value.date_from[1])}}</h4>
+
+        <div class="">
+          <div class="row mb-3">
+            <div class="col-md-3 mb-1">
+              <div class="card bg-info text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>JUMLAH ANTRIAN PASIEN SESI PAGI</span>
+                    <h3 class="w100"><b>{{data?data.total_antrian:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card bg-warning text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>JUMLAH OBAT KELUAR BULAN INI</span>
+                    <h3 class="w100"><b>{{data?data.obat_keluar:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-chart-pie"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card bg-success text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>TOTAL PASIEN BULAN INI</span>
+                    <h3 class="w100"><b>{{data?data.total_pasien_baru:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card bg-danger text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>JUMLAH PASIEN BPJS BARU BULAN INI</span>
+                    <h3 class="w100"><b>{{data?data.total_pasien_baru_bpjs:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-3 mb-1">
+              <div class="card bg-danger text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>PRIKSA PASIEN BPJS BULAN INI</span>
+                    <h3 class="w100"><b>{{data?data.kunjungan_pasien_bpjs:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card bg-success text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>PRIKSA PASIEN REGULER BULAN INI</span>
+                    <h3 class="w100"><b>{{data?data.kunjungan_pasien_reguler:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-1">
+              <div class="card bg-warning text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>PRIKSA SEMUA PASIEN BULAN INI</span>
+                    <h3 class="w100"><b>{{data?data.total_kunjungan:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+             <div class="col-md-3 mb-1">
+              <div class="card bg-info text-left text-light pt-3 card-box">
+                <div class="card-body">
+                  <div class="box-title">
+                    <span>LAMA WAKTU PASIEN BEROBAT</span>
+                    <h3 class="w100"><b>{{data?data.waktu_tindakan:0}}</b></h3>
+                  </div>
+                  <div class="box-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#">More Info <i class="fa fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+[name]="'spinner1'"
+bdColor = "rgba(0, 0, 0, 0.8)"
+size = "medium"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+[fullScreen] = "true">
+<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

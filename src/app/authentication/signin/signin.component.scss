@@ -1,0 +1,18 @@
+#login_logo img{
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+@media only screen and (max-width: 575px) {
+    #login_logo img{
+        width: 100px;
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+    .welcome-msg{
+        text-align: center;
+        margin-top: 5%;
+    }
+    .login-title{
+        text-align: center;
+    }
+}

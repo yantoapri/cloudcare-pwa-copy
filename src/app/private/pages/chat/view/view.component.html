@@ -1,0 +1,477 @@
+<section class="content">
+  <div class="content-block" id="chat">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Chat'" [items]="[]" [active_item]="'Chat Pasien'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Chat Pasien</h3>
+    <div class="">
+      <div class="col-md-4">
+		<div class="card mb-3">
+			<div class="header">
+				<h5><b>Konsultasi Aktif</b></h5>
+			</div>
+			<div class="card-body list_chat_aktif">
+				<div class="card mb-2 item">
+					<div class="row w100 pb-2">
+						<div class="col-3">
+							<img src="/assets/images/user/admin.jpg" class="img rounded-circle img-responsive w100">
+							<span class="dot-online">
+								<img src="/assets/images/online.png" class="img img-responsive">
+							</span>
+						</div>
+						<div class="col-6 my02">
+							<b>Agustiono gusti</b><br>
+							<p>ini isi pesanya....</p>
+						</div>
+						<div class="col-3 text-right py-0 my-0">
+							<sub class="text-right">1 min ago
+								<br>
+							<div class="badge-circle">1</div>
+							</sub>
+							
+						</div>
+					</div>
+				</div>
+				<div class="card mb-2 item">
+					<div class="row w100 pb-2">
+						<div class="col-3">
+							<img src="/assets/images/user/admin.jpg" class="img rounded-circle img-responsive w100">
+							<span class="dot-online">
+								<img src="/assets/images/online.png" class="img img-responsive">
+							</span>
+						</div>
+						<div class="col-9 my-2">
+							<b>Supriyadi</b><br>
+							<p>Sedang menunggu anda</p>
+							<div class="w100">
+								<button type="button" class="btn btn-outline-info left">Tolak</button>
+								<button type="button" class="btn btn-info right">Terima</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card bg-secondary">
+					<div class="p-5 text-center">
+						<img src="/assets/images/chat.png" class="img image-responsive center my-3">
+						<p>Pasien yang sedang berkonsultasi dengan anda akan ditampilkan disini</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card mb-3">
+			<div class="header">
+				<div class="row w100">
+					<div class="col-8 mt-1">
+						<h5><b>Chat selesai</b></h5>
+					</div>
+					<div class="col-4 text-right">
+						<button class="btn btn-link" (click)="chatSelesai=!chatSelesai"><b>{{chatSelesai?'Sembunyikan':'Tampilkan'}}</b></button>
+					</div>
+				</div>
+			</div>
+			<div class="card-body list_chat_selesai" *ngIf="chatSelesai">
+				<div class="input-group mb-3">
+					<span class="input-group-text">
+						<i class="fas fa-search"></i>
+					</span>
+					<input type="text" class="form-control search" placeholder="Search">
+				</div>
+				<div class="card mb-2 item">
+					<div class="row w100 pb-0">
+						<div class="col-3">
+							<img src="/assets/images/user/admin.jpg" class="img rounded-circle img-responsive w100">
+						</div>
+						<div class="col-9 my-2">
+							<b>Agustiono gusti</b><br>
+							<p class="text-secondary">Selesai 10:00 WIB |14 Sep 2022</p>
+						</div>
+					</div>
+				</div>
+				<div class="card mb-2 item">
+					<div class="row w100 pb-0">
+						<div class="col-3">
+							<img src="/assets/images/user/admin.jpg" class="img rounded-circle img-responsive w100">
+						</div>
+						<div class="col-9 my-2">
+							<b>Agustiono gusti</b><br>
+							<p class="text-secondary">Selesai 10:00 WIB |14 Sep 2022</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	  <div [class]="resepSelected||profilSelected||resepNew?'col-md-4':'col-md-8'">
+		<div class="card">
+			<div class="w100 list_chat_aktif">
+					<div class="card mb-2 item pointer" (click)="profilSelected=true;rmSelected=false;resepSelected=false;">
+						<div class=" w100  main-avatar">
+							<div class="left p-3">
+								<img src="/assets/images/user/admin.jpg" class="img rounded-circle img-responsive img-avatar">
+								<span class="dot-online">
+									<img src="/assets/images/online.png" class="img img-responsive">
+								</span>
+							</div>
+							<div class="left px-0 my-3">
+								<b>Agustiono gusti</b><br>
+								<p>Online</p>
+							</div>
+							<div class="right text-right p-4 py-0 my-3">
+								<span class="mx-3"><b>15:00</b></span>
+								<span class="text-danger pointer"><b>End</b></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="card-body list_msg">
+				<div class="w100 box">	
+					<div class="item-right">
+						<div class="card right mb-0">
+							<div class="card-body ">
+								ini isi pensanya pengirim
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mb-2 w100 box">	
+					<div class="item-right w100">
+						<div class="card right mb-0 right">
+							<div class="card-header">E-resep</div>
+							<div class="card-body bg-light">
+								<p>anda meberikan e-resep pada pasien,klik detail untuk melihat detailnya  </p>
+								<div class="d-grid">
+									<button type="button" class="btn btn-outline-info btn-block py-2">Detail</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="w100 mb-2 box">
+					<div class="item-left">
+						<div class="w100 avatar" >
+							<div class="left">
+								<img src="/assets/images/user/admin.jpg" class="img rounded-circle img-responsive">
+							</div>
+							<div class=" px-3 mt-2 left">
+								<b class="f12">Agustiono gusti <span class="p-3">10:00 WIB</span></b>
+							</div>
+						</div>
+						<div class="card  left mt-2">
+							<div class="card-body ">
+								ini isi pensanya penerima
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card card-dropdown mb-2 mx-3 left col-md-11" *ngIf="dropdown">
+					<div class="card-body text-center">
+						<div class="row pt-4 ">
+							<div class="col-3">
+								<button class="btn btn-danger">
+									<img src="/assets/images/File.png" alt="">
+								</button>
+								<p class="f12">File</p>
+							</div>
+							<div class="col-3">
+								<button class="btn btn-purple">
+									<img src="/assets/images/Image.png" alt="">
+								</button>
+								<p class="f12">Image</p>
+							</div>
+							<div class="col-3">
+								<button class="btn btn-success" (click)="resepSelected=true;profilSelected=false;resepNew=false">
+									<img src="/assets/images/Eresep.png" alt="">
+								</button>
+								<p class="f12">Resep</p>
+							</div>
+							<div class="col-3">
+								<button class="btn btn-info" (click)="inputRekamMedis()">
+									<img src="/assets/images/rekammedis.png" alt="">
+								</button>
+								<p class="f12">Rekam medis</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="input-group w100 px-3">
+					<button (click)="dropdown=!dropdown" class="btn btn-info dropdown-toggle btn-vertikal" data-bs-toggle="dropdown">
+						<img src="/assets/images/attachfile.png" alt="">
+					</button>
+					<input type="text" class="form-control mx-2">
+					<button class="btn btn-info">
+						<img src="/assets/images/send.png" alt="">
+					</button>
+				</div>
+				<div class="list_empty text-center">
+					<img src="/assets/images/chat_list.png" class="img image-responsive">
+					<p>Pilih chat untuk menampilkan isi chat pasien</p>
+				</div>
+
+			</div>
+			<div class="py-3 text-center">
+				<p class="text-danger"><b>Chat Anda sudah berakhir</b></p>
+			</div>
+		</div>
+	  </div>
+	  <div *ngIf="profilSelected" class="col-md-4">
+		<div class="card" id="rm">
+			<div class="card-header bg-primary">
+			</div>
+			<img src="/assets/images/user/admin.jpg"  class="img rounded-circle img-responsive avatar">
+			<div class="text-center mb-3 user-detail">
+				<h4><b>Aguna Gusti</b></h4>
+				<span>Perempuan 22 tahun <br> NO.RM:0021</span>
+			</div>
+			<div class="card-body">
+				<h4><b>Riwayat Pasien</b></h4>
+				<div class="card p-3 mb-2">
+					<div class="row ">
+						<div class="col-10">
+							<p class="fs-5 my-0">12 Sep 2022 | Chat Dokter</p>
+							<p class="my-0">Umum | Dr.Pratama Widya Angga</p>
+						</div>
+						<div class="col-2">
+							<button class="btn btn-link"><i class="fas fa-arrow-right fs-3"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="card p-3 mb-2">
+					<div class="row ">
+						<div class="col-10">
+							<p class="fs-5 my-0">12 Sep 2022 | Chat Dokter</p>
+							<p class="my-0">Umum | Dr.Pratama Widya Angga</p>
+						</div>
+						<div class="col-2">
+							<button class="btn btn-link"><i class="fas fa-arrow-right fs-3"></i></button>
+						</div>
+					</div>
+				</div>
+				<br><br><br><br>
+				<div class="d-grid">
+					<button type="button" class="btn btn-primary btn-block py-2" (click)="inputRekamMedis()">Input Rekam Medis</button>
+				</div>
+			</div>
+		</div>
+	  </div>
+	  <div *ngIf="resepNew" class="col-md-4" id="resep">
+		<div class="card">
+			<div class="card-body">
+				<div class="card mb-2 mt-3 p-3 text-dark" >
+					<p>Nama pasien</p>
+					<h5>
+						Arguna gusti<br>
+						Perempuan,22 Tahun <br>
+						No.Rekam Medis:0003 <br>
+						<b>No.Resep:0002112</b>
+					</h5>
+				</div>
+				<br>
+				<div class="alert alert-info mb-3 pb-5">
+					<b class="left pt-1 text-dark fs-5">E-Resep</b>
+					<button class="btn btn-success right" (click)="addObat()">
+						<i class="fas fa-plus"></i> Obat
+					</button>
+				</div>
+				<br>
+				<div class="card mb-2 p-3 text-dark" >
+					<div class="row">
+						<div class="col-10  pointer" (click)="addObat()">
+							<h5>
+								Alegrino 10 strips (3 x 1)
+							</h5>
+							<p class="pb-0">
+								Sesudah makan | pagi,siang,malam<br>
+								<span class="text-secondary">Tidak ada catatan</span>
+							</p>
+						</div>
+						<div class="col-2 text-center ">
+							<i class="fas fa-trash fs-5 text-danger" style="position:relative;top: 35px;"></i>
+						</div>
+					</div>
+				</div>
+				<div class="card mb-2 p-3 text-dark">
+					<div class="row">
+						<div class="col-10  pointer" (click)="addObat()">
+							<h5>
+								Alegrino 10 strips (3 x 1)
+							</h5>
+							<p class="pb-0">
+								Sesudah makan | pagi,siang,malam<br>
+								<span class="text-secondary">Tidak ada catatan</span>
+							</p>
+						</div>
+						<div class="col-2 text-center ">
+							<i class="fas fa-trash fs-5 text-danger" style="position:relative;top: 35px;"></i>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="alert alert-info  pb-5 my-2">
+					<b class="left pt-1 text-dark fs-5">Apotek</b>
+					<button class="btn btn-success right">
+						<i class="fas fa-plus"></i> Lokasi
+					</button>
+				</div>
+				<div class="alert alert-info mb-2 pb-5">
+					<b class="left pt-1 text-dark fs-5">Masa berlaku</b>
+				</div>
+				<span>Berlaku Sampai</span>
+				<input type="date" class="form-control">
+				<br><br><br><br>
+				<div class="d-grid mb-2">
+					<button type="button" class="btn btn-primary btn-block py-2">Simpan</button>
+				</div>
+				<div class="d-grid">
+					<button type="button" class="btn btn-outline-primary btn-block py-2">Batal</button>
+				</div>
+			</div>
+		</div>
+		
+	  </div>
+	  <div *ngIf="resepSelected" class="col-md-4" id="resep">
+		<div class="card">
+			<div class="card-body ">
+				<div class="card mb-2 mt-3 p-3 text-dark" >
+					<p>Nama pasien</p>
+					<h5>
+						Arguna gusti<br>
+						Perempuan,22 Tahun <br>
+						No.Rekam Medis:0003
+					</h5>
+				</div>
+				<br>
+				<div class="alert alert-info mb-3 pb-5">
+					<b class="left pt-1 text-dark fs-5">Resep belum ditebus</b>
+				</div>
+				<br>
+				<div class="card mb-2 p-3 text-dark" >
+					<div class="row">
+						<div class="col-10  pointer" (click)="detailObatOpen()">
+							<p>202221 | 22 Sep 2022</p>
+							<p class="pb-0 fs-5">
+								SesAlegrino 10 strips (3 x 1) <br>
+								Alegrino 10 strips (3 x 1)
+							</p>
+						</div>
+						<div class="col-2 text-center ">
+							<input type="radio" class="radio mt-5">
+						</div>
+					</div>
+				</div>
+				<div class="card mb-2 p-3 text-dark">
+					<div class="row">
+						<div class="col-10  pointer" (click)="detailObatOpen()">
+							<p>202221 | 22 Sep 2022</p>
+							<p class="pb-0 fs-5">
+								SesAlegrino 10 strips (3 x 1) <br>
+								Alegrino 10 strips (3 x 1)
+							</p>
+						</div>
+						<div class="col-2 text-center ">
+							<input type="radio" class="radio mt-5">
+						</div>
+					</div>
+				</div>
+				
+				<br><br><br><br>
+				
+				<div class="d-grid mb-2">
+					<button type="button" class="btn btn-outline-primary btn-block py-2">Gunakan E-Resep</button>
+				</div>
+				<div class="d-grid">
+					<button type="button" class="btn btn-primary btn-block py-2" (click)="rmSselected=false;profileSelected=false;resepSelected=false;resepNew=true">Buat E-Resep</button>
+				</div>
+			</div>
+		</div>
+		
+	  </div>
+	
+    </div>
+  </div>
+  		<jw-modal id="modalFormContent">
+
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Tambah Obat</h4>
+              </div>
+              <div class="modal-body">
+                <label for="">Obat</label>
+				<input type="text" class="form-control"><br>
+				
+				<div class="input-group">
+					<span class="px-1 pt-1">Signa</span>
+					<input type="text" class="form-control" >
+					<span class="px-2 pt-1">x</span> 
+					<span class="px-1 pt-1">Hari</span>
+					<input type="text" class="form-control">
+				</div>
+				<br>
+				<label for="">Jumlah</label>
+				<input type="number" name="" id="" class="form-control">
+				<br>
+				<div class="input-group px-3">
+					<div class="form-check ">
+						<input class="form-check-input" type="radio" id="check1" name="option1" value="something" checked>
+						<label class="form-check-label">Option 1</label>
+					</div>
+					<div class="form-check mx-2">
+						<input class="form-check-input" type="radio" id="check1" name="option1" value="something" checked>
+						<label class="form-check-label">Option 1</label>
+					</div>
+				</div>
+				<div class="input-group px-3">
+					<div class="form-check ">
+						<input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>
+						<label class="form-check-label">Option 1</label>
+					</div>
+					<div class="form-check mx-2">
+						<input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>
+						<label class="form-check-label">Option 1</label>
+					</div>
+					<div class="form-check ">
+						<input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>
+						<label class="form-check-label">Option 1</label>
+					</div>
+				</div>
+				<br>
+				<div class="alert alert-info text-dark">
+					<span class="fs-4">Catatan</span>
+				</div>
+				<textarea name="" id="" class="form-control"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-outline-info" type="button" (click)="modalClose()">Batal</button>
+				<button class="btn btn-info" type="button" (click)="modalClose()">Simpan</button>
+              </div>
+
+		</jw-modal>
+		<jw-modal id="detailObat">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Detail Obat</h4>
+            </div>
+            <div class="modal-body">
+				<div class="card p-3 mb-2">
+					<p>No.E-Resep : 002212</p>
+					<p>Dibuat 22 Sep 2022</p>
+				</div>
+				<div class="card p-3 mb-2">
+					<h5><b>Alegrino 10 strips (3 x 1)</b></h5>
+					<p class="pb-0">
+						Sesudah makan | pagi,siang,malam<br>
+						<span class="text-secondary">Tidak ada catatan</span>
+					</p>
+				</div>
+				<div class="card p-3 mb-2">
+					<h5><b>Alegrino 10 strips (3 x 1)</b></h5>
+					<p class="pb-0">
+						Sesudah makan | pagi,siang,malam<br>
+						<span class="text-secondary">Tidak ada catatan</span>
+					</p>
+				</div>
+			</div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-info" type="button" (click)="detailObatClose()">Batal</button>
+				<button class="btn btn-info" type="button" (click)="detailObatClose()">Gunakan E-Resep</button>
+            </div>
+		</jw-modal>
+</section>
+

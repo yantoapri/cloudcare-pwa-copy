@@ -1,0 +1,89 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Katalog Alat Kesehatan'" [items]="[]" [active_item]="'Katalog'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Katalog</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-md-12 mb-2">
+          <button type="button" *ngIf="btnAdd" (click)="btnOpenModal()" class="btn-space" mat-raised-button color="primary"><i class="fas fa-plus"></i>
+          Tambah Barang</button>
+        </div>
+        <div class="card">
+          <div class="header">
+            <!-- <h2><strong>Jadwal Sesi</strong> </h2> -->
+          </div>
+          <div class="body">
+
+            <table class="table tabl-sm table-striped table-bordered table-sm" width="100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th width="30">No</th>
+                  <th>Nama Alat Kesehatan</th>
+                  <th>Kemasan</th>
+                  <th width="170px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+
+
+            <jw-modal id="modalFormContent">
+
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Tambah barang dari...</h4>
+              </div>
+              <div class="modal-body">
+                <div class="card">
+
+                  <a [routerLink]="['../katalog-barang-bpom']" style="color: black;">
+                    <div class="p-3">
+                      <i class="fas fa-splotch pe-2"></i> <label class="fw-bold">Katalog Barang BPOM</label>
+                      <p> <i> Cara termudah untuk menambah barang ke katalog apotekmu</i></p>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="card " *ngIf="btnImport">
+                  <a [routerLink]="['../import-csv']" style="color: black;">
+                    <div class="p-3">
+                      <i class="fas fa-file-import pe-2"></i> <label class="fw-bold">Import CSV</label>
+                      <p> <i> Pindahkan data barang dari sistem lama ke Cloudcare</i></p>
+                    </div>
+                  </a>
+
+                </div>
+
+                <div class="card">
+                  <a [routerLink]="['../buat-baru']" style="color: black;">
+                    <div class="p-3">
+                      <i class="far fa-plus-square pe-2"></i> <label class="fw-bold">Buat barang baru</label>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn-space bg-danger text-light" mat-raised-button type="button" (click)="modalClose()">Batal</button>
+              </div>
+
+            </jw-modal>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+	[name]="'spinner1'"
+	bdColor = "rgba(0, 0, 0, 0.8)"
+	size = "medium"
+	color = "#fff"
+	type = "ball-clip-rotate-multiple"
+	[fullScreen] = "true">
+	<p style="color: white" > Loading... </p>
+</ngx-spinner>
+</section>

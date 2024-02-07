@@ -1,0 +1,655 @@
+<ngx-spinner
+bdColor = "rgba(0, 0, 0, 0.8)"
+size = "medium"
+[name]="'tindakanMedisView'"
+color = "#fff"
+type = "ball-clip-rotate-multiple"
+[fullScreen] = "true">
+  <p style="color: white" > Loading... </p>
+</ngx-spinner>
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Perawat'" [items]="[]" [active_item]="'Tindakan Medis'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Tindakan Medis</h3>
+
+
+
+    <div class="row">
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="far fa-calendar-minus fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>{{ tglSekarang }}</span>
+            <hr class="box-hr-info">
+            <span>{{ jadwalSesi }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fa fa-user-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>{{ pasien.nama_panggilan }} {{ pasien.nama }}</span>
+            <hr class="box-hr-info">
+            <span>NO RM : {{ pasien.full_rm }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-2 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fas fa-map-marker-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-1">
+            <span class="lh-1" style="font-size: 13px;">{{ cut(pasien.alamat) }}</span>
+            <hr class="box-hr-info">
+            <!-- <span>NO RM : 000002</span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fa fa-user-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>
+              <h3>
+                <cd-timer #basicTimer format="ms" class="bootstrap-timer"></cd-timer>
+              </h3>
+            </span>
+            <hr class="box-hr-info">
+            <span>Waktu Timer</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Tindakan Medis</strong> </h2>
+          </div>
+          <div class="body">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link" [class.active]="tabPane.pane1" (click)="ShowTabPane(1)" type="button" >DETAIL PASIEN</button>
+                <button class="nav-link" [class.active]="tabPane.pane2" (click)="ShowTabPane(2)" type="button" >DIAGNOSA</button>
+                <button class="nav-link" [class.active]="tabPane.pane3" (click)="ShowTabPane(3)" type="button" >REKAM MEDIS</button>
+
+              </div>
+            </nav>
+            <div class="tab-content">
+              <div class="tab-pane fade" [class.active]="tabPane.pane1" [class.show]="tabPane.pane1">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 pt-3">
+                    <table class="table table-sm table-striped table-bordered table-sm hover" width="100%" datatable [dtOptions]="dtOptions">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Tgl Antrian</th>
+                          <th>Nama</th>
+                          <!-- <th>Status</th> -->
+                        </tr>
+                      </thead>
+                      <tbody #bodyTable>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-xs-12 col-md-6 pt-3">
+                    <table class="table table-sm " width="100%" >
+                      <tbody>
+                        <tr>
+                          <td width="10%"><b>No RM</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.full_rm }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>No BPJS</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.no_bpjs }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>NIK</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.nik }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Nama</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Tempat Lahir</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.tempat_lahir }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Tgl Lahir</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.tgl_lahir }} / {{ pasien.umur }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Jenis Kelamin</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.jenis_kelamin }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Golongan Darah</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.golongan_darah }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Agama</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.agama }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Status Perkawinan</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.status_perkawinan }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Pekerjaan</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.pekerjaan }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Kewarganegaraan</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.kewarganegaraan }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>No Telp</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.no_hp }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Alamat</b></td>
+                          <td>:</td>
+                          <td>{{ pasien.alamat }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane2" [class.show]="tabPane.pane2">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 pt-3">
+                      <form [formGroup]="formInput">
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">KAJIAN SUBYEKTIF</div>
+                          <div class="card-body">
+                            <textarea readonly formControlName="keluhan" rows="3" class="form-control"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">KAJIAN OBYEKTIF</div>
+                          <div class="card-body">
+
+                            <table class="table table-sm">
+                              <tbody>
+                                <tr>
+                                  <th>Tekanan Darah Sistole</th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input readonly type="text" (keypress)="isNumber($event)" min="0" formControlName="sistole" class="form-control">
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>Tekanan Darah Diastole</th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input readonly type="nubmer" min="0" formControlName="diastole" class="form-control">
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>Suhu</th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input readonly type="text" (keypress)="isNumber($event)" min="0" formControlName="suhu" class="form-control">
+                                      <span class="input-group-text"> °C </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>HR</th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input readonly type="text" (keypress)="isNumber($event)" formControlName="hr" class="form-control">
+                                      <span class="input-group-text"> X/Menit </span>
+                                    </div>
+
+                                    <div class="input-group">
+                                      <input readonly formControlName="status_hr" class="form-control">
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    RR
+                                  </th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input readonly type="text" (keypress)="isNumber($event)" min="0" formControlName="rr" class="form-control">
+                                      <span class="input-group-text"> X/Menit </span>
+                                    </div>
+                                    <div class="input-group">
+                                      <input readonly type="text" formControlName="keterangan_rr" class="form-control">
+                                      <span class="input-group-text"> Keterangan </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>TB</th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input readonly type="text" (keypress)="isNumber($event)" formControlName="tb" class="form-control">
+                                      <span class="input-group-text"> Cm </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>BB</th>
+                                  <td>
+                                    <div class="input-group">
+                                      <input readonly type="text" (keypress)="isNumber($event)" formControlName="bb" class="form-control">
+                                      <span class="input-group-text"> Kg </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">ALERGI</div>
+                          <div class="card-body">
+                            <input readonly type="text" class="form-control" formControlName="alergi">
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">CATATAN KHUSUS</div>
+                          <div class="card-body">
+                            <input readonly type="text" class="form-control" formControlName="catatan_khusus" >
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">KAJIAN OBYEKTIF DOKTER</div>
+                          <div class="card-body">
+                            <textarea readonly rows="5" formControlName="obyektif_dokter" class="form-control"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">ASSESMENT</div>
+                          <div class="card-body">
+
+                            <ul formArrayName="assessment" *ngFor="let item of formInput.get('assessment')['controls']; let i = index">
+                              <ng-container [formGroupName]="i">
+                                <li>{{ i+1 }}. {{ item.value.nama_full }}</li>
+                              </ng-container>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">PLANNING</div>
+                          <div class="card-body">
+                            <input readonly type="text" formControlName="planning" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">RUJUKAN</div>
+                          <div class="card-body">
+                            <select  class="form-select mb-3">
+                              <option value="">-- Pilih --</option>
+                            </select>
+                            <textarea name="" id="" rows="5" class="form-control"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">TINDAKAN</div>
+                          <div class="card-body">
+                            <textarea readonly rows="5" formControlName="tindakan" class="form-control"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">TINDAKAN RUJUKAN</div>
+                          <div class="card-body">
+                            <hr>
+
+                            <table class="table" width="100%">
+                              <thead>
+                                <tr>
+                                  <th>Tindakan</th>
+                                  <th>Keterangan</th>
+                                  <th>Pelaksana</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr formArrayName="tindakan_medis" *ngFor="let item of formInput.get('tindakan_medis')['controls']; let i = index">
+                                  <ng-container [formGroupName]="i">
+                                    <td style="vertical-align: top;">{{ item.value.nama_tindakan }}</td>
+                                    <td style="vertical-align: top;"><input type="text" formControlName="keterangan" placeholder="keterangan" class="form-control"></td>
+                                    <td style="vertical-align: top;">
+                                      <ng-select
+                                      [items]="listAkunPelaksanaTindakanMedis"
+                                      bindValue="id_akun"
+                                      bindLabel="nama_lengkap"
+                                      [class.border-danger]="item['controls'].id_akun_pelaksana?.errors?.required && submitted"
+                                      formControlName="id_akun_pelaksana"
+                                      >
+                                    </ng-select>
+                                      <p class="form-text text-danger"
+                                      *ngIf="item['controls'].id_akun_pelaksana?.errors?.required && submitted">
+                                        Akun pelaksana tidak boleh kosong
+                                      </p>
+                                    </td>
+
+                                  </ng-container>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">RESEP OBAT</div>
+                          <div class="card-body">
+                            <div class="alert alert-info">
+                              Informasikan Nama Obat, Jenis Obat Dan Jumlah Obat Yang di Berikan
+                            </div>
+                            <textarea readonly class="form-control" formControlName="resep_obat" cols="5" rows="5">R/</textarea>
+
+                          </div>
+                        </div>
+                      </form>
+
+                    </div>
+                    <div class="col-xs-12 col-md-6 pt-3">
+
+                      <div class="card text-dark  mb-3">
+                        <div class="card-header">RIWAYAT PERIKSA TERAKHIR</div>
+                        <div class="card-body">
+                          <table class="table" width="100%">
+                            <tbody>
+                              <tr>
+                                <th>Dokter</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.dokter_umum != null ">
+                                        <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.dokter_umum.akun_dokter != null">
+                                          {{ tindakanMedis.kunjungan_terakhir.dokter_umum.akun_dokter.nama_lengkap }}
+                                        </ng-container>
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Tgl Diagnosa</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      {{ ubahTanggal(tindakanMedis.kunjungan_terakhir.tgl_antrian) }}
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Kajian Subyektif :</th>
+
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.perawat != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.perawat.keluhan }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <th colspan="2">Kajian Obyektif :</th>
+                              </tr>
+
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.dokter_umum.obyektif_dokter }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <th colspan="2">Assesment :</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.dokter_umum != null ">
+                                        <ul *ngFor="let item of tindakanMedis.kunjungan_terakhir.assessment">
+                                          <li>{{ item.nama_en }} - {{ item.kode }}</li>
+                                        </ul>
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Planning : </th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.dokter_umum.planning }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Tindakan Dokter :</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.dokter_umum.tindakan }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Tindakan Rujukan</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2"></td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">Resep Obat</th>
+                              </tr>
+                              <tr>
+                                <td colspan="2">
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.dokter_umum != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.dokter_umum.resep_obat }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </td>
+                              </tr>
+                            </tbody>
+
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="card text-dark  mb-3">
+                        <div class="card-header">RIWAYAT PERIKSA TERAKHIR OBYEKTIF</div>
+                        <div class="card-body">
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <th width="30%">Tekanan Darah</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.perawat != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.perawat.sistole }} / {{ tindakanMedis.kunjungan_terakhir.perawat.diastole }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>mmHg</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Suhu</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.perawat != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.perawat.suhu }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>°C</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>HR</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.perawat != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.perawat.hr }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                  <strong>X/Menit</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>RR</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.perawat != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.perawat.rr }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>X/Menit</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Tinggi Badan</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.perawat != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.perawat.tb }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>CM</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Berat Badan</th>
+                                <td>
+                                  <ng-container *ngIf="tindakanMedis != null">
+                                    <ng-container *ngIf="tindakanMedis.kunjungan_terakhir != null">
+                                      <ng-container *ngIf="tindakanMedis.kunjungan_terakhir.perawat != null ">
+                                        {{ tindakanMedis.kunjungan_terakhir.perawat.bb }}
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+
+                                  <strong>KG</strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="col-xs-12">
+                      <div *ngIf="errorMessage != null" class="alert alert-danger" role="alert">
+                        {{ errorMessage.metaData.message }}
+                        <ul *ngFor="let item of errorMessage.response" >
+                          <li>{{ item.field }} : {{ item.message }}</li>
+                        </ul>
+                      </div>
+
+                      <div class="text-center" *ngIf="btnAdd">
+                        <button class="btn-space bg-success text-light" mat-raised-button (click)="udpateRekamMedis()" [disabled]="isLoadingButton">
+                          <i class="fa" [ngClass]="{'fa-spin fa-spinner pulse': isLoadingButton, 'fa-check': !isLoadingButton}"></i>
+                          Simpan
+                        </button>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane3" [class.show]="tabPane.pane3">
+                <app-rekam-medis [PasienProperty]="pasienJson"></app-rekam-medis>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

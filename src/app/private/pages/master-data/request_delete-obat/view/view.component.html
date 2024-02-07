@@ -1,0 +1,58 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Master Data'" [items]="[]" [active_item]="'Master Data Obat'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center">Master Data Obat</h3>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" [routerLink]="['../tambah-stok-obat']" class="btn btn-tambah" > <i class="fas fa-plus"></i> Tambah Stok Obat</button>
+        <button type="button" [routerLink]="['../tambah-obat']" class="btn btn-tambah pull-right" > <i class="fas fa-plus"></i> Tambah Obat</button>
+
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <br>
+
+        <div class="card">
+          <div class="header">
+            <h2><strong>Data Obat</strong> </h2>
+          </div>
+          <div class="body">
+            <table datatable class="table table-sm table-striped table-bordered table-sm table-striped " >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Kode Obat</th>
+                  <th>Nama Obat</th>
+                  <th>Harga Jual</th>
+                  <th>Stok Sekarang</th>
+                  <th>No. Batch</th>
+                  <th>Pabrik</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataObat; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.kode_obat }}</td>
+                  <td>{{ item.nama_obat }}</td>
+                  <td>{{ item.harga_jual }}</td>
+                  <td>{{ item.stok_sekarang }}</td>
+                  <td>{{ item.no_batch }}</td>
+                  <td>{{ item.pabrik }}</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-ubah"> <i class="fas fa-pen"></i> Ubah</button>
+                    <button type="button" class="btn btn-sm btn-hapus"><i class="fas fa-trash"></i> Hapus</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

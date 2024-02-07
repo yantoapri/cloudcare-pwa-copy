@@ -1,0 +1,627 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Dokter'" [items]="[]" [active_item]="'Antrean Rujukan Dokter'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-4">Antrean Rujukan Dokter</h3>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="far fa-calendar-minus fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>Rabu, 09 Mar 2022</span>
+            <hr class="box-hr-info">
+            <span>Sesi Pagi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fa fa-user-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span>TUAN DONNAMARIE MACOUN</span>
+            <hr class="box-hr-info">
+            <span>52 TAHUN 2 BULAN 8 HARI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-2 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fas fa-map-marker-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-1">
+            <span class="lh-1" style="font-size: 13px;">Jalan Klinik Cloudcare, GUNUNGKETUR, PAKUALAMAN, KOTA YOGYAKARTA, DI YOGYAKARTA, Jalan Klinik Cloudcare, GUNUNGKETUR, PAKUALAMAN, KOTA YOGYAKARTA, DI YOGYAKARTA</span>
+            <hr class="box-hr-info">
+            <span>NO RM : 000002</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="box-info-header bg-c-blue mb-3 p-3 rounded-3 ">
+          <div class="box-span-icon p-2 me-1">
+            <i class="fa fa-user-alt fa-3x "></i>
+          </div>
+          <div class="box-div-info-body p-2">
+            <span><h3>{{ time }}</h3></span>
+            <hr class="box-hr-info">
+            <span>Waktu Timer</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Antrean Rujukan</strong> </h2>
+          </div>
+          <div class="body">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link" [class.active]="tabPane.pane1" (click)="ShowTabPane(1)" type="button" >DETAIL PASIEN</button>
+                <button class="nav-link" [class.active]="tabPane.pane2" (click)="ShowTabPane(2)" type="button" >DIAGNOSA</button>
+                <button class="nav-link" [class.active]="tabPane.pane3" (click)="ShowTabPane(3)" type="button" >RIWAYAT PERIKSA</button>
+                <button class="nav-link" [class.active]="tabPane.pane4" (click)="ShowTabPane(4)" type="button" >REKAM MEDIS</button>
+
+              </div>
+            </nav>
+            <div class="tab-content">
+              <div class="tab-pane fade" [class.active]="tabPane.pane1" [class.show]="tabPane.pane1">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 pt-3">
+                    <table class="table table-sm table-striped table-bordered table-sm" width="100%">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>RM</th>
+                          <th>BPJS</th>
+                          <th>Nama</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-xs-12 col-md-6 pt-3">
+                    <table class="table table-sm " width="100%" >
+                      <tbody>
+                        <tr>
+                          <td width="10%"><b>No RM</b></td>
+                          <td>:</td>
+                          <td>00002</td>
+                        </tr>
+                        <tr>
+                          <td><b>No BPJS</b></td>
+                          <td>:</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td><b>NIK</b></td>
+                          <td>:</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td><b>Nama</b></td>
+                          <td>:</td>
+                          <td>DONNAMARIE MACOUN</td>
+                        </tr>
+                        <tr>
+                          <td><b>Tempat Lahir</b></td>
+                          <td>:</td>
+                          <td>Jakarta Raya</td>
+                        </tr>
+                        <tr>
+                          <td><b>Tgl Lahir</b></td>
+                          <td>:</td>
+                          <td>1970-01-01 / 52 Tahun 2 Bulan 8 Hari</td>
+                        </tr>
+                        <tr>
+                          <td><b>Jenis Kelamin</b></td>
+                          <td>:</td>
+                          <td>L</td>
+                        </tr>
+                        <tr>
+                          <td><b>Golongan Darah</b></td>
+                          <td>:</td>
+                          <td>Tidak diketahui</td>
+                        </tr>
+                        <tr>
+                          <td><b>Agama</b></td>
+                          <td>:</td>
+                          <td>Islam</td>
+                        </tr>
+                        <tr>
+                          <td><b>Status Perkawinan</b></td>
+                          <td>:</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td><b>Pekerjaan</b></td>
+                          <td>:</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td><b>Kewarganegaraan</b></td>
+                          <td>:</td>
+                          <td>Indonesia</td>
+                        </tr>
+                        <tr>
+                          <td><b>No Telp</b></td>
+                          <td>:</td>
+                          <td>L</td>
+                        </tr>
+                        <tr>
+                          <td><b>Alamat</b></td>
+                          <td>:</td>
+                          <td>Jln Klinik Cloudcare</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane2" [class.show]="tabPane.pane2">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 pt-3">
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">KAJIAN SUBYEKTIF (16:10)</div>
+                      <div class="card-body">
+                        <textarea rows="3" class="form-control"></textarea>
+                        <!-- <h5 class="card-title">Light card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">KAJIAN OBYEKTIF (16:10)</div>
+                      <div class="card-body">
+                        <table class="table table-striped">
+                          <tbody>
+                            <tr>
+                              <th>Tekanan Darah</th>
+                              <td>
+                                <div class="input-group">
+                                  <input type="text" class="form-control">
+                                  <span class="input-group-text"> mmHg </span>
+                                </div>
+                              </td>
+
+                            </tr>
+                            <tr>
+                              <th>Suhu</th>
+                              <td>
+                                <div class="input-group">
+                                  <input type="text" class="form-control">
+                                  <span class="input-group-text"> °C </span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>HR</th>
+                              <td>
+                                <div class="input-group">
+                                  <input type="text" class="form-control">
+                                  <span class="input-group-text"> X/Menit </span>
+                                </div>
+
+                                <div class="input-group">
+                                  <select name="" id="" class="form-select">
+                                    <option value="">Tidak teratur</option>
+                                    <option value="">Teratur</option>
+                                  </select>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>
+                                RR
+                              </th>
+                              <td>
+                                <div class="input-group">
+                                  <input type="text" class="form-control">
+                                  <span class="input-group-text"> X/Menit </span>
+                                </div>
+                                <div class="input-group">
+                                  <input type="text" class="form-control">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>TB</th>
+                              <td>
+                                <div class="input-group">
+                                  <input type="text" class="form-control">
+                                  <span class="input-group-text"> Cm </span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>BB</th>
+                              <td>
+                                <div class="input-group">
+                                  <input type="text" class="form-control">
+                                  <span class="input-group-text"> Kg </span>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">ALERGI (16:10) WARNING!</div>
+                      <div class="card-body">
+                        <input type="text" class="form-control" value="TIDAK ADA">
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">CATATAN KHUSUS</div>
+                      <div class="card-body">
+                        <input type="text" class="form-control" value="TIDAK ADA">
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">KAJIAN OBYEKTIF DOKTER</div>
+                      <div class="card-body">
+                        <textarea name="" id="" rows="5" class="form-control"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">ASSESMENT</div>
+                      <div class="card-body">
+                        <select name="" id="" class="form-select" multiple>
+                          <option value="">PRE-EXISTING HYPERTENSION COMPLICATING PREGNANCY, CHILDBIRTH AND THE PUERPERIUM (O10)</option>
+                          <option value="">C20 MALIGNANT NEOPLASM OF RECTUM</option>
+                          <option value="">COMPLICATIONS OF ANAESTHESIA DURING PREGNANCY (O29)</option>
+                          <option value="">GESTATIONAL [PREGNANCY-INDUCED] HYPERTENSION WITHOUT SIGNIFICANT PROTEINURIA (O13)</option>
+                        </select>
+                      </div>
+                      <div class="card-body">
+                        <small>
+                          <strong>Pisahkan Dengan Titik Koma (;) Apabila Data Assesment Lebih Dari 1</strong>
+                        </small>
+                        <input type="text" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">PLANNING</div>
+                      <div class="card-body">
+                        <input type="text" class="form-control" value="TIDAK ADA">
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">RUJUKAN</div>
+                      <div class="card-body">
+                        <select name="" id="" class="form-select mb-3">
+                          <option value="">-- Pilih --</option>
+                        </select>
+                        <textarea name="" id="" rows="5" class="form-control"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">TINDAKAN</div>
+                      <div class="card-body">
+                        <textarea name="" id="" rows="5" class="form-control"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">PELAKSANA TINDAKAN</div>
+                      <div class="card-body">
+
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">TINDAKAN RUJUKAN</div>
+                      <div class="card-body">
+                        <div class="row mb-1">
+                          <label class="col-sm-3 col-form-label ">TINDAKAN</label>
+                          <div class="col-sm-7">
+                            <select name="" id="" class="form-select">
+                              <option value="">-- pilih tindakan --</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-1">
+                            <button class="btn-space" mat-raised-button color="primary"><i class="fa fa-plus-circle"></i></button>
+                          </div>
+                        </div>
+                        <hr>
+                        <table class="table" width="100%">
+                          <thead>
+                            <tr>
+                              <th>Tindakan</th>
+                              <th>Keterangan</th>
+                              <th>Aksi</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">RESEP OBAT</div>
+                      <div class="card-body">
+                        <div class="alert alert-info">
+                          Informasikan Nama Obat, Jenis Obat Dan Jumlah Obat Yang di Berikan
+                        </div>
+                        <textarea name="" id="" rows="5" class="form-control">R/</textarea>
+
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <div class="col-xs-12 col-md-6 pt-3">
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">RIWAYAT PERIKSA TERAKHIR</div>
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            <tr>
+                              <th>Dokter</th>
+                              <th>PERAWAT KLINIK</th>
+                            </tr>
+                            <tr>
+                              <th>Tgl Diagnosa</th>
+                              <th>14-03-20022 08:22:46</th>
+                            </tr>
+                            <tr>
+                              <th colspan="2">Kajian Subyektif :</th>
+                            </tr>
+
+                            <tr>
+                              <td colspan="2">isi value kajian subyektif</td>
+                            </tr>
+
+                            <tr>
+                              <th colspan="2">Kajian Obyektif :</th>
+                            </tr>
+                            <tr>
+                              <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                              <th colspan="2">Assesment :</th>
+                            </tr>
+                            <tr>
+                              <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                              <th colspan="2">Planning : </th>
+                            </tr>
+                            <tr>
+                              <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                              <th colspan="2">Tindakan Dokter :</th>
+                            </tr>
+                            <tr>
+                              <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                              <th colspan="2">Tindakan Rujukan</th>
+                            </tr>
+                            <tr>
+                              <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                              <th colspan="2">Resep Obat</th>
+                            </tr>
+                            <tr>
+                              <td colspan="2"></td>
+                            </tr>
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="card text-dark  mb-3">
+                      <div class="card-header">RIWAYAT PERIKSA TERAKHIR OBYEKTIF</div>
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            <tr>
+                              <th>Tekanan Darah</th>
+                              <td>
+                                <strong>mmHg</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>Suhu</th>
+                              <td>
+                                <strong>°C</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>HR</th>
+                              <td>
+                                <strong>X/Menit</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>RR</th>
+                              <td>
+                                <strong>X/Menit</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>Tinggi Badan</th>
+                              <td>
+                                <strong>CM</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>Berat Badan</th>
+                              <td>
+                                <strong>KG</strong>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="card text-dark mb-3">
+                      <div class="card-header">RIWAYAT PERIKSA FISIOTERAPI</div>
+                      <div class="card-body">
+                        <p class="card-text">Riwayat Kosong</p>
+                      </div>
+                    </div>
+
+                    <div class="card text-dark mb-3">
+                      <div class="card-header">BIAYA</div>
+                      <div class="card-body">
+                        <table class="table">
+                          <tbody>
+                            <tr>
+                              <td>JM :</td>
+                              <td>
+                                <input type="text" class="form-control">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>JT :</td>
+                              <td>
+                                <input type="text" class="form-control">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>BHP :</td>
+                              <td>
+                                <input type="text" class="form-control">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Lain-lain :</td>
+                              <td>
+                                <input type="text" class="form-control">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Total :</td>
+                              <td>
+
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-xs-12" *ngIf="btnAdd">
+                    <div class="text-center">
+                      <button class="btn-space bg-success text-light" mat-raised-button><i class="fa fa-save"></i> Simpan</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane3" [class.show]="tabPane.pane3">
+                <div class="row">
+                  <div class="col-xs-12 col-md-12 pt-3">
+
+                    <div class="table-responsive">
+                      <table class="table table-sm table-striped table-bordered table-sm">
+                        <thead>
+                          <tr>
+                            <th>Tgl Periksa</th>
+                            <th>Alergi</th>
+                            <th>Hambatan</th>
+                            <th>Keluhan</th>
+                            <th>Sistole</th>
+                            <th>Diastole</th>
+                            <th>HR</th>
+                            <th>RR</th>
+                            <th>TB</th>
+                            <th>BB</th>
+                          </tr>
+                        </thead>
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" [class.active]="tabPane.pane4" [class.show]="tabPane.pane4">
+
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 pt-3">
+
+                    <table class="table table-sm table-striped table-bordered table-sm" width="100%">
+                      <thead>
+                        <tr>
+                          <th>Tanggal</th>
+                          <th>Dokter</th>
+                        </tr>
+                      </thead>
+                    </table>
+
+                  </div>
+                  <div class="col-xs-12 col-md-6 pt-3">
+                    <h4>REKAM MEDIS</h4>
+                    <hr>
+                    <ul class="list-group">
+                      <li class="list-group-item"><b class="fw-normal">KAJIAN SUBYEKTIF : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">KAJIAN OBYEKTIF : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">KAJIAN OBYEKTIF DOKTER : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">ASSESMENT : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">PLANNING : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">TINDAKAN DOKTER : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">TINDAKAN RUJUKAN : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">TINDAKAN FISIOTERAPI : </b></li>
+                      <li class="list-group-item">-</li>
+                      <li class="list-group-item"><b class="fw-normal">OBAT RESEP : </b></li>
+                      <li class="list-group-item">-</li>
+                    </ul>
+
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

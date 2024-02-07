@@ -1,0 +1,240 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Katalog Obat'" [items]="[]" [active_item]="'Katalog Barang BPOM'"></app-breadcrumb>
+    </div>
+    <h3 class="text-center mb-3">Katalog Barang BPOM</h3>
+    <div class="col-md-12 mb-3">
+      <button type="button" [routerLink]="['../view']"  class="btn-space bg-warning text-light" mat-raised-button><i class="fas fa-arrow-left"></i> Kembali</button>
+    </div>
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="body">
+
+            <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+              <div class="input-group">
+                <span class="input-group-text"> <i class="fas fa-search"></i> </span>
+                <input type="text" class="form-control" placeholder="Cari">
+                <button class="btn-space" color="primary" mat-raised-button> Search</button>
+              </div>
+
+
+            </div>
+
+            <table class="table table-sm table-striped table-bordered table-sm table-striped">
+              <thead>
+                <tr>
+                  <th>Barang</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    CATAFLAM
+                  </td>
+                  <td>
+                    <button class="btn-space" color="primary" mat-raised-button>Pilih</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>BETAMETHASONE DIPROPIONATE</td>
+                  <td>
+                    <div class="badge col-green">Sudah ada di katalogmu</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="body">
+
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <h5><strong>Info Barang</strong></h5>
+                <table class="table-tipis" width="100%">
+                  <tr>
+                    <td class="fw-bold">Nama</td>
+                    <td>CEFADROXIL MONOHYDRATE</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">Komposisi</td>
+                    <td>CEFADROXIL MONOHYDRATE</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">Principal</td>
+                    <td>MULIA FARMA SUCI - Indonesia - -</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">Kelas Barang</td>
+                    <td>Obat</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">No. Registrasi</td>
+                    <td>GKL1616705038A1</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">Berlaku s/d</td>
+                    <td>26-04-2027</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <h5><strong>Satuan & Kemasan</strong></h5>
+                <table class="table-satuan" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Nama</th>
+                      <th>Singkatan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Kaplet</th>
+                      <td>kpt</td>
+                    </tr>
+                    <tr>
+                      <th>Strip isi 10 kpt</th>
+                      <td>stp (10s)</td>
+                    </tr>
+                    <tr>
+                      <th>Dus isi 10 stp (10s)</th>
+                      <td>dus 10x10</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="col-sm-12 col-md-12">
+        <div class="card">
+          <div class="body">
+            <div class="" >
+            </div>
+            <h5 class="mb-3" style="border-bottom: 1px solid rgba(83, 83, 83, 0.568);"><strong>Data Stokmu</strong></h5>
+
+            <form [formGroup]="formInput">
+
+              <div class="mb-3 row">
+                <label class=" col-sm-1 col-form-label fw-bold">Stok</label>
+                <div class=" col-sm-4">
+                  <input type="number" class="form-control me-3">
+                </div>
+                <div class="col-sm-3">
+                  <select name="" id="" class="form-select">
+                    <option value="">dus 10x10</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <label class="col-sm-1 col-form-label fw-bold">Harga beli</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <label class="me-2" style="margin: auto;">RP</label>
+
+                    <input type="text"
+                    currencyMask
+                    [options]="optionsCur"
+                    class="form-control">
+
+                  </div>
+                  <label>
+                    <input type="checkbox" formControlName="checkbox_harga_pajak_beli">
+                    Harga beli sudah termasuk pajak
+                  </label>
+                </div>
+                <div class="col-sm-3">
+                  <div class="input-group">
+
+                    <div class="mx-2" style="margin: auto;">/</div>
+                    <select name="" id="" class="form-select">
+                      <option value="">kpt</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3 row" *ngIf="formInput.value.checkbox_harga_pajak_beli != 1">
+                <label class="col-sm-1 col-form-label fw-bold">Harga Pajak beli</label>
+
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <label class="me-2" style="margin: auto;">RP</label>
+                    <input type="text"
+                    currencyMask
+                    [options]="optionsCur"
+                    class="form-control">
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="row">
+                <label class="col-sm-1 col-form-label fw-bold">Harga jual</label>
+                <div class=" col-sm-4">
+                  <div class="input-group">
+                    <label class="me-2" style="margin: auto;">RP</label>
+                    <input type="text"
+                    currencyMask
+                    [options]="optionsCur"
+                    class="form-control">
+
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="input-group">
+                    <div class="mx-2" style="margin: auto;">/</div>
+                    <select name="" id="" class="form-select">
+                      <option value="">kpt</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <label class="col-sm-1 col-form-label fw-bold">Margin</label>
+                  <div class="col-sm-4">
+                    <div class="input-group">
+                      <input type="number" class="form-control">
+                      <label class="mx-2" style="margin: auto;">%</label>
+                    </div>
+
+                  </div>
+
+
+              </div>
+
+              <div class="mb-3 col-sm-12 text-center">
+                <button class="btn-space bg-success text-light" mat-raised-button>Simpan</button>
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
